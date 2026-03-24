@@ -1,30 +1,32 @@
 import React from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { TrendingUp } from "lucide-react";
+import { TrendingUp, Lock, ArrowRight, LayoutDashboard, Database } from "lucide-react";
 
 interface ModuleDashboardProps {
   moduleName: string;
   description: string;
-  stats: {
+  stats?: {
     label: string;
     value: string;
     color: string;
     icon: React.ReactNode;
   }[];
+  isDemoBlocked?: boolean;
 }
 
 const ModuleDashboard: React.FC<ModuleDashboardProps> = ({
   moduleName,
   description,
-  stats,
+  stats = [],
+  isDemoBlocked = false,
 }) => {
   return (
     <DashboardLayout>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         {/* Header Section */}
         <div
-          className="mb-10 animate-fade-in"
-          style={{ paddingBottom: "10px" }}
+          className="animate-fade-in"
+          style={{ paddingBottom: "10px", marginBottom: "40px" }}
         >
           <h1
             style={{
@@ -36,7 +38,7 @@ const ModuleDashboard: React.FC<ModuleDashboardProps> = ({
               lineHeight: "1.2",
             }}
           >
-            Dashboard de {moduleName}
+            {isDemoBlocked ? 'Acceso Restringido' : `Dashboard de ${moduleName}`}
           </h1>
           <p
             style={{
@@ -46,112 +48,163 @@ const ModuleDashboard: React.FC<ModuleDashboardProps> = ({
               margin: 0,
             }}
           >
-            {description}
+            {isDemoBlocked ? 'Funcionalidad reservada para el entorno completo.' : description}
           </p>
         </div>
 
-        {/* Stats Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in"
-          style={{ animationDelay: "200ms" }}
-        >
-          {stats.map((stat, i) => (
-            <div
-              key={i}
-              className="bg-white p-6 animate-slide-in shadow-sm border border-gray-100/60"
+        {isDemoBlocked ? (
+          <div
+            className="mt-8 bg-white text-center border border-gray-100 shadow-sm animate-fade-in"
+            style={{ borderRadius: "24px", padding: "64px 32px" }}
+          >
+            <div 
+              className="bg-orange-50 flex items-center justify-center mx-auto mb-6 text-orange-500"
+              style={{ width: "80px", height: "80px", borderRadius: "20px" }}
+            >
+              <Lock size={40} />
+            </div>
+            <h2
               style={{
-                borderRadius: "20px",
-                animationDelay: `${i * 100}ms`,
-                padding: "1rem",
+                fontSize: "24px",
+                fontWeight: "700",
+                color: "#272b60",
+                marginBottom: "16px",
               }}
             >
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center "
-                style={{
-                  marginBottom: "1rem",
-                  backgroundColor: `${stat.color}15`,
-                  color: stat.color,
-                }}
-              >
-                {stat.icon}
-              </div>
-              <p
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "600",
-                  color: "#94a3b8",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.02em",
-                  marginBottom: "4px",
-                }}
-              >
-                {stat.label}
-              </p>
-              <p
-                style={{
-                  fontSize: "24px",
-                  fontWeight: "700",
-                  color: "#272b60",
-                  margin: 0,
-                }}
-              >
-                {stat.value}
-              </p>
+              Funcionalidad no disponible en el Demo
+            </h2>
+            <p
+              style={{
+                fontSize: "16px",
+                color: "#64748b",
+                maxWidth: "500px",
+                margin: "0 auto",
+                lineHeight: "1.6",
+                marginBottom: "32px"
+              }}
+            >
+              Estás interactuando con la versión de demostración. El submódulo de <strong>{moduleName}</strong> aún no está habilitado para pruebas públicas. Solicita una prueba guiada para explorar todas las características.
+            </p>
+            <button
+              className="bg-[#272b60] text-white font-semibold hover:shadow-lg transition-all active:scale-95"
+              style={{ padding: "0.8rem 2rem", borderRadius: "12px", fontSize: "15px" }}
+              onClick={() => window.history.back()}
+            >
+              Regresar
+            </button>
+          </div>
+        ) : (
+          <>
+            {/* Stats Grid */}
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 animate-fade-in"
+              style={{ animationDelay: "200ms", gap: "24px", marginBottom: "32px" }}
+            >
+              {stats.map((stat, i) => (
+                <div
+                  key={i}
+                  className="bg-white animate-slide-in shadow-sm border border-gray-100/60"
+                  style={{
+                    borderRadius: "20px",
+                    animationDelay: `${i * 100}ms`,
+                    padding: "24px",
+                  }}
+                >
+                  <div
+                    className="flex items-center justify-center "
+                    style={{
+                      marginBottom: "1rem",
+                      backgroundColor: `${stat.color}15`,
+                      color: stat.color,
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "12px"
+                    }}
+                  >
+                    {stat.icon}
+                  </div>
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "600",
+                      color: "#94a3b8",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.02em",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {stat.label}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "24px",
+                      fontWeight: "700",
+                      color: "#272b60",
+                      margin: 0,
+                    }}
+                  >
+                    {stat.value}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Main Content Area (Work in Progress Card) */}
-        <div
-          className="mt-8 bg-white p-12 text-center border border-gray-100 shadow-sm"
-          style={{ borderRadius: "24px", padding: "1rem" }}
-        >
-          <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 text-gray-400">
-            <TrendingUp size={32} />
-          </div>
-          <h2
-            style={{
-              fontSize: "20px",
-              fontWeight: "600",
-              color: "#272b60",
-              marginBottom: "12px",
-            }}
-          >
-            Panel Principal de {moduleName}
-          </h2>
-          <p
-            style={{
-              fontSize: "15px",
-              color: "#64748b",
-              maxWidth: "450px",
-              margin: "0 auto",
-              lineHeight: "1.6",
-              paddingY: "1rem",
-            }}
-          >
-            Este espacio está siendo configurado para mostrar las métricas
-            críticas del sistema de {moduleName}. Explore los submódulos en el
-            menú lateral para gestionar la información.
-          </p>
+            {/* Varios Elementos (Custom Dynamic Panel) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 animate-slide-in" style={{ gap: "24px", animationDelay: "300ms" }}>
+              
+              {/* Resumen Card */}
+              <div
+                className="col-span-1 lg:col-span-2 bg-white border border-gray-100 shadow-sm flex flex-col"
+                style={{ borderRadius: "24px", padding: "32px" }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                  <div style={{ padding: '8px', backgroundColor: '#f8fafc', borderRadius: '10px', color: '#272b60' }}>
+                    <LayoutDashboard size={20} />
+                  </div>
+                  <h2 style={{ fontSize: "18px", fontWeight: "700", color: "#272b60", margin: 0 }}>
+                    Seguimiento General
+                  </h2>
+                </div>
+                <div style={{ flex: 1, minHeight: '240px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc', borderRadius: '16px', border: '1px dashed #e2e8f0', gap: '12px' }}>
+                  <Database size={32} style={{ color: '#cbd5e1' }} />
+                  <p style={{ color: '#94a3b8', fontSize: '14px', fontWeight: '500' }}>Gráfica de seguimiento para {moduleName} en construcción...</p>
+                </div>
+              </div>
 
-          <div
-            className=" flex gap-3 justify-center"
-            style={{ marginTop: "1rem" }}
-          >
-            <button
-              className="bg-[#272b60] text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:shadow-lg transition-all active:scale-95"
-              style={{ padding: "0.6rem" }}
-            >
-              Nuevo Registro
-            </button>
-            <button
-              className="bg-white border border-gray-200 text-[#272b60] px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-gray-50 transition-all active:scale-95"
-              style={{ padding: "0.6rem" }}
-            >
-              Configuración
-            </button>
-          </div>
-        </div>
+              {/* Acciones Rápidas */}
+              <div
+                className="col-span-1 bg-white border border-gray-100 shadow-sm"
+                style={{ borderRadius: "24px", padding: "32px", display: 'flex', flexDirection: 'column' }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                  <div style={{ padding: '8px', backgroundColor: '#fff7ed', borderRadius: '10px', color: '#ea580c' }}>
+                    <TrendingUp size={20} />
+                  </div>
+                  <h2 style={{ fontSize: "18px", fontWeight: "700", color: "#272b60", margin: 0 }}>
+                    Accesos Rápidos
+                  </h2>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
+                  {[1, 2, 3].map(n => (
+                    <button key={n} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', backgroundColor: '#f8fafc', border: '1px solid transparent', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s' }} className="hover:border-orange-200 hover:bg-white group cursor-pointer text-left">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#cbd5e1' }} className="group-hover:bg-orange-500 transition-colors"></div>
+                        <span style={{ fontSize: '14px', fontWeight: '600', color: '#475569' }} className="group-hover:text-[#272b60]">Acción Recomendada {n}</span>
+                      </div>
+                      <ArrowRight size={16} style={{ color: '#cbd5e1' }} className="group-hover:text-orange-500 transition-colors" />
+                    </button>
+                  ))}
+                </div>
+                <button
+                  className="w-full bg-[#272b60] text-white font-semibold flex items-center justify-center hover:shadow-lg transition-all active:scale-95"
+                  style={{ padding: "14px", borderRadius: "12px", marginTop: "24px", fontSize: "14.5px" }}
+                >
+                  Continuar
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </DashboardLayout>
   );

@@ -29,10 +29,21 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             paddingTop: '70px',
             paddingLeft: '32px',
             paddingRight: '32px',
-            paddingBottom: '40px'
+            paddingBottom: '10px',
+            display: 'flex',
+            flexDirection: 'column'
           }}
         >
-          {children}
+          <div style={{ flex: 1 }}>{children}</div>
+
+          <div style={{ marginTop: '40px', textAlign: 'center', paddingBottom: '10px' }}>
+            <p style={{ margin: 0, fontSize: '13.5px', color: '#94a3b8', fontWeight: '500' }}>
+              Demo App © {new Date().getFullYear()}{' '}
+              <a href="https://answertic.co" target="_blank" rel="noopener noreferrer" style={{ color: '#ea580c', textDecoration: 'none', fontWeight: '600' }} className="hover:underline">
+                answertic.com
+              </a>
+            </p>
+          </div>
         </main>
       </div>
     </div>

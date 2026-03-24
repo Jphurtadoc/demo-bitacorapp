@@ -1,143 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
-  Settings, 
-  Settings2,
-  LayoutDashboard, 
-  BarChart3, 
-  FilePieChart, 
-  TrendingUp,
-  Truck,
-  Package,
-  MapPin,
-  Eye,
-  ShieldAlert,
-  Radio,
-  MessageSquare,
-  HelpCircle,
-  Inbox,
-  Award,
-  CheckCircle2,
-  FileText,
-  LifeBuoy,
-  Wrench,
-  MessageCircle,
-  Megaphone,
-  Mail,
-  Phone,
-  UserCircle,
-  Heart,
-  GraduationCap,
-  LogOut,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  BarChart4,
-  PieChart,
-  LineChart,
-  UserCheck,
-  ClipboardCheck,
-  ThumbsUp,
-  FileSearch,
-  Box,
-  Layers,
-  ListTodo,
-  Shield,
-  UserRound,
-  Globe
+  LogOut
 } from 'lucide-react';
 import logo from '@/assets/bitacorapp-logo.png';
 import favicon from '@/assets/favicon.png';
 
-const modules = [
-  { id: 'administracion', label: 'Administración', icon: <Shield size={18} /> },
-  { id: 'operacion', label: 'Operación', icon: <Settings2 size={18} /> },
-  { id: 'tareas', label: 'Tareas', icon: <ListTodo size={18} /> },
-  { id: 'reportes', label: 'Reportes', icon: <BarChart3 size={18} /> },
-  { id: 'logistica', label: 'Logística', icon: <Truck size={18} /> },
-  { id: 'vigilancia', label: 'Vigilancia', icon: <Eye size={18} /> },
-  { id: 'pqrs', label: 'PQRS', icon: <MessageSquare size={18} /> },
-  { id: 'calidad', label: 'Calidad', icon: <Award size={18} /> },
-  { id: 'soporte', label: 'Soporte', icon: <LifeBuoy size={18} /> },
-  { id: 'comunicaciones', label: 'Comunicaciones', icon: <Globe size={18} /> },
-  { id: 'gestion_humana', label: 'Gestión Humana', icon: <UserRound size={18} /> },
-];
-
-const menuData: Record<string, { label: string; icon: React.ReactNode; path: string }[]> = {
-  administracion: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/admin/dashboard' },
-    { label: 'Ind. Gerenciales', icon: <BarChart4 size={20} />, path: '/admin/ind-gerenciales' },
-    { label: 'Ind. PQRS', icon: <PieChart size={20} />, path: '/admin/ind-pqrs' },
-    { label: 'Ind. de Uso', icon: <LineChart size={20} />, path: '/admin/ind-uso' },
-    { label: 'Gestión Clientes', icon: <UserCheck size={20} />, path: '/admin/gestion-clientes' },
-    { label: 'Reporte Gestión', icon: <FilePieChart size={20} />, path: '/admin/reporte-gestion' },
-    { label: 'Chequeo Supervisión', icon: <ClipboardCheck size={20} />, path: '/admin/supervision' },
-    { label: 'Recomendaciones', icon: <MessageSquare size={20} />, path: '/admin/recom' },
-    { label: 'Satisfacción', icon: <ThumbsUp size={20} />, path: '/admin/satisfaccion' },
-    { label: 'Documentación', icon: <FileText size={20} />, path: '/admin/docs' },
-  ],
-  operacion: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/oper/dashboard' },
-    { label: 'Items', icon: <Layers size={20} />, path: '/oper/items' },
-    { label: 'Cotizaciones', icon: <FilePieChart size={20} />, path: '/oper/cotizaciones' },
-    { label: 'Kits', icon: <Box size={20} />, path: '/oper/kits' },
-    { label: 'Configuraciones', icon: <Settings size={20} />, path: '/oper/config' },
-    { label: 'Documentación', icon: <FileSearch size={20} />, path: '/oper/docs' },
-  ],
-  tareas: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/tasks/dashboard' },
-    { label: 'Tareas', icon: <ListTodo size={20} />, path: '/tasks/list' },
-    { label: 'Documentación', icon: <FileText size={20} />, path: '/tasks/docs' },
-  ],
-  logistica: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/logistics/dashboard' },
-    { label: 'Flotas', icon: <Truck size={20} />, path: '/logistics/fleet' },
-    { label: 'Inventario', icon: <Package size={20} />, path: '/logistics/inventory' },
-    { label: 'Rutas', icon: <MapPin size={20} />, path: '/logistics/routes' },
-  ],
-  vigilancia: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/security/dashboard' },
-    { label: 'Monitoreo', icon: <Eye size={20} />, path: '/security/monitor' },
-    { label: 'Alertas', icon: <ShieldAlert size={20} />, path: '/security/alerts' },
-    { label: 'Radio', icon: <Radio size={20} />, path: '/security/radio' },
-  ],
-  pqrs: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/pqrs/dashboard' },
-    { label: 'Recibidos', icon: <Inbox size={20} />, path: '/pqrs/inbox' },
-    { label: 'Chat', icon: <MessageSquare size={20} />, path: '/pqrs/chat' },
-    { label: 'FAQs', icon: <HelpCircle size={20} />, path: '/pqrs/faqs' },
-  ],
-  calidad: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/quality/dashboard' },
-    { label: 'Certificaciones', icon: <Award size={20} />, path: '/quality/certs' },
-    { label: 'Auditoría', icon: <CheckCircle2 size={20} />, path: '/quality/audit' },
-    { label: 'Documentos', icon: <FileText size={20} />, path: '/quality/docs' },
-  ],
-  soporte: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/support/dashboard' },
-    { label: 'Soporte IT', icon: <LifeBuoy size={20} />, path: '/support/it' },
-    { label: 'Mantenimiento', icon: <Wrench size={20} />, path: '/support/mt' },
-    { label: 'Ticket', icon: <MessageCircle size={20} />, path: '/support/tickets' },
-  ],
-  comunicaciones: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/comms/dashboard' },
-    { label: 'Anuncios', icon: <Megaphone size={20} />, path: '/comms/announcements' },
-    { label: 'Email', icon: <Mail size={20} />, path: '/comms/email' },
-    { label: 'Directorio', icon: <Phone size={20} />, path: '/comms/directory' },
-  ],
-  gestion_humana: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/hr/dashboard' },
-    { label: 'Empleados', icon: <UserCircle size={20} />, path: '/hr/employees' },
-    { label: 'Beneficios', icon: <Heart size={20} />, path: '/hr/benefits' },
-    { label: 'Formación', icon: <GraduationCap size={20} />, path: '/hr/training' },
-  ],
-  reportes: [
-    { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/reports/dashboard' },
-    { label: 'Resumen', icon: <BarChart3 size={20} />, path: '/reports/summary' },
-    { label: 'Exportar', icon: <FilePieChart size={20} />, path: '/reports/export' },
-    { label: 'Métricas', icon: <TrendingUp size={20} />, path: '/reports/metrics' },
-  ],
-};
+import { modules, menuData } from '@/config/menuData';
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -148,6 +20,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedModule, setSelectedModule] = useState('administracion');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // Sync selected module with current route
+  React.useEffect(() => {
+    const currentPath = location.pathname;
+    const foundModule = Object.entries(menuData).find(entry => 
+      entry[1].some(item => currentPath.startsWith(item.path.split('/')[1] ? `/${item.path.split('/')[1]}` : item.path))
+    );
+    if (foundModule) {
+      setSelectedModule(foundModule[0]);
+    }
+  }, [location.pathname]);
 
   const activeMenu = menuData[selectedModule] || [];
   const activeModule = modules.find(m => m.id === selectedModule);
@@ -163,8 +47,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
       {/* Toggle Button */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-20 bg-white border border-gray-100 rounded-full p-1.5 shadow-md hover:text-orange-500 transition-all z-[60]"
-        style={{ cursor: 'pointer' }}
+        className="absolute bg-white border border-gray-100 shadow-md hover:text-orange-500 transition-all z-[60]"
+        style={{ 
+          cursor: 'pointer', 
+          right: '-12px', 
+          top: '80px', 
+          borderRadius: '9999px',
+          padding: '6px'
+        }}
       >
         {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
       </button>
@@ -233,9 +123,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
             <select
               value={selectedModule}
               onChange={(e) => {
-                setSelectedModule(e.target.value);
-                const firstPath = menuData[e.target.value]?.[0]?.path;
-                if (firstPath) navigate(firstPath);
+                const moduleId = e.target.value;
+                setSelectedModule(moduleId);
+                const dashboardItem = menuData[moduleId]?.find(m => m.label.toLowerCase() === 'dashboard') || menuData[moduleId]?.[0];
+                if (dashboardItem?.path) navigate(dashboardItem.path);
               }}
               style={{ 
                 position: 'absolute', 
@@ -256,63 +147,88 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
         ) : (
           /* Expanded: full labeled selector with icon */
           <div style={{ position: 'relative' }}>
-            {/* Icon overlay */}
-            <div 
-              style={{ 
-                position: 'absolute',
-                left: '14px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: '#ff761c',
-                pointerEvents: 'none',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              {activeModule?.icon}
-            </div>
-            {/* ChevronDown overlay */}
-            <div 
-              style={{ 
-                position: 'absolute',
-                right: '12px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: '#94a3b8',
-                pointerEvents: 'none',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              <ChevronDown size={14} />
-            </div>
-            <select
-              value={selectedModule}
-              onChange={(e) => {
-                setSelectedModule(e.target.value);
-                const firstPath = menuData[e.target.value]?.[0]?.path;
-                if (firstPath) navigate(firstPath);
-              }}
-              className="w-full bg-[#f8fafc] border border-gray-100 text-[#272b60] hover:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500 transition-all cursor-pointer"
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="w-full bg-[#f8fafc] border border-gray-100 text-[#272b60] hover:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500 transition-all cursor-pointer flex items-center justify-between"
               style={{ 
                 borderRadius: '12px', 
                 fontWeight: '600', 
-                appearance: 'none',
                 fontSize: '13.5px',
-                paddingTop: '12px',
-                paddingBottom: '12px',
-                paddingLeft: '42px',
-                paddingRight: '36px',
+                padding: '12px 14px',
                 width: '100%',
-                display: 'block'
+                display: 'flex'
               }}
             >
-              {modules.map((mod) => (
-                <option key={mod.id} value={mod.id}>
-                  {mod.label}
-                </option>
-              ))}
-            </select>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ color: '#ff761c', display: 'flex' }}>{activeModule?.icon}</span>
+                <span>{activeModule?.label}</span>
+              </div>
+              <ChevronDown size={14} style={{ color: '#94a3b8' }} />
+            </button>
+
+            {isDropdownOpen && (
+              <>
+                <div 
+                  style={{ position: 'fixed', inset: 0, zIndex: 50 }} 
+                  onClick={() => setIsDropdownOpen(false)}
+                />
+                <div
+                  className="absolute w-full bg-white animate-fade-in custom-scrollbar"
+                  style={{
+                    top: '100%',
+                    marginTop: '6px',
+                    borderRadius: '12px',
+                    border: '1px solid #f1f5f9',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    maxHeight: '300px',
+                    overflowY: 'auto',
+                    padding: '6px',
+                    zIndex: 60
+                  }}
+                >
+                  {modules.map((mod) => {
+                    const isSelected = mod.id === selectedModule;
+                    return (
+                      <div
+                        key={mod.id}
+                        onClick={() => {
+                          setSelectedModule(mod.id);
+                          setIsDropdownOpen(false);
+                          const dashboardItem = menuData[mod.id]?.find(m => m.label.toLowerCase() === 'dashboard') || menuData[mod.id]?.[0];
+                          if (dashboardItem?.path) navigate(dashboardItem.path);
+                        }}
+                        className="flex items-center cursor-pointer transition-colors"
+                        style={{
+                          padding: '10px 12px',
+                          borderRadius: '8px',
+                          gap: '12px',
+                          color: isSelected ? '#ea580c' : '#475569',
+                          backgroundColor: isSelected ? '#fff7ed' : 'transparent',
+                          fontWeight: isSelected ? '600' : '500',
+                          fontSize: '13.5px',
+                          marginBottom: '2px'
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isSelected) {
+                            e.currentTarget.style.backgroundColor = '#f8fafc';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isSelected) {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                          }
+                        }}
+                      >
+                        <span style={{ color: isSelected ? '#ea580c' : '#94a3b8', display: 'flex' }}>
+                          {mod.icon}
+                        </span>
+                        <span>{mod.label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
           </div>
         )}
       </div>
@@ -323,7 +239,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
         style={{ padding: isCollapsed ? '0 10px' : '0 16px' }}
       >
         {!isCollapsed && (
-          <p className="animate-fade-in text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider mb-3 pl-3">
+          <p 
+            className="animate-fade-in text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider"
+            style={{ marginBottom: '12px', paddingLeft: '12px' }}
+          >
             Navegación
           </p>
         )}
@@ -345,6 +264,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
                   padding: isCollapsed ? '12px' : '10px 14px', 
                   borderRadius: '10px',
                   gap: isCollapsed ? '0' : '12px',
+                  display: 'flex',
+                  alignItems: 'center',
                   borderTop: 'none',
                   borderBottom: 'none',
                   borderRight: 'none',

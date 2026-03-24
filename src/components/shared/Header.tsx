@@ -48,12 +48,14 @@ const Header: React.FC<HeaderProps> = ({ sidebarWidth = '260px' }) => {
         <input
           type="text"
           placeholder="Buscar en Bitacorapp..."
-          className="block w-full border border-gray-100 bg-gray-50/70 text-sm text-gray-600 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-400 transition-all"
+          className="block w-full border border-gray-200 text-sm text-[#272b60] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-medium"
           style={{ 
+            backgroundColor: '#ffffff',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
             paddingLeft: '42px', 
             paddingRight: '16px', 
-            paddingTop: '9px', 
-            paddingBottom: '9px',
+            paddingTop: '10px', 
+            paddingBottom: '10px',
             borderRadius: '12px',
             fontSize: '13.5px',
           }}
@@ -142,7 +144,7 @@ const Header: React.FC<HeaderProps> = ({ sidebarWidth = '260px' }) => {
                     cursor: 'pointer',
                     textAlign: 'left'
                   }}
-                  onClick={() => { setIsMenuOpen(false); navigate('/admin/dashboard'); }}
+                  onClick={() => { setIsMenuOpen(false); navigate('/profile'); }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f8fafc')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >
@@ -162,7 +164,7 @@ const Header: React.FC<HeaderProps> = ({ sidebarWidth = '260px' }) => {
                     cursor: 'pointer',
                     textAlign: 'left'
                   }}
-                  onClick={() => { setIsMenuOpen(false); }}
+                  onClick={() => { setIsMenuOpen(false); navigate('/settings'); }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f8fafc')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >

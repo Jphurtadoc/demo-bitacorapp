@@ -31,6 +31,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ authRepository }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +43,19 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
   const DEMO_EMAIL = 'bitacorapp@demo.answertic.co';
   const DEMO_PASSWORD = 'Admin123*';
 
+  // Load saved credentials on mount
+  React.useEffect(() => {
+    const savedEmail = localStorage.getItem('remember_email');
+    const savedPassword = localStorage.getItem('remember_password');
+    const savedRemember = localStorage.getItem('remember_me') === 'true';
+
+    if (savedRemember && savedEmail && savedPassword) {
+      setEmail(savedEmail);
+      setPassword(savedPassword);
+      setRememberMe(true);
+    }
+  }, []);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -49,6 +63,18 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
 
     try {
       const user = await authRepository.login(email, password);
+      
+      // Save or clear credentials based on rememberMe
+      if (rememberMe) {
+        localStorage.setItem('remember_email', email);
+        localStorage.setItem('remember_password', password);
+        localStorage.setItem('remember_me', 'true');
+      } else {
+        localStorage.removeItem('remember_email');
+        localStorage.removeItem('remember_password');
+        localStorage.removeItem('remember_me');
+      }
+
       if (user.role === 'admin') {
         navigate('/admin');
       } else {
@@ -80,10 +106,10 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
         alignItems: 'center',
         justifyContent: 'center',
         bgcolor: '#1a1d3d', // Darker variation of secondary
-        padding: 3,
         position: 'relative',
         overflow: 'hidden'
       }}
+      style={{ padding: '24px' }}
     >
       {/* Background Blobs (keeping some decorative elements) */}
       <Box 
@@ -94,10 +120,10 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
           width: 500,
           height: 500,
           bgcolor: 'rgba(255, 118, 28, 0.05)',
-          borderRadius: '50%',
           filter: 'blur(80px)',
           pointerEvents: 'none'
         }}
+        style={{ borderRadius: '50%' }}
       />
       <Box 
         sx={{
@@ -107,10 +133,10 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
           width: 400,
           height: 400,
           bgcolor: 'rgba(39, 43, 96, 0.2)',
-          borderRadius: '50%',
           filter: 'blur(80px)',
           pointerEvents: 'none'
         }}
+        style={{ borderRadius: '50%' }}
       />
 
       <Box 
@@ -121,15 +147,14 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
           bgcolor: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(10px)',
           zIndex: 10,
-          p: 4, // 32px (equivalente a p-8)
-          borderRadius: 6, // 24px (equivalente a rounded-3xl)
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' // equivalent to shadow-2xl
         }}
+        style={{ padding: '32px', borderRadius: '24px' }}
         autoComplete="off"
         component="form"
         onSubmit={handleLogin}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} style={{ marginBottom: '40px' }}>
           <img src={logoImg} alt="Bitacorapp" style={{ width: 180, marginBottom: 24 }} />
           <Typography variant="h5" component="h1" sx={{ fontWeight: 700, color: '#272b60' }}>
             Ingreso al Sistema
@@ -139,7 +164,7 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }} style={{ gap: '20px' }}>
           <TextField
             fullWidth
             label="Correo Electrónico"
@@ -182,6 +207,8 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
               control={
                 <Checkbox 
                   size="small" 
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
                   sx={{ 
                     color: '#ff761c', 
                     '&.Mui-checked': { color: '#ff761c' } 
@@ -204,13 +231,12 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
             sx={{
               bgcolor: '#272b60',
               color: 'white',
-              py: 1.5,
-              borderRadius: 2,
               fontWeight: 700,
               fontSize: '1rem',
               '&:hover': { bgcolor: '#1e214a' },
               boxShadow: '0 8px 16px rgba(39, 43, 96, 0.2)'
             }}
+            style={{ paddingTop: '12px', paddingBottom: '12px', borderRadius: '8px' }}
           >
             {loading ? <CircularProgress size={24} color="inherit" /> : 'Entrar'}
           </Button>
@@ -233,11 +259,10 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
             zIndex: 100,
             width: 320,
             bgcolor: 'white',
-            p: 2,
-            borderRadius: 3,
             boxShadow: '0 12px 32px -4px rgba(0,0,0,0.2)',
             border: '1px solid #e2e8f0'
           }}
+          style={{ padding: '16px', borderRadius: '12px' }}
         >
           <Box sx={{ 
             display: 'flex', 
@@ -261,14 +286,13 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'space-between', 
-                p: 1, 
-                borderRadius: 2, 
                 cursor: 'pointer', 
                 bgcolor: '#f8fafc', // slate-50
                 '&:hover': { bgcolor: '#f1f5f9', borderColor: '#fed7aa' }, // slate-100, orange-200
                 transition: 'all 0.2s',
                 border: '1px solid transparent'
               }}
+              style={{ padding: '8px', borderRadius: '8px' }}
               onClick={() => copyToClipboard(DEMO_EMAIL, 'email')}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -282,14 +306,13 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'space-between', 
-                p: 1, 
-                borderRadius: 2, 
                 cursor: 'pointer', 
                 bgcolor: '#f8fafc', // slate-50
                 '&:hover': { bgcolor: '#f1f5f9', borderColor: '#fed7aa' }, // slate-100, orange-200
                 transition: 'all 0.2s',
                 border: '1px solid transparent'
               }}
+              style={{ padding: '8px', borderRadius: '8px' }}
               onClick={() => copyToClipboard(DEMO_PASSWORD, 'pass')}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>

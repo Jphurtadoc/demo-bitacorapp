@@ -6,7 +6,7 @@ const UserDashboard: React.FC = () => {
     <DashboardLayout>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         {/* Welcome Header */}
-        <div className="mb-10 animate-fade-in" style={{ paddingBottom: '10px' }}>
+        <div className="animate-fade-in" style={{ paddingBottom: '10px', marginBottom: '40px' }}>
           <h1 
             style={{ 
               fontSize: '36px',
@@ -26,8 +26,8 @@ const UserDashboard: React.FC = () => {
 
         {/* Main Card */}
         <div 
-          className="bg-white p-12 text-center shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-gray-100 animate-slide-in"
-          style={{ borderRadius: '24px', boxSizing: 'border-box' }}
+          className="bg-white text-center shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-gray-100 animate-slide-in"
+          style={{ borderRadius: '24px', boxSizing: 'border-box', padding: '48px' }}
         >
           <div 
             style={{ 
@@ -85,7 +85,10 @@ const UserDashboard: React.FC = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-3" 
+          style={{ gap: '24px', marginTop: '40px' }}
+        >
           {[
             { label: 'Registros Hoy', value: '12', color: '#2563eb', bg: '#eff6ff' },
             { label: 'Pendientes', value: '05', color: '#ea580c', bg: '#fff7ed' },

@@ -41,7 +41,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5" style={{ marginBottom: '32px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-3" style={{ marginBottom: '32px', gap: '20px' }}>
           {[
             { title: 'Bitácoras Hoy', value: '24', sub: '+3 desde ayer', color: '#ff761c', bg: 'rgba(255, 118, 28, 0.07)' },
             { title: 'Usuarios Activos', value: '156', sub: '12 en línea ahora', color: '#272b60', bg: 'rgba(39, 43, 96, 0.07)' },

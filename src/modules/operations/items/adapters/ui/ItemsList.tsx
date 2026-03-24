@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { 
   Plus, 
@@ -399,7 +400,7 @@ const ItemsList: React.FC = () => {
         </div>
 
         {/* Modal for Add/Edit */}
-        {isModalOpen && (
+        {isModalOpen && createPortal(
           <div style={{ 
             position: 'fixed', inset: 0, zIndex: 1000, 
             backgroundColor: 'rgba(39, 43, 96, 0.4)', backdropFilter: 'blur(4px)',
@@ -512,7 +513,7 @@ const ItemsList: React.FC = () => {
               </form>
             </div>
           </div>
-        )}
+        , document.body)}
       </div>
     </DashboardLayout>
   );

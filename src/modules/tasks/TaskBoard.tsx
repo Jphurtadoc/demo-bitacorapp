@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Plus, X, Pencil, Trash2, ChevronRight } from 'lucide-react';
 
@@ -280,7 +281,7 @@ const TaskBoard: React.FC = () => {
       </div>
 
       {/* Modal */}
-      {showModal && (
+      {showModal && createPortal(
         <div
           style={{
             position: 'fixed', inset: 0, zIndex: 9999,
@@ -456,7 +457,7 @@ const TaskBoard: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
+      , document.body)}
     </DashboardLayout>
   );
 };
