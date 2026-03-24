@@ -1,4 +1,4 @@
-import React from 'react';
+
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { User, Mail, Shield, Key, Bell, Settings, ChevronRight } from 'lucide-react';
 

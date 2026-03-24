@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { Plus, Search, X, Edit2, Trash2, MoreVertical, FileText, FilePieChart, Filter } from 'lucide-react';
+import { Plus, Search, X, Edit2, Trash2, FilePieChart, Filter } from 'lucide-react';
 
 interface Cotizacion {
   id: string;

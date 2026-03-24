@@ -1,4 +1,4 @@
-import React from 'react';
+
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { BookOpen, PlayCircle, Image as ImageIcon } from 'lucide-react';
 
