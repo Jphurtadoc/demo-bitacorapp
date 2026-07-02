@@ -10,14 +10,14 @@ const Documentation = () => {
           <div style={{ padding: '12px', backgroundColor: '#fff7ed', color: '#ea580c', borderRadius: '16px' }}>
             <BookOpen size={28} />
           </div>
-          <h1 style={{ fontSize: '32px', fontWeight: '800', color: '#272b60', margin: 0 }}>Manual de Uso</h1>
+          <h1 className="page-header-title page-header-title-lg m-0">Manual de Uso</h1>
         </div>
-        <p style={{ color: '#64748b', fontSize: '16px', marginBottom: '40px', marginLeft: '68px' }}>Documentación interactiva y guías del sistema en general</p>
+        <p className="page-header-subtitle mb-10 ml-[68px]">Documentación interactiva y guías del sistema en general</p>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           {/* FAQ 1 */}
           <div style={{ backgroundColor: '#fff', borderRadius: '24px', padding: '40px', border: '1px solid #f1f5f9', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#272b60', marginBottom: '16px' }}>¿Cómo crear un nuevo registro y gestionarlo?</h2>
+            <h2 className="page-section-title mb-4 text-xl">¿Cómo crear un nuevo registro y gestionarlo?</h2>
             <p style={{ color: '#475569', lineHeight: '1.6', marginBottom: '24px' }}>Para crear un nuevo registro, dirígete al módulo correspondiente y utiliza el botón de acción principal. A continuación, se muestra un video demostrativo del proceso paso a paso.</p>
             
             <div style={{ width: '100%', height: '360px', backgroundColor: '#f8fafc', border: '2px dashed #cbd5e1', borderRadius: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
@@ -29,7 +29,7 @@ const Documentation = () => {
 
           {/* FAQ 2 */}
           <div style={{ backgroundColor: '#fff', borderRadius: '24px', padding: '40px', border: '1px solid #f1f5f9', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#272b60', marginBottom: '16px' }}>Estructura de Datos y Flujo de Estados</h2>
+            <h2 className="page-section-title mb-4 text-xl">Estructura de Datos y Flujo de Estados</h2>
             <p style={{ color: '#475569', lineHeight: '1.6', marginBottom: '24px' }}>Consulta el diagrama detallado para comprender el ciclo de vida de cada elemento dentro de la base de datos.</p>
             
             <div style={{ width: '100%', height: '360px', backgroundColor: '#f8fafc', border: '2px dashed #cbd5e1', borderRadius: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>

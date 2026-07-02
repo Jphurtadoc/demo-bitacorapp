@@ -7,39 +7,40 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
-  // Sidebar widths
-  const sidebarWidth = isCollapsed ? '80px' : '260px';
+  const sidebarWidth = isCollapsed ? '72px' : '260px';
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-background">
+      <Header />
       <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      
-      <div 
+
+      <div
         className="transition-all duration-300 ease-in-out"
         style={{ marginLeft: sidebarWidth, width: `calc(100% - ${sidebarWidth})` }}
       >
-        <Header sidebarWidth={sidebarWidth} />
-        
-        <main 
-          className="min-h-screen"
-          style={{ 
+        <main
+          className="flex min-h-screen flex-col"
+          style={{
             boxSizing: 'border-box',
-            paddingTop: '70px',
-            paddingLeft: '32px',
-            paddingRight: '32px',
+            paddingTop: '88px',
+            paddingLeft: '24px',
+            paddingRight: '24px',
             paddingBottom: '10px',
-            display: 'flex',
-            flexDirection: 'column'
           }}
         >
-          <div style={{ flex: 1 }}>{children}</div>
+          <div className="flex-1">{children}</div>
 
-          <div style={{ marginTop: '40px', textAlign: 'center', paddingBottom: '10px' }}>
-            <p style={{ margin: 0, fontSize: '13.5px', color: '#94a3b8', fontWeight: '500' }}>
+          <div className="mt-10 pb-2.5 text-center">
+            <p className="m-0 text-[13.5px] font-medium text-subtle">
               Demo App © {new Date().getFullYear()}{' '}
-              <a href="https://answertic.co" target="_blank" rel="noopener noreferrer" style={{ color: '#ea580c', textDecoration: 'none', fontWeight: '600' }} className="hover:underline">
+              <a
+                href="https://answertic.co"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-primary no-underline hover:underline"
+              >
                 answertic.com
               </a>
             </p>

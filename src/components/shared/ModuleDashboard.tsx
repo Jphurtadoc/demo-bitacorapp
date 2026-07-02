@@ -1,5 +1,8 @@
 import React from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import PageHeader from '@/components/shared/PageHeader';
+import { Surface } from '@/components/UI/surface';
+import { EmphasisIcon, getAccentEmphasisStyle } from '@/components/UI/emphasis';
 import { TrendingUp, Lock, ArrowRight, LayoutDashboard, Database } from "lucide-react";
 
 interface ModuleDashboardProps {
@@ -12,6 +15,7 @@ interface ModuleDashboardProps {
     icon: React.ReactNode;
   }[];
   isDemoBlocked?: boolean;
+  accentColor?: string;
 }
 
 const ModuleDashboard: React.FC<ModuleDashboardProps> = ({
@@ -19,80 +23,70 @@ const ModuleDashboard: React.FC<ModuleDashboardProps> = ({
   description,
   stats = [],
   isDemoBlocked = false,
+  accentColor = '#ff761c',
 }) => {
+  const accentStyle = getAccentEmphasisStyle(accentColor);
   return (
     <DashboardLayout>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-        {/* Header Section */}
-        <div
-          className="animate-fade-in"
-          style={{ paddingBottom: "10px", marginBottom: "40px" }}
-        >
-          <h1
-            style={{
-              fontSize: "32px",
-              fontWeight: "700",
-              color: "#272b60",
-              letterSpacing: "-0.02em",
-              marginBottom: "8px",
-              lineHeight: "1.2",
-            }}
-          >
-            {isDemoBlocked ? 'Acceso Restringido' : `Dashboard de ${moduleName}`}
-          </h1>
-          <p
-            style={{
-              fontSize: "16px",
-              color: "#64748b",
-              fontWeight: "500",
-              margin: 0,
-            }}
-          >
-            {isDemoBlocked ? 'Funcionalidad reservada para el entorno completo.' : description}
-          </p>
-        </div>
+        <PageHeader
+          className="animate-fade-in mb-10 pb-2.5"
+          title={isDemoBlocked ? 'Acceso Restringido' : `Dashboard de ${moduleName}`}
+          subtitle={
+            isDemoBlocked
+              ? 'Funcionalidad reservada para el entorno completo.'
+              : description
+          }
+        />
 
         {isDemoBlocked ? (
-          <div
-            className="mt-8 bg-white text-center border border-gray-100 shadow-sm animate-fade-in"
-            style={{ borderRadius: "24px", padding: "64px 32px" }}
+          <Surface
+            padding="xl"
+            radius="3xl"
+            className="relative mt-8 animate-fade-in overflow-hidden px-8 py-16 text-center"
+            style={accentStyle}
           >
-            <div 
-              className="bg-orange-50 flex items-center justify-center mx-auto mb-6 text-orange-500"
-              style={{ width: "80px", height: "80px", borderRadius: "20px" }}
-            >
-              <Lock size={40} />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background: `linear-gradient(to bottom right, color-mix(in srgb, ${accentColor} 12%, transparent), transparent 55%, color-mix(in srgb, ${accentColor} 8%, transparent))`,
+              }}
+            />
+            <div
+              className="pointer-events-none absolute inset-x-8 top-0 h-px"
+              style={{
+                background: `linear-gradient(to right, transparent, color-mix(in srgb, ${accentColor} 50%, transparent), transparent)`,
+              }}
+            />
+
+            <div className="relative z-10 mx-auto flex max-w-lg flex-col items-center">
+              <EmphasisIcon accentColor={accentColor} size="lg" className="mb-6 h-20! w-20! rounded-[20px]!">
+                <Lock size={40} />
+              </EmphasisIcon>
+
+              <h2 className="module-accent-text mb-4 text-2xl font-bold" style={accentStyle}>
+                Funcionalidad no disponible en el Demo
+              </h2>
+
+              <p className="page-header-subtitle mb-8 max-w-[500px] text-base leading-relaxed">
+                Estás interactuando con la versión de demostración. El submódulo de{' '}
+                <strong className="module-accent-text font-semibold" style={accentStyle}>
+                  {moduleName}
+                </strong>{' '}
+                aún no está habilitado para pruebas públicas. Solicita una prueba guiada para explorar
+                todas las características.
+              </p>
+
+              <button
+                type="button"
+                className="rounded-xl px-8 py-3.5 text-[15px] font-semibold text-white shadow-sm transition-all hover:brightness-110 active:scale-95"
+                style={{ backgroundColor: accentColor }}
+                onClick={() => window.history.back()}
+              >
+                Regresar
+              </button>
             </div>
-            <h2
-              style={{
-                fontSize: "24px",
-                fontWeight: "700",
-                color: "#272b60",
-                marginBottom: "16px",
-              }}
-            >
-              Funcionalidad no disponible en el Demo
-            </h2>
-            <p
-              style={{
-                fontSize: "16px",
-                color: "#64748b",
-                maxWidth: "500px",
-                margin: "0 auto",
-                lineHeight: "1.6",
-                marginBottom: "32px"
-              }}
-            >
-              Estás interactuando con la versión de demostración. El submódulo de <strong>{moduleName}</strong> aún no está habilitado para pruebas públicas. Solicita una prueba guiada para explorar todas las características.
-            </p>
-            <button
-              className="bg-[#272b60] text-white font-semibold hover:shadow-lg transition-all active:scale-95"
-              style={{ padding: "0.8rem 2rem", borderRadius: "12px", fontSize: "15px" }}
-              onClick={() => window.history.back()}
-            >
-              Regresar
-            </button>
-          </div>
+          </Surface>
         ) : (
           <>
             {/* Stats Grid */}
@@ -161,7 +155,7 @@ const ModuleDashboard: React.FC<ModuleDashboardProps> = ({
                   <div style={{ padding: '8px', backgroundColor: '#f8fafc', borderRadius: '10px', color: '#272b60' }}>
                     <LayoutDashboard size={20} />
                   </div>
-                  <h2 style={{ fontSize: "18px", fontWeight: "700", color: "#272b60", margin: 0 }}>
+                  <h2 className="page-section-title m-0 text-lg">
                     Seguimiento General
                   </h2>
                 </div>
@@ -180,7 +174,7 @@ const ModuleDashboard: React.FC<ModuleDashboardProps> = ({
                   <div style={{ padding: '8px', backgroundColor: '#fff7ed', borderRadius: '10px', color: '#ea580c' }}>
                     <TrendingUp size={20} />
                   </div>
-                  <h2 style={{ fontSize: "18px", fontWeight: "700", color: "#272b60", margin: 0 }}>
+                  <h2 className="page-section-title m-0 text-lg">
                     Accesos Rápidos
                   </h2>
                 </div>

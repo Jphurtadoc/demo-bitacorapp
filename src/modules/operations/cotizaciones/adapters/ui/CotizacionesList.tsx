@@ -131,9 +131,9 @@ const CotizacionesList = () => {
               <div style={{ padding: '12px', backgroundColor: '#e0e7ff', color: '#4f46e5', borderRadius: '16px' }}>
                 <FilePieChart size={28} />
               </div>
-              <h1 style={{ fontSize: '32px', fontWeight: '800', color: '#272b60', margin: 0 }}>Cotizaciones</h1>
+              <h1 className="page-header-title page-header-title-lg m-0">Cotizaciones</h1>
             </div>
-            <p style={{ color: '#64748b', fontSize: '15px', marginLeft: '64px' }}>
+            <p className="page-header-subtitle ml-16">
               Gestión y aprobación de propuestas comerciales
             </p>
           </div>
@@ -293,7 +293,7 @@ const CotizacionesList = () => {
                           <button onClick={() => handleOpenModal(item)} style={{ padding: '8px', backgroundColor: '#ffffff', border: '1px solid #f1f5f9', borderRadius: '10px', color: '#94a3b8', cursor: 'pointer' }} className="hover:text-[#272b60]">
                             <Edit2 size={16} />
                           </button>
-                          <button onClick={() => setData(data.filter(d => d.id !== item.id))} style={{ padding: '8px', backgroundColor: '#ffffff', border: '1px solid #f1f5f9', borderRadius: '10px', color: '#94a3b8', cursor: 'pointer' }} className="hover:text-red-500">
+                          <button onClick={() => setData(data.filter(d => d.id !== item.id))} className="danger-action-btn cursor-pointer rounded-[10px] p-2 transition-colors" title="Eliminar">
                             <Trash2 size={16} />
                           </button>
                         </div>
@@ -325,7 +325,7 @@ const CotizacionesList = () => {
               animation: 'fadeIn 0.2s ease-out'
             }}>
               <div style={{ padding: '24px 32px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#272b60', margin: 0 }}>
+                <h2 className="page-drawer-title text-xl">
                   {editingItem ? 'Editar Cotización' : 'Nueva Cotización'}
                 </h2>
                 <button onClick={() => setIsModalOpen(false)} style={{ padding: '8px', backgroundColor: '#f8fafc', border: 'none', borderRadius: '50%', cursor: 'pointer', color: '#94a3b8' }}>

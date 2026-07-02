@@ -1,28 +1,16 @@
 import React from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
+import PageHeader from '@/components/shared/PageHeader';
 
 const UserDashboard: React.FC = () => {
   return (
     <DashboardLayout>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-        {/* Welcome Header */}
-        <div className="animate-fade-in" style={{ paddingBottom: '10px', marginBottom: '40px' }}>
-          <h1 
-            style={{ 
-              fontSize: '36px',
-              fontWeight: '800',
-              color: '#272b60',
-              letterSpacing: '-0.025em',
-              marginBottom: '8px',
-              lineHeight: '1.2'
-            }}
-          >
-            Mi Bitácora
-          </h1>
-          <p style={{ fontSize: '18px', color: '#64748b', fontWeight: '500', margin: 0 }}>
-            Gestiona tus registros diarios de forma inteligente.
-          </p>
-        </div>
+        <PageHeader
+          className="animate-fade-in mb-10 pb-2.5"
+          title="Mi Bitácora"
+          subtitle="Gestiona tus registros diarios de forma inteligente."
+        />
 
         {/* Main Card */}
         <div 
@@ -45,7 +33,7 @@ const UserDashboard: React.FC = () => {
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
           
-          <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#272b60', marginBottom: '12px' }}>
+          <h2 className="page-section-title mb-3 text-2xl">
             ¡Bienvenido de nuevo!
           </h2>
           <p style={{ fontSize: '16px', color: '#64748b', maxWidth: '448px', margin: '0 auto', lineHeight: '1.6' }}>

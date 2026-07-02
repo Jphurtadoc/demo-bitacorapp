@@ -195,10 +195,10 @@ const ItemsList: React.FC = () => {
         {/* Header Section */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
           <div>
-            <h1 style={{ fontSize: '32px', fontWeight: '800', color: '#272b60', letterSpacing: '-0.02em', marginBottom: '4px' }}>
+            <h1 className="page-header-title page-header-title-lg mb-1">
               Catálogo de Equipos
             </h1>
-            <p style={{ color: '#64748b', fontSize: '15px', fontWeight: '500', margin: 0 }}>
+            <p className="page-header-subtitle">
               Gestión administrativa de activos y suministros de seguridad en moneda local (COP).
             </p>
           </div>
@@ -370,11 +370,7 @@ const ItemsList: React.FC = () => {
                           </button>
                           <button 
                             onClick={() => handleDelete(item.id)}
-                            style={{ 
-                              padding: '8px', backgroundColor: '#ffffff', border: '1px solid #f1f5f9', 
-                              borderRadius: '10px', color: '#94a3b8', cursor: 'pointer', transition: 'all 0.2s'
-                            }}
-                            className="hover:bg-red-50 hover:text-red-500 hover:border-red-100"
+                            className="danger-action-btn cursor-pointer rounded-[10px] p-2 transition-all"
                             title="Eliminar"
                           >
                             <Trash2 size={16} />
@@ -416,7 +412,7 @@ const ItemsList: React.FC = () => {
                   <div style={{ width: '40px', height: '40px', backgroundColor: '#f1f5f9', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#272b60' }}>
                     {editingItem ? <Edit2 size={20} /> : <Plus size={20} />}
                   </div>
-                  <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#272b60', margin: 0 }}>
+                  <h2 className="page-drawer-title text-xl m-0">
                     {editingItem ? 'Editar Item' : 'Agregar Nuevo Item'}
                   </h2>
                 </div>

@@ -1,8 +1,9 @@
 import React from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
+import PageHeader from '@/components/shared/PageHeader';
 
 const activities = [
-  { user: 'Juan Pérez', initial: 'J', action: 'Nuevo Registro creado', module: 'Operación', date: 'Hace 5 min', status: 'success' },
+  { user: 'Juan Pérez', initial: 'J', action: 'Nuevo Registro creado', module: 'Comercial', date: 'Hace 5 min', status: 'success' },
   { user: 'Maria García', initial: 'M', action: 'Turno cerrado', module: 'Logística', date: 'Hace 12 min', status: 'neutral' },
   { user: 'Carlos Ruiz', initial: 'C', action: 'Reporte generado', module: 'Administración', date: 'Hace 25 min', status: 'info' },
   { user: 'Ana López', initial: 'A', action: 'Alerta registrada', module: 'Vigilancia', date: 'Hace 38 min', status: 'warning' },
@@ -20,31 +21,18 @@ const AdminDashboard: React.FC = () => {
     <DashboardLayout>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-        {/* Page Header */}
-        <div style={{ marginBottom: '36px' }}>
-          <h1 
-            style={{ 
-              fontSize: '30px',
-              fontWeight: '700',
-              color: '#272b60',
-              letterSpacing: '-0.02em',
-              marginBottom: '6px',
-              lineHeight: '1.2',
-              margin: '0 0 6px 0'
-            }}
-          >
-            Panel de Administración
-          </h1>
-          <p style={{ fontSize: '15px', color: '#94a3b8', fontWeight: '400', margin: 0 }}>
-            Bienvenido al centro de control de Bitacorapp.
-          </p>
-        </div>
+        <PageHeader
+          className="mb-9"
+          size="md"
+          title="Panel de Administración"
+          subtitle="Bienvenido al centro de control de Bitacorapp."
+        />
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3" style={{ marginBottom: '32px', gap: '20px' }}>
           {[
             { title: 'Bitácoras Hoy', value: '24', sub: '+3 desde ayer', color: '#ff761c', bg: 'rgba(255, 118, 28, 0.07)' },
-            { title: 'Usuarios Activos', value: '156', sub: '12 en línea ahora', color: '#272b60', bg: 'rgba(39, 43, 96, 0.07)' },
+            { title: 'Usuarios Activos', value: '156', sub: '12 en línea ahora', color: '#6366f1', bg: 'rgba(99, 102, 241, 0.07)' },
             { title: 'Alertas Sistema', value: '03', sub: '1 crítica', color: '#f43f5e', bg: 'rgba(244, 63, 94, 0.07)' },
           ].map((stat, i) => (
             <div 
@@ -109,7 +97,7 @@ const AdminDashboard: React.FC = () => {
             }}
           >
             <div>
-              <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#272b60', margin: '0 0 2px 0' }}>
+              <h3 className="page-section-title m-0 mb-0.5 text-base">
                 Actividad Reciente
               </h3>
               <p style={{ fontSize: '12px', color: '#94a3b8', margin: 0 }}>

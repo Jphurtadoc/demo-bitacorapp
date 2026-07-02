@@ -87,10 +87,10 @@ const TaskBoard: React.FC = () => {
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '32px' }}>
           <div>
-            <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#272b60', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
+            <h1 className="page-header-title page-header-title-md mb-1.5">
               Tablero de Tareas
             </h1>
-            <p style={{ fontSize: '14px', color: '#94a3b8', margin: 0 }}>
+            <p className="page-header-subtitle text-sm">
               {tasks.length} tareas en total · {tasks.filter(t => t.status === 'completado').length} completadas
             </p>
           </div>
@@ -211,9 +211,7 @@ const TaskBoard: React.FC = () => {
                             </button>
                             <button
                               onClick={() => handleDelete(task.id)}
-                              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', borderRadius: '6px', color: '#94a3b8', display: 'flex', alignItems: 'center' }}
-                              onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#fff1f2'; e.currentTarget.style.color = '#e11d48'; }}
-                              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#94a3b8'; }}
+                              className="danger-action-btn flex cursor-pointer items-center rounded-md border-transparent bg-transparent p-1 transition-colors"
                             >
                               <Trash2 size={13} />
                             </button>
@@ -304,7 +302,7 @@ const TaskBoard: React.FC = () => {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-              <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#272b60', margin: 0 }}>
+              <h2 className="page-drawer-title m-0 text-lg">
                 {editingTask ? 'Editar Tarea' : 'Nueva Tarea'}
               </h2>
               <button

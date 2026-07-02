@@ -1,12 +1,23 @@
 import { useState } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { Settings, Globe, Shield, Database, Bell, CreditCard } from 'lucide-react';
+import { ThemeModeSelector } from '@/components/UI/theme';
+import { Surface } from '@/components/UI/surface';
+import {
+  Settings,
+  Globe,
+  Shield,
+  Database,
+  Bell,
+  CreditCard,
+  Palette,
+} from 'lucide-react';
 
 const SystemSettings = () => {
   const [activeTab, setActiveTab] = useState('general');
 
   const tabs = [
     { id: 'general', label: 'General', icon: <Settings size={18} /> },
+    { id: 'appearance', label: 'Apariencia', icon: <Palette size={18} /> },
     { id: 'security', label: 'Seguridad y Roles', icon: <Shield size={18} /> },
     { id: 'database', label: 'Base de Datos', icon: <Database size={18} /> },
     { id: 'notifications', label: 'Notificaciones', icon: <Bell size={18} /> },
@@ -14,82 +25,117 @@ const SystemSettings = () => {
     { id: 'localization', label: 'Regionalización', icon: <Globe size={18} /> },
   ];
 
+  const activeTabLabel = tabs.find((tab) => tab.id === activeTab)?.label;
+
   return (
     <DashboardLayout>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', paddingBottom: '40px' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#272b60', marginBottom: '8px' }}>Configuración del Sistema</h1>
-        <p style={{ color: '#64748b', fontSize: '15px', marginBottom: '32px' }}>Ajusta las opciones y parámetros globales de la aplicación</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: '32px' }}>
-          {/* Sidebar Nav */}
+      <div className="mx-auto max-w-[1100px] pb-10">
+        <h1 className="page-header-title page-header-title-md mb-2">
+          Configuración del Sistema
+        </h1>
+        <p className="page-header-subtitle mb-8">
+          Ajusta las opciones y parámetros globales de la aplicación
+        </p>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="col-span-1">
-             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-               {tabs.map(tab => (
-                 <button 
-                   key={tab.id}
-                   onClick={() => setActiveTab(tab.id)}
-                   style={{ 
-                     display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', borderRadius: '14px', 
-                     border: 'none', cursor: 'pointer', fontWeight: '600', transition: 'all 0.2s',
-                     backgroundColor: activeTab === tab.id ? '#272b60' : 'transparent',
-                     color: activeTab === tab.id ? '#fff' : '#64748b'
-                   }}
-                   className={activeTab !== tab.id ? "hover:bg-gray-100" : ""}
-                 >
-                   {tab.icon}
-                   {tab.label}
-                 </button>
-               ))}
-             </div>
+            <div className="flex flex-col gap-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-sm font-semibold transition-colors ${
+                    activeTab === tab.id
+                      ? 'bg-brand text-white shadow-md'
+                      : 'text-subtle hover:bg-muted'
+                  }`}
+                >
+                  {tab.icon}
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
-          
-          {/* Main Content Area */}
+
           <div className="col-span-1 md:col-span-3">
-             <div style={{ backgroundColor: '#fff', borderRadius: '24px', padding: '32px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9', minHeight: '500px' }}>
-               
-               {activeTab === 'general' && (
-                 <div className="animate-fade-in">
-                   <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#272b60', marginBottom: '24px' }}>Parámetros Generales</h3>
-                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-                     <div>
-                       <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>Nombre de la Empresa</label>
-                       <input type="text" defaultValue="Demo Corp S.A." style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#272b60', fontWeight: '500', outline: 'none' }} />
-                     </div>
-                     <div>
-                       <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>NIT / Documento</label>
-                       <input type="text" defaultValue="900.123.456-7" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#272b60', fontWeight: '500', outline: 'none' }} />
-                     </div>
-                     <div style={{ gridColumn: 'span 2' }}>
-                       <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>Logo Corporativo</label>
-                       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                         <div style={{ width: '64px', height: '64px', backgroundColor: '#f8fafc', border: '2px dashed #cbd5e1', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                           <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '600' }}>IMG</span>
-                         </div>
-                         <button style={{ padding: '8px 16px', borderRadius: '10px', backgroundColor: '#f1f5f9', border: 'none', color: '#475569', fontWeight: '600', cursor: 'pointer' }}>Cambiar Logo</button>
-                       </div>
-                     </div>
-                   </div>
-                 </div>
-               )}
+            <Surface padding="xl" radius="3xl" className="min-h-[500px]">
+              {activeTab === 'general' && (
+                <div className="animate-fade-in">
+                  <h3 className="page-section-title mb-6 text-xl">Parámetros Generales</h3>
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div>
+                      <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-subtle">
+                        Nombre de la Empresa
+                      </label>
+                      <input
+                        type="text"
+                        defaultValue="Demo Corp S.A."
+                        className="rounded-xl border-border font-medium text-brand"
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-subtle">
+                        NIT / Documento
+                      </label>
+                      <input
+                        type="text"
+                        defaultValue="900.123.456-7"
+                        className="rounded-xl border-border font-medium text-brand"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-subtle">
+                        Logo Corporativo
+                      </label>
+                      <div className="flex items-center gap-4">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-dashed border-border bg-muted">
+                          <span className="text-[10px] font-semibold text-subtle">IMG</span>
+                        </div>
+                        <button
+                          type="button"
+                          className="rounded-xl bg-muted px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-border"
+                        >
+                          Cambiar Logo
+                        </button>
+                      </div>
+                    </div>
+                  </div>
 
-               {activeTab !== 'general' && (
-                 <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '300px' }}>
-                    <Settings size={48} style={{ color: '#cbd5e1', marginBottom: '16px' }} />
-                    <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#272b60', marginBottom: '8px' }}>Sección Bloqueada</h3>
-                    <p style={{ color: '#94a3b8', textAlign: 'center', maxWidth: '300px' }}>Las preferencias de <strong>{tabs.find(t => t.id === activeTab)?.label}</strong> están bloqueadas en el entorno de demostración.</p>
-                 </div>
-               )}
+                  <div className="mt-10">
+                    <button
+                      type="button"
+                      className="rounded-xl bg-brand px-7 py-3.5 text-sm font-bold text-white shadow-md transition-opacity hover:opacity-90"
+                    >
+                      Guardar Cambios
+                    </button>
+                  </div>
+                </div>
+              )}
 
-               {activeTab === 'general' && (
-                 <div style={{ display: 'flex', marginTop: '40px', gap: '12px' }}>
-                   <button style={{ padding: '14px 28px', backgroundColor: '#272b60', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: '700', cursor: 'pointer', boxShadow: '0 4px 12px rgba(39,43,96,0.2)' }} className="hover:opacity-90 transition-all">
-                     Guardar Cambios
-                   </button>
-                 </div>
-               )}
-             </div>
+              {activeTab === 'appearance' && (
+                <div className="animate-fade-in">
+                  <h3 className="page-section-title mb-2 text-xl">Apariencia</h3>
+                  <p className="mb-6 text-sm text-subtle">
+                    Personaliza el tema visual. En modo claro el énfasis es púrpura oscuro (#3C4070);
+                    en modo oscuro predominan superficies sutiles con acento naranja (#FF761C).
+                  </p>
+                  <ThemeModeSelector />
+                </div>
+              )}
+
+              {activeTab !== 'general' && activeTab !== 'appearance' && (
+                <div className="animate-fade-in flex min-h-[300px] flex-col items-center justify-center">
+                  <Settings size={48} className="mb-4 text-border" />
+                  <h3 className="page-section-title mb-2 text-xl">Sección Bloqueada</h3>
+                  <p className="max-w-sm text-center text-subtle">
+                    Las preferencias de <strong className="text-foreground">{activeTabLabel}</strong>{' '}
+                    están bloqueadas en el entorno de demostración.
+                  </p>
+                </div>
+              )}
+            </Surface>
           </div>
-
         </div>
       </div>
     </DashboardLayout>

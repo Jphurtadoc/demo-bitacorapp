@@ -6,8 +6,8 @@ const UserProfile = () => {
   return (
     <DashboardLayout>
       <div style={{ maxWidth: '1000px', margin: '0 auto', paddingBottom: '40px' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#272b60', marginBottom: '8px' }}>Mi Perfil</h1>
-        <p style={{ color: '#64748b', fontSize: '15px', marginBottom: '32px' }}>Administra tu información personal y preferencias de cuenta</p>
+        <h1 className="page-header-title page-header-title-md mb-2">Mi Perfil</h1>
+        <p className="page-header-subtitle mb-8">Administra tu información personal y preferencias de cuenta</p>
         
         <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '32px' }}>
           {/* Sidebar */}
@@ -17,7 +17,7 @@ const UserProfile = () => {
                  <div style={{ width: '80px', height: '80px', borderRadius: '24px', backgroundColor: '#eff6ff', color: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                    <User size={36} />
                  </div>
-                 <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#272b60', margin: 0 }}>Administrador Demo</h2>
+                 <h2 className="page-section-title m-0 text-lg">Administrador Demo</h2>
                  <p style={{ fontSize: '14px', color: '#94a3b8', margin: '4px 0 0 0' }}>Super Administrador</p>
                </div>
                
@@ -39,7 +39,7 @@ const UserProfile = () => {
           {/* Main Content */}
           <div className="col-span-1 md:col-span-2" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <div style={{ backgroundColor: '#fff', borderRadius: '24px', padding: '32px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9' }}>
-               <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#272b60', marginBottom: '24px' }}>Detalles de la Cuenta</h3>
+               <h3 className="page-section-title mb-6 text-lg">Detalles de la Cuenta</h3>
                
                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                  <div>

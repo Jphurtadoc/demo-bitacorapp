@@ -10,16 +10,12 @@ import {
   TextField, 
   Typography,
   Alert,
-  Fade,
   CircularProgress
 } from '@mui/material';
 import { 
   Mail, 
   Visibility, 
-  VisibilityOff, 
-  ContentCopy, 
-  Check, 
-  Close
+  VisibilityOff
 } from '@mui/icons-material';
 import logoImg from '@/assets/bitacorapp-logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -35,13 +31,8 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [copied, setCopied] = useState<string | null>(null);
-  const [showDemoAlert, setShowDemoAlert] = useState(true);
 
   const navigate = useNavigate();
-
-  const DEMO_EMAIL = 'bitacorapp@demo.answertic.co';
-  const DEMO_PASSWORD = 'Admin123*';
 
   // Load saved credentials on mount
   React.useEffect(() => {
@@ -89,12 +80,6 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const copyToClipboard = (text: string, type: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(type);
-    setTimeout(() => setCopied(null), 2000);
   };
 
   return (
@@ -248,82 +233,6 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
           </Alert>
         )}
       </Box>
-
-      {/* Demo Alert at bottom right */}
-      <Fade in={showDemoAlert}>
-        <Box 
-          sx={{
-            position: 'fixed',
-            bottom: 24,
-            right: 24,
-            zIndex: 100,
-            width: 320,
-            bgcolor: 'white',
-            boxShadow: '0 12px 32px -4px rgba(0,0,0,0.2)',
-            border: '1px solid #e2e8f0'
-          }}
-          style={{ padding: '16px', borderRadius: '12px' }}
-        >
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'space-between', 
-            mb: 1.5, 
-            borderBottom: '1px solid', 
-            borderColor: 'divider',
-            pb: 1 
-          }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#272b60' }}>
-              🚀 Acceso Demo
-            </Typography>
-            <IconButton size="small" onClick={() => setShowDemoAlert(false)}>
-              <Close fontSize="small" />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Box 
-              sx={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'space-between', 
-                cursor: 'pointer', 
-                bgcolor: '#f8fafc', // slate-50
-                '&:hover': { bgcolor: '#f1f5f9', borderColor: '#fed7aa' }, // slate-100, orange-200
-                transition: 'all 0.2s',
-                border: '1px solid transparent'
-              }}
-              style={{ padding: '8px', borderRadius: '8px' }}
-              onClick={() => copyToClipboard(DEMO_EMAIL, 'email')}
-            >
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography sx={{ fontSize: '0.65rem', fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase' }}>Usuario</Typography>
-                <Typography variant="caption" sx={{ fontWeight: 600 }}>{DEMO_EMAIL}</Typography>
-              </Box>
-              {copied === 'email' ? <Check sx={{ fontSize: 16, color: 'success.main' }} /> : <ContentCopy sx={{ fontSize: 16, color: 'text.disabled' }} />}
-            </Box>
-            <Box 
-              sx={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'space-between', 
-                cursor: 'pointer', 
-                bgcolor: '#f8fafc', // slate-50
-                '&:hover': { bgcolor: '#f1f5f9', borderColor: '#fed7aa' }, // slate-100, orange-200
-                transition: 'all 0.2s',
-                border: '1px solid transparent'
-              }}
-              style={{ padding: '8px', borderRadius: '8px' }}
-              onClick={() => copyToClipboard(DEMO_PASSWORD, 'pass')}
-            >
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography sx={{ fontSize: '0.65rem', fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase' }}>Clave</Typography>
-                <Typography variant="caption" sx={{ fontWeight: 600 }}>{DEMO_PASSWORD}</Typography>
-              </Box>
-              {copied === 'pass' ? <Check sx={{ fontSize: 16, color: 'success.main' }} /> : <ContentCopy sx={{ fontSize: 16, color: 'text.disabled' }} />}
-            </Box>
-          </Box>
-        </Box>
-      </Fade>
     </Box>
   );
 };

@@ -1,203 +1,229 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { User, Search, Settings, LogOut, ChevronDown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from "react";
+import {
+  User,
+  Search,
+  Settings,
+  LogOut,
+  ChevronDown,
+  Building2,
+  Bell,
+  HelpCircle,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Surface } from "@/components/UI/surface";
+import { EmphasisIcon } from "@/components/UI/emphasis";
+import { ThemeModeMenuItem } from "@/components/UI/theme";
+import logo from "@/assets/bitacorapp-logo.png";
 
 interface HeaderProps {
-  sidebarWidth?: string;
+  logoColumnWidth?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ sidebarWidth = '260px' }) => {
+const UNREAD_NOTIFICATIONS = 3;
+
+const Header: React.FC<HeaderProps> = ({ logoColumnWidth = "100px" }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleLogout = () => {
     setIsMenuOpen(false);
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
-    <header 
-      className="fixed top-0 right-0 bg-white/90 backdrop-blur-md border-b border-gray-100 flex items-center justify-between z-40 transition-all duration-300 ease-in-out"
-      style={{ 
-        left: sidebarWidth, 
-        height: '70px', 
-        padding: '0 32px',
-        boxSizing: 'border-box'
-      }}
-    >
-      {/* Left side: Search bar */}
-      <div className="relative hidden md:block" style={{ width: '360px' }}>
-        <div 
-          className="absolute inset-y-0 left-0 flex items-center pointer-events-none"
-          style={{ paddingLeft: '14px', color: '#cbd5e1' }}
+    <header className="fixed top-0 left-0 right-0 z-50 flex h-16 w-full border-b border-border bg-surface shadow-sm">
+      <div
+        className="flex h-16 shrink-0 border-r border-border bg-[#ffffff]"
+        style={{ width: logoColumnWidth }}
+      >
+        <button
+          type="button"
+          onClick={() => navigate("/dashboard")}
+          aria-label="Ir al dashboard"
+          className="flex h-full w-full items-center justify-center p-1.5 transition-opacity hover:opacity-90"
         >
-          <Search size={16} />
-        </div>
-        <input
-          type="text"
-          placeholder="Buscar en Bitacorapp..."
-          className="block w-full border border-gray-200 text-sm text-[#272b60] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-medium"
-          style={{ 
-            backgroundColor: '#ffffff',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
-            paddingLeft: '42px', 
-            paddingRight: '16px', 
-            paddingTop: '10px', 
-            paddingBottom: '10px',
-            borderRadius: '12px',
-            fontSize: '13.5px',
-          }}
-        />
+          <img
+            src={logo}
+            alt="Bitacorapp Logo"
+            className="h-full w-full object-contain object-center"
+          />
+        </button>
       </div>
 
-      {/* Right side: User info */}
-      <div className="flex items-center" style={{ gap: '14px' }}>
-        {/* Separator */}
-        <div style={{ height: '28px', width: '1px', backgroundColor: '#f1f5f9' }}></div>
-
-        <div className="relative" ref={menuRef}>
-          <div 
-            className="flex items-center cursor-pointer group" 
-            style={{ gap: '12px' }}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <div className="text-right hidden sm:block">
-              <p style={{ 
-                margin: 0, 
-                fontSize: '13.5px', 
-                fontWeight: '600', 
-                color: '#272b60', 
-                lineHeight: '1.2' 
-              }}>
-                Admin Demo
-              </p>
-              <p style={{ 
-                margin: '3px 0 0 0', 
-                fontSize: '11px', 
-                fontWeight: '500', 
-                color: '#94a3b8', 
-                textTransform: 'uppercase', 
-                letterSpacing: '0.06em' 
-              }}>
-                Super Administrador
-              </p>
-            </div>
-            
-            <div 
-              className={`flex items-center justify-center text-white transition-all duration-200 ${isMenuOpen ? 'ring-4 ring-orange-500/10' : ''}`}
-              style={{ 
-                width: '38px',
-                height: '38px',
-                borderRadius: '10px',
-                backgroundColor: '#272b60',
-                boxShadow: '0 4px 12px rgba(39,43,96,0.18)'
-              }}
+      <div className="flex min-w-0 flex-1 items-center justify-between gap-4 pr-4 md:pr-6 pl-3 md:pl-4">
+        <div className="flex flex-row items-center gap-4">
+          <div>
+            <span className="mb-0.5 ml-1 block text-[10px] font-semibold uppercase tracking-wider text-subtle">
+              Organización
+            </span>
+            <button
+              type="button"
+              className="flex items-center gap-1.5 rounded-lg border border-transparent px-2 py-1 transition-colors hover:border-border hover:bg-muted"
             >
-              <User size={18} />
+              <Building2 size={14} className="text-subtle" />
+              <span className="text-sm font-semibold text-foreground">
+                Seguridad Shatter
+              </span>
+              <ChevronDown size={13} className="text-subtle" />
+            </button>
+          </div>
+        </div>
+
+        <div className="mx-6 hidden max-w-xl flex-1 lg:block">
+          <div className="relative w-full">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-subtle">
+              <Search size={16} />
             </div>
-            
-            <ChevronDown 
-              size={14} 
-              className={`text-gray-400 transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : ''}`} 
+            <input
+              type="text"
+              placeholder="Buscar módulos, procesos, usuarios, vehículos, rondas..."
+              className="block w-full rounded-full border border-border bg-muted py-2 pl-10 pr-12 text-sm text-foreground placeholder:text-subtle transition-all focus:border-primary/40 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+              <div className="flex items-center justify-center rounded border border-border bg-surface px-1.5 py-0.5 text-[11px] font-semibold text-subtle shadow-sm">
+                ⌘K
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-0.5 md:gap-1">
+            <button
+              type="button"
+              className="relative hidden h-9 w-9 items-center justify-center rounded-full text-subtle transition-colors hover:bg-muted sm:flex"
+              aria-label={
+                UNREAD_NOTIFICATIONS > 0
+                  ? `Notificaciones, ${UNREAD_NOTIFICATIONS} sin leer`
+                  : "Notificaciones"
+              }
+            >
+              <Bell size={18} strokeWidth={2.25} />
+              {UNREAD_NOTIFICATIONS > 0 ? (
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute -right-0.5 -top-0.5 flex h-[18px] items-center justify-center rounded-full border-2 border-surface bg-primary text-[10px] font-bold leading-none text-[#ffffff] shadow-[0_2px_6px_rgba(255,118,28,0.45)] tabular-nums ${
+                    UNREAD_NOTIFICATIONS > 9 ? "min-w-[22px] px-1" : "w-[18px]"
+                  }`}
+                >
+                  {UNREAD_NOTIFICATIONS > 99 ? "99+" : UNREAD_NOTIFICATIONS}
+                </span>
+              ) : null}
+            </button>
+            <button
+              type="button"
+              className="hidden rounded-full p-1.5 text-subtle transition-colors hover:bg-muted sm:block"
+              aria-label="Ayuda"
+            >
+              <HelpCircle size={18} />
+            </button>
           </div>
 
-          {/* Dropdown Menu */}
-          {isMenuOpen && (
-            <div 
-              className="absolute right-0 animate-fade-in z-50 overflow-hidden"
-              style={{ 
-                top: 'calc(100% + 12px)', 
-                width: '240px', 
-                backgroundColor: '#ffffff', 
-                borderRadius: '20px', 
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)', 
-                border: '1px solid #f1f5f9',
-                padding: '8px'
-              }}
+          <div className="hidden h-8 w-px bg-border sm:block" />
+
+          <div className="relative" ref={menuRef}>
+            <button
+              type="button"
+              className="group flex cursor-pointer items-center gap-2.5 rounded-full p-1 pr-2 transition-colors hover:bg-muted md:gap-3"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <div style={{ padding: '16px 12px', borderBottom: '1px solid #f8fafc', marginBottom: '8px' }}>
-                <p style={{ fontSize: '10px', fontWeight: '800', color: '#94a3b8', letterSpacing: '0.05em', marginBottom: '4px', textTransform: 'uppercase' }}>Sesión Activa</p>
-                <p style={{ fontSize: '13.5px', fontWeight: '700', color: '#272b60', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>admin.demo@bitacorapp.com</p>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <button 
-                  className="w-full flex items-center transition-colors border-none"
-                  style={{ 
-                    padding: '10px 12px', 
-                    gap: '12px', 
-                    borderRadius: '12px', 
-                    backgroundColor: 'transparent',
-                    cursor: 'pointer',
-                    textAlign: 'left'
-                  }}
-                  onClick={() => { setIsMenuOpen(false); navigate('/profile'); }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f8fafc')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-                >
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#eff6ff', color: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <div style={{ display: 'flex', margin: 'auto' }}><User size={16} /></div>
-                  </div>
-                  <span style={{ fontSize: '13.5px', fontWeight: '600', color: '#475569' }}>Mi Perfil</span>
-                </button>
-
-                <button 
-                  className="w-full flex items-center transition-colors border-none"
-                  style={{ 
-                    padding: '10px 12px', 
-                    gap: '12px', 
-                    borderRadius: '12px', 
-                    backgroundColor: 'transparent',
-                    cursor: 'pointer',
-                    textAlign: 'left'
-                  }}
-                  onClick={() => { setIsMenuOpen(false); navigate('/settings'); }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f8fafc')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-                >
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#fff7ed', color: '#f97316', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <div style={{ display: 'flex', margin: 'auto' }}><Settings size={16} /></div>
-                  </div>
-                  <span style={{ fontSize: '13.5px', fontWeight: '600', color: '#475569' }}>Configuración</span>
-                </button>
-              </div>
-
-              <div style={{ margin: '8px 4px', height: '1px', backgroundColor: '#f1f5f9' }}></div>
-
-              <button 
-                className="w-full flex items-center transition-colors border-none"
-                style={{ 
-                  padding: '10px 12px', 
-                  gap: '12px', 
-                  borderRadius: '12px', 
-                  backgroundColor: 'transparent',
-                  cursor: 'pointer',
-                  textAlign: 'left'
-                }}
-                onClick={handleLogout}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#fef2f2')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+              <div
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary text-sm font-semibold text-[#ffffff] shadow-sm"
+                aria-hidden
               >
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#fee2e2', color: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <div style={{ display: 'flex', margin: 'auto' }}><LogOut size={16} /></div>
+                JP
+              </div>
+              <div className="hidden sm:block text-left">
+                <p className="text-sm font-semibold leading-tight text-foreground">
+                  Juan Pablo
+                </p>
+                <p className="text-[11px] font-medium text-subtle">
+                  Administrador
+                </p>
+              </div>
+              <ChevronDown
+                size={14}
+                className={`ml-0.5 text-subtle transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {isMenuOpen && (
+              <Surface radius="xl" padding="sm" className="absolute right-0 z-50 mt-2 w-72 animate-fade-in overflow-hidden shadow-lg">
+                <div className="mb-2 border-b border-border px-4 py-3">
+                  <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-subtle">
+                    Sesión Activa
+                  </p>
+                  <p className="truncate text-sm font-semibold text-foreground">
+                    jpablo@bitacorapp.com
+                  </p>
                 </div>
-                <span style={{ fontSize: '13.5px', fontWeight: '700', color: '#ef4444' }}>Cerrar Sesión</span>
-              </button>
-            </div>
-          )}
+
+                <div className="flex flex-col gap-1">
+                  <button
+                    type="button"
+                    className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-colors hover:bg-muted"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate("/profile");
+                    }}
+                  >
+                    <EmphasisIcon tone="info" size="sm" className="!rounded-md">
+                      <User size={16} />
+                    </EmphasisIcon>
+                    <span className="text-sm font-semibold text-foreground">
+                      Mi Perfil
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-colors hover:bg-muted"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate("/settings");
+                    }}
+                  >
+                    <EmphasisIcon tone="primary" size="sm" className="!rounded-md">
+                      <Settings size={16} />
+                    </EmphasisIcon>
+                    <span className="text-sm font-semibold text-foreground">
+                      Configuración
+                    </span>
+                  </button>
+
+                  <ThemeModeMenuItem />
+                </div>
+
+                <div className="mx-2 my-2 h-px bg-border" />
+
+                <button
+                  type="button"
+                  className="group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-colors hover:bg-red-500/10"
+                  onClick={handleLogout}
+                >
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center">
+                    <EmphasisIcon tone="danger" size="sm" className="!rounded-md">
+                      <LogOut size={16} />
+                    </EmphasisIcon>
+                  </div>
+                  <span className="text-sm font-semibold text-red-600 group-hover:text-red-500 dark:text-red-400">
+                    Cerrar Sesión
+                  </span>
+                </button>
+              </Surface>
+            )}
+          </div>
         </div>
       </div>
     </header>
