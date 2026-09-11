@@ -9,7 +9,7 @@ export interface TableActionButtonProps extends TableActionItem {
 
 const variantStyles: Record<TableActionVariant, string> = {
   primary:
-    'bg-brand text-white shadow-sm hover:bg-brand-hover border border-transparent',
+    'bg-brand text-[#ffffff] shadow-sm hover:bg-brand-hover border border-transparent dark:bg-primary dark:hover:bg-primary-hover',
   secondary:
     'bg-surface text-foreground border border-border hover:bg-muted shadow-sm',
   ghost: 'bg-transparent text-subtle border border-transparent hover:bg-muted',

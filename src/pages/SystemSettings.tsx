@@ -2,6 +2,7 @@ import { useState } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { ThemeModeSelector } from '@/components/UI/theme';
 import { Surface } from '@/components/UI/surface';
+import SecuritySettings from '@/pages/settings/SecuritySettings';
 import {
   Settings,
   Globe,
@@ -18,7 +19,7 @@ const SystemSettings = () => {
   const tabs = [
     { id: 'general', label: 'General', icon: <Settings size={18} /> },
     { id: 'appearance', label: 'Apariencia', icon: <Palette size={18} /> },
-    { id: 'security', label: 'Seguridad y Roles', icon: <Shield size={18} /> },
+    { id: 'security', label: 'Seguridad', icon: <Shield size={18} /> },
     { id: 'database', label: 'Base de Datos', icon: <Database size={18} /> },
     { id: 'notifications', label: 'Notificaciones', icon: <Bell size={18} /> },
     { id: 'billing', label: 'Facturación', icon: <CreditCard size={18} /> },
@@ -45,10 +46,10 @@ const SystemSettings = () => {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-sm font-semibold transition-colors ${
+                  className={`flex items-center gap-3 rounded-lg px-4 py-3.5 text-left text-sm font-semibold transition-colors ${
                     activeTab === tab.id
-                      ? 'bg-brand text-white shadow-md'
-                      : 'text-subtle hover:bg-muted'
+                      ? 'bg-brand text-[#ffffff] shadow-sm dark:bg-primary'
+                      : 'text-subtle hover:bg-muted hover:text-foreground'
                   }`}
                 >
                   {tab.icon}
@@ -59,7 +60,7 @@ const SystemSettings = () => {
           </div>
 
           <div className="col-span-1 md:col-span-3">
-            <Surface padding="xl" radius="3xl" className="min-h-[500px]">
+            <Surface padding="xl" radius="xl" className="min-h-[500px]">
               {activeTab === 'general' && (
                 <div className="animate-fade-in">
                   <h3 className="page-section-title mb-6 text-xl">Parámetros Generales</h3>
@@ -71,7 +72,7 @@ const SystemSettings = () => {
                       <input
                         type="text"
                         defaultValue="Demo Corp S.A."
-                        className="rounded-xl border-border font-medium text-brand"
+                        className="rounded-lg border border-border bg-surface font-medium text-foreground"
                       />
                     </div>
                     <div>
@@ -81,7 +82,7 @@ const SystemSettings = () => {
                       <input
                         type="text"
                         defaultValue="900.123.456-7"
-                        className="rounded-xl border-border font-medium text-brand"
+                        className="rounded-lg border border-border bg-surface font-medium text-foreground"
                       />
                     </div>
                     <div className="md:col-span-2">
@@ -105,7 +106,7 @@ const SystemSettings = () => {
                   <div className="mt-10">
                     <button
                       type="button"
-                      className="rounded-xl bg-brand px-7 py-3.5 text-sm font-bold text-white shadow-md transition-opacity hover:opacity-90"
+                      className="rounded-lg bg-brand px-7 py-3.5 text-sm font-bold text-[#ffffff] shadow-sm transition-opacity hover:opacity-90 dark:bg-primary dark:hover:bg-primary-hover"
                     >
                       Guardar Cambios
                     </button>
@@ -117,14 +118,18 @@ const SystemSettings = () => {
                 <div className="animate-fade-in">
                   <h3 className="page-section-title mb-2 text-xl">Apariencia</h3>
                   <p className="mb-6 text-sm text-subtle">
-                    Personaliza el tema visual. En modo claro el énfasis es púrpura oscuro (#3C4070);
-                    en modo oscuro predominan superficies sutiles con acento naranja (#FF761C).
+                    Personaliza el tema visual. En modo claro el énfasis es azul corporativo (#5B67C7);
+                    en modo oscuro predominan superficies sutiles con acento naranja (#FF8F47).
                   </p>
                   <ThemeModeSelector />
                 </div>
               )}
 
-              {activeTab !== 'general' && activeTab !== 'appearance' && (
+              {activeTab === 'security' && <SecuritySettings />}
+
+              {activeTab !== 'general' &&
+                activeTab !== 'appearance' &&
+                activeTab !== 'security' && (
                 <div className="animate-fade-in flex min-h-[300px] flex-col items-center justify-center">
                   <Settings size={48} className="mb-4 text-border" />
                   <h3 className="page-section-title mb-2 text-xl">Sección Bloqueada</h3>

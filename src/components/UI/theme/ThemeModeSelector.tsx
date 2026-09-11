@@ -11,7 +11,7 @@ const appearanceOptions = [
   {
     mode: 'light' as const,
     title: 'Modo claro',
-    description: 'Énfasis en púrpura oscuro de marca (#3C4070) con acentos naranja.',
+    description: 'Énfasis en azul corporativo (#5B67C7) con acentos naranja claro.',
   },
   {
     mode: 'dark' as const,
@@ -32,7 +32,7 @@ export default function ThemeModeSelector({ className = '' }: ThemeModeSelectorP
 
       <div className="grid gap-3 sm:grid-cols-3">
         {appearanceOptions.map((option) => (
-          <Surface key={option.mode} variant="muted" padding="md" radius="2xl">
+          <Surface key={option.mode} variant="muted" padding="md" radius="lg">
             <EmphasisIcon tone="brand" size="sm" className="mb-2 !rounded-lg">
               <Palette size={16} />
             </EmphasisIcon>

@@ -44,7 +44,7 @@ export default function TableHeaderCell({
         <button
           type="button"
           onClick={onSort}
-          className={`inline-flex items-center gap-1.5 transition-colors hover:text-subtle ${sorted ? 'text-brand' : ''}`}
+          className={`inline-flex items-center gap-1.5 transition-colors hover:text-foreground ${sorted ? 'text-brand dark:text-primary' : ''}`}
         >
           {content}
         </button>

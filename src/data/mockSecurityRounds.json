@@ -1,0 +1,73 @@
+[
+  {
+    "id": "1",
+    "nombre": "Ronda Complejo Industrial",
+    "cliente": "Seguridad Shatter",
+    "sede": "Bodega Norte",
+    "puntos": ["Portería principal", "Parqueadero", "Bodega A", "Cuarto eléctrico"],
+    "turnos": [
+      { "id": "1", "nombre": "Mañana", "horaInicio": "06:00", "horaFin": "14:00" },
+      { "id": "2", "nombre": "Tarde", "horaInicio": "14:00", "horaFin": "22:00" }
+    ],
+    "activa": true
+  },
+  {
+    "id": "2",
+    "nombre": "Ronda Centro Comercial",
+    "cliente": "Prosegur Andina",
+    "sede": "Local 214",
+    "puntos": ["Acceso peatonal", "Patio de comidas", "Parqueadero sótano"],
+    "turnos": [
+      { "id": "1", "nombre": "Diurno", "horaInicio": "08:00", "horaFin": "20:00" }
+    ],
+    "activa": true
+  },
+  {
+    "id": "3",
+    "nombre": "Ronda Parque Industrial",
+    "cliente": "Alpha Security",
+    "sede": "Nave 3",
+    "puntos": ["Caseta", "Muelle de carga", "Cerramiento perimetral"],
+    "turnos": [
+      { "id": "1", "nombre": "Mañana", "horaInicio": "06:00", "horaFin": "14:00" },
+      { "id": "2", "nombre": "Noche", "horaInicio": "22:00", "horaFin": "06:00" }
+    ],
+    "activa": true
+  },
+  {
+    "id": "4",
+    "nombre": "Ronda Condominio Campestre",
+    "cliente": "Seguridad Shatter",
+    "sede": "Portería 1",
+    "puntos": ["Portería vehicular", "Zona social", "Sendero interno"],
+    "turnos": [
+      { "id": "1", "nombre": "Mañana", "horaInicio": "06:00", "horaFin": "14:00" },
+      { "id": "2", "nombre": "Tarde", "horaInicio": "14:00", "horaFin": "22:00" },
+      { "id": "3", "nombre": "Noche", "horaInicio": "22:00", "horaFin": "06:00" }
+    ],
+    "activa": true
+  },
+  {
+    "id": "5",
+    "nombre": "Ronda Edificio Corporativo",
+    "cliente": "Alpha Security",
+    "sede": "Torre A",
+    "puntos": ["Lobby", "Sótano 1", "Azotea"],
+    "turnos": [
+      { "id": "1", "nombre": "Oficina", "horaInicio": "07:00", "horaFin": "19:00" }
+    ],
+    "activa": false
+  },
+  {
+    "id": "6",
+    "nombre": "Ronda Almacén Principal",
+    "cliente": "Prosegur Andina",
+    "sede": "Bodega central",
+    "puntos": ["Recepción", "Estantería", "Despacho"],
+    "turnos": [
+      { "id": "1", "nombre": "Mañana", "horaInicio": "07:00", "horaFin": "15:00" },
+      { "id": "2", "nombre": "Tarde", "horaInicio": "15:00", "horaFin": "23:00" }
+    ],
+    "activa": true
+  }
+]

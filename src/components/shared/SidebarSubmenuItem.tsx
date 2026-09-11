@@ -11,7 +11,7 @@ interface SidebarSubmenuItemProps {
 export const SidebarSubmenuItem: React.FC<SidebarSubmenuItemProps> = ({
   label,
   isActive,
-  accentColor = '#ea580c',
+  accentColor = '#ff8f47',
   onClick,
 }) => {
   return (

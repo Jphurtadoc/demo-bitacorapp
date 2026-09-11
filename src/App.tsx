@@ -18,6 +18,14 @@ import { menuData, flattenMenuEntries, getModuleColorFromPath } from '@/config/m
 
 import DashboardPage from "@/pages/DashboardPage";
 import AdminUsersPage from "@/pages/AdminUsersPage";
+import AdminVehiclesPage from "@/pages/AdminVehiclesPage";
+import AdminPetsPage from "@/pages/AdminPetsPage";
+import AdminPeoplePage from "@/pages/AdminPeoplePage";
+import SecurityOperationPage from "@/pages/SecurityOperationPage";
+import SecurityParametrizationPage from "@/pages/SecurityParametrizationPage";
+import CommunicationsPage from "@/pages/CommunicationsPage";
+import PqrsInboxPage from "@/pages/PqrsInboxPage";
+import PqrsSettingsPage from "@/pages/PqrsSettingsPage";
 
 const DynamicBlockedDashboard = () => {
   const location = useLocation();
@@ -58,15 +66,18 @@ function App() {
       {/* Administration Module Routes */}
       <Route path="/admin/dashboard" element={<DashboardPage />} />
       <Route path="/admin/users" element={<AdminUsersPage />} />
+      <Route path="/admin/people" element={<AdminPeoplePage />} />
+      <Route path="/admin/vehicles" element={<AdminVehiclesPage />} />
+      <Route path="/admin/pets" element={<AdminPetsPage />} />
       <Route path="/admin/ind-gerenciales" element={
         <ModuleDashboard 
           moduleName="Indicadores Gerenciales" 
           description="Monitoreo crítico de KPIs corporativos."
           stats={[
-            { label: 'Ingresos', value: '$45M', color: '#16a34a', icon: <TrendingUp size={20} /> },
-            { label: 'Gastos', value: '$12M', color: '#dc2626', icon: <Activity size={20} /> },
-            { label: 'Eficiencia', value: '92%', color: '#2563eb', icon: <ShieldCheck size={20} /> },
-            { label: 'Meta Anual', value: '85%', color: '#ea580c', icon: <BarChart size={20} /> },
+            { label: 'Ingresos', value: '$45M', color: '#5b67c7', icon: <TrendingUp size={20} /> },
+            { label: 'Gastos', value: '$12M', color: '#ff8f47', icon: <Activity size={20} /> },
+            { label: 'Eficiencia', value: '92%', color: '#6b9be8', icon: <ShieldCheck size={20} /> },
+            { label: 'Meta Anual', value: '85%', color: '#ffa566', icon: <BarChart size={20} /> },
           ]}
         />
       } />
@@ -75,10 +86,10 @@ function App() {
           moduleName="Indicadores de PQRS" 
           description="Gestión y análisis de satisfacción."
           stats={[
-            { label: 'Nuevos', value: '15', color: '#2563eb', icon: <Inbox size={20} /> },
-            { label: 'En Proceso', value: '08', color: '#ea580c', icon: <Clock size={20} /> },
-            { label: 'Cerrados', value: '124', color: '#16a34a', icon: <ThumbsUp size={20} /> },
-            { label: 'Tasa Respuesta', value: '1.2 d', color: '#7c3aed', icon: <MessageSquare size={20} /> },
+            { label: 'Nuevos', value: '15', color: '#5b67c7', icon: <Inbox size={20} /> },
+            { label: 'En Proceso', value: '08', color: '#ff8f47', icon: <Clock size={20} /> },
+            { label: 'Cerrados', value: '124', color: '#6b9be8', icon: <ThumbsUp size={20} /> },
+            { label: 'Tasa Respuesta', value: '1.2 d', color: '#ffa566', icon: <MessageSquare size={20} /> },
           ]}
         />
       } />
@@ -87,10 +98,10 @@ function App() {
           moduleName="Indicadores de Uso" 
           description="Adopción y uso del sistema por parte de empleados."
           stats={[
-            { label: 'Usuarios Activos', value: '456', color: '#2563eb', icon: <Users size={20} /> },
-            { label: 'Nuevos Registros', value: '1.2k', color: '#16a34a', icon: <FileText size={20} /> },
-            { label: 'Sesiones Promedio', value: '25 m', color: '#ea580c', icon: <Clock size={20} /> },
-            { label: 'Picos de Uso', value: '10 AM', color: '#7c3aed', icon: <LineChart size={20} /> },
+            { label: 'Usuarios Activos', value: '456', color: '#5b67c7', icon: <Users size={20} /> },
+            { label: 'Nuevos Registros', value: '1.2k', color: '#6b9be8', icon: <FileText size={20} /> },
+            { label: 'Sesiones Promedio', value: '25 m', color: '#ff8f47', icon: <Clock size={20} /> },
+            { label: 'Picos de Uso', value: '10 AM', color: '#ffa566', icon: <LineChart size={20} /> },
           ]}
         />
       } />
@@ -110,9 +121,13 @@ function App() {
 
       {/* Security Module Routes */}
       <Route path="/security/dashboard" element={<DashboardPage />} />
+      <Route path="/security/operacion" element={<SecurityOperationPage />} />
+      <Route path="/security/parametrizacion" element={<SecurityParametrizationPage />} />
 
       {/* PQRS Module Routes */}
       <Route path="/pqrs/dashboard" element={<DashboardPage />} />
+      <Route path="/pqrs/inbox" element={<PqrsInboxPage />} />
+      <Route path="/pqrs/config" element={<PqrsSettingsPage />} />
 
       {/* Quality Module Routes */}
       <Route path="/quality/dashboard" element={<DashboardPage />} />
@@ -122,6 +137,7 @@ function App() {
 
       {/* Comms Module Routes */}
       <Route path="/comms/dashboard" element={<DashboardPage />} />
+      <Route path="/comms/comunicaciones" element={<CommunicationsPage />} />
 
       {/* HR Module Routes */}
       <Route path="/hr/dashboard" element={<DashboardPage />} />

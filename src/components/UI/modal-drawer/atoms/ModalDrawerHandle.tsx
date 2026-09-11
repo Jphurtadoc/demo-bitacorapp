@@ -9,7 +9,7 @@ export default function ModalDrawerHandle({ onClose }: ModalDrawerHandleProps) {
         type="button"
         onClick={onClose}
         aria-label="Cerrar panel"
-        className="h-1.5 w-12 rounded-full bg-gray-300 transition-colors hover:bg-gray-400"
+        className="h-1.5 w-12 rounded-full bg-border transition-colors hover:bg-subtle"
       />
     </div>
   );

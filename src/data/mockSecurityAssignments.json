@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "guardaId": "2",
+    "rondaId": "1",
+    "turnoId": "1",
+    "dias": ["L", "M", "X", "J", "V"],
+    "activa": true
+  },
+  {
+    "id": "2",
+    "guardaId": "3",
+    "rondaId": "2",
+    "turnoId": "1",
+    "dias": ["L", "M", "X", "J", "V", "S"],
+    "activa": true
+  },
+  {
+    "id": "3",
+    "guardaId": "5",
+    "rondaId": "3",
+    "turnoId": "2",
+    "dias": ["V", "S", "D"],
+    "activa": true
+  },
+  {
+    "id": "4",
+    "guardaId": "6",
+    "rondaId": "4",
+    "turnoId": "3",
+    "dias": ["L", "M", "X", "J", "V", "S", "D"],
+    "activa": false
+  },
+  {
+    "id": "5",
+    "guardaId": "8",
+    "rondaId": "6",
+    "turnoId": "1",
+    "dias": ["L", "M", "X", "J", "V"],
+    "activa": true
+  },
+  {
+    "id": "6",
+    "guardaId": "2",
+    "rondaId": "4",
+    "turnoId": "2",
+    "dias": ["S", "D"],
+    "activa": true
+  }
+]

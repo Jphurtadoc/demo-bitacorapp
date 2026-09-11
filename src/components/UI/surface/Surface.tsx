@@ -4,7 +4,7 @@ import type { SurfacePadding, SurfaceProps, SurfaceRadius, SurfaceVariant } from
 const variantClasses: Record<SurfaceVariant, string> = {
   default: 'bg-surface',
   muted: 'bg-muted',
-  elevated: 'bg-surface shadow-md',
+  elevated: 'bg-surface shadow-[var(--surface-shadow-elevated)]',
   inset: 'border-dashed bg-muted',
   ghost: 'border-transparent bg-transparent shadow-none ring-0',
 };
@@ -18,19 +18,19 @@ const paddingClasses: Record<SurfacePadding, string> = {
 };
 
 const radiusClasses: Record<SurfaceRadius, string> = {
-  lg: 'rounded-xl',
-  xl: 'rounded-xl',
-  '2xl': 'rounded-2xl',
-  '3xl': 'rounded-3xl',
+  lg: 'rounded-md',
+  xl: 'rounded-lg',
+  '2xl': 'rounded-xl',
+  '3xl': 'rounded-2xl',
 };
 
 const surfaceChrome =
-  'border border-[var(--surface-border)] ring-1 ring-inset ring-[var(--surface-ring)] shadow-sm';
+  'border border-[var(--surface-border)] ring-1 ring-inset ring-[var(--surface-ring)] shadow-[var(--surface-shadow)]';
 
 export default function Surface({
   variant = 'default',
   padding = 'none',
-  radius = '2xl',
+  radius = 'lg',
   interactive = false,
   as: Component = 'div',
   className = '',
@@ -42,12 +42,13 @@ export default function Surface({
   return (
     <Tag
       className={[
+        'text-foreground',
         variant !== 'ghost' ? surfaceChrome : '',
         variantClasses[variant],
         paddingClasses[padding],
         radiusClasses[radius],
         interactive
-          ? 'transition-all hover:border-[var(--surface-border-strong)] hover:shadow-md'
+          ? 'transition-all hover:border-[var(--surface-border-strong)] hover:shadow-[var(--surface-shadow-hover)]'
           : '',
         className,
       ]

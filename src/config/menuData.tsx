@@ -20,10 +20,9 @@ import {
   Wrench,
   MessageCircle,
   Megaphone,
-  Mail,
-  Phone,
   UserCircle,
   Heart,
+  PawPrint,
   GraduationCap,
   BarChart4,
   UserCheck,
@@ -69,17 +68,17 @@ export function flattenMenuEntries(entries: MenuEntry[]): MenuLink[] {
 }
 
 export const modules = [
-  { id: 'administracion', label: 'Administración', icon: <Shield size={18} />, color: '#6366f1' },
-  { id: 'comercial', label: 'Comercial', icon: <FilePieChart size={18} />, color: '#2563eb' },
-  { id: 'tareas', label: 'Tareas', icon: <ListTodo size={18} />, color: '#7c3aed' },
-  { id: 'reportes', label: 'Reportes', icon: <BarChart3 size={18} />, color: '#0891b2' },
-  { id: 'logistica', label: 'Logística', icon: <Truck size={18} />, color: '#16a34a' },
-  { id: 'vigilancia', label: 'Vigilancia', icon: <Eye size={18} />, color: '#dc2626' },
-  { id: 'pqrs', label: 'PQRS', icon: <MessageSquare size={18} />, color: '#ea580c' },
-  { id: 'calidad', label: 'Calidad', icon: <Award size={18} />, color: '#ca8a04' },
-  { id: 'soporte', label: 'Soporte', icon: <LifeBuoy size={18} />, color: '#059669' },
-  { id: 'comunicaciones', label: 'Comunicaciones', icon: <Globe size={18} />, color: '#db2777' },
-  { id: 'gestion_humana', label: 'Gestión Humana', icon: <UserRound size={18} />, color: '#9333ea' },
+  { id: 'administracion', label: 'Administración', icon: <Shield size={18} />, color: '#5b67c7' },
+  { id: 'comercial', label: 'Comercial', icon: <FilePieChart size={18} />, color: '#ff8f47' },
+  { id: 'tareas', label: 'Tareas', icon: <ListTodo size={18} />, color: '#7a84d8' },
+  { id: 'reportes', label: 'Reportes', icon: <BarChart3 size={18} />, color: '#ffa566' },
+  { id: 'logistica', label: 'Logística', icon: <Truck size={18} />, color: '#6b9be8' },
+  { id: 'vigilancia', label: 'Vigilancia', icon: <Eye size={18} />, color: '#e88840' },
+  { id: 'pqrs', label: 'PQRS', icon: <MessageSquare size={18} />, color: '#4f7cd1' },
+  { id: 'calidad', label: 'Calidad', icon: <Award size={18} />, color: '#ffb07a' },
+  { id: 'soporte', label: 'Soporte', icon: <LifeBuoy size={18} />, color: '#5a75d0' },
+  { id: 'comunicaciones', label: 'Comunicaciones', icon: <Globe size={18} />, color: '#ff9a5c' },
+  { id: 'gestion_humana', label: 'Gestión Humana', icon: <UserRound size={18} />, color: '#6a8fd8' },
 ] as const;
 
 const pathPrefixToModuleId: Record<string, (typeof modules)[number]['id']> = {
@@ -116,11 +115,11 @@ export function getModuleIdFromPath(path: string): string | null {
 export function getModuleColorFromPath(path: string): string {
   const moduleId = getModuleIdFromPath(path);
   const mod = modules.find((item) => item.id === moduleId);
-  return mod?.color ?? '#ff761c';
+  return mod?.color ?? '#ff8f47';
 }
 
 export function getModuleColorById(moduleId: string): string {
-  return modules.find((item) => item.id === moduleId)?.color ?? '#ff761c';
+  return modules.find((item) => item.id === moduleId)?.color ?? '#ff8f47';
 }
 
 export const menuData: Record<string, MenuEntry[]> = {
@@ -128,6 +127,7 @@ export const menuData: Record<string, MenuEntry[]> = {
     { label: 'Usuarios', icon: <Users size={20} />, path: '/admin/users' },
     { label: 'Personas', icon: <UserRound size={20} />, path: '/admin/people' },
     { label: 'Vehículos', icon: <Truck size={20} />, path: '/admin/vehicles' },
+    { label: 'Mascotas', icon: <PawPrint size={20} />, path: '/admin/pets' },
     { label: 'Clientes', icon: <UserCheck size={20} />, path: '/admin/clients' },
     { label: 'Consignas', icon: <ClipboardList size={20} />, path: '/admin/consignas' },
     { label: 'Seguridad', icon: <ShieldCheck size={20} />, path: '/admin/security' },
@@ -149,12 +149,15 @@ export const menuData: Record<string, MenuEntry[]> = {
     { label: 'Rutas', icon: <MapPin size={20} />, path: '/logistics/routes' },
   ],
   vigilancia: [
+    { label: 'Operación', icon: <ClipboardList size={20} />, path: '/security/operacion' },
+    { label: 'Parametrización', icon: <Settings size={20} />, path: '/security/parametrizacion' },
     { label: 'Monitoreo', icon: <Eye size={20} />, path: '/security/monitor' },
     { label: 'Alertas', icon: <ShieldAlert size={20} />, path: '/security/alerts' },
     { label: 'Radio', icon: <Radio size={20} />, path: '/security/radio' },
   ],
   pqrs: [
     { label: 'Recibidos', icon: <Inbox size={20} />, path: '/pqrs/inbox' },
+    { label: 'Configuraciones', icon: <Settings size={20} />, path: '/pqrs/config' },
     { label: 'Chat', icon: <MessageSquare size={20} />, path: '/pqrs/chat' },
     { label: 'FAQs', icon: <HelpCircle size={20} />, path: '/pqrs/faqs' },
   ],
@@ -169,9 +172,7 @@ export const menuData: Record<string, MenuEntry[]> = {
     { label: 'Ticket', icon: <MessageCircle size={20} />, path: '/support/tickets' },
   ],
   comunicaciones: [
-    { label: 'Anuncios', icon: <Megaphone size={20} />, path: '/comms/announcements' },
-    { label: 'Email', icon: <Mail size={20} />, path: '/comms/email' },
-    { label: 'Directorio', icon: <Phone size={20} />, path: '/comms/directory' },
+    { label: 'Comunicaciones', icon: <Megaphone size={20} />, path: '/comms/comunicaciones' },
   ],
   gestion_humana: [
     { label: 'Empleados', icon: <UserCircle size={20} />, path: '/hr/employees' },

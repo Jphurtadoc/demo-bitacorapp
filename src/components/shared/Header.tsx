@@ -6,20 +6,18 @@ import {
   LogOut,
   ChevronDown,
   Building2,
-  Bell,
   HelpCircle,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Surface } from "@/components/UI/surface";
 import { EmphasisIcon } from "@/components/UI/emphasis";
 import { ThemeModeMenuItem } from "@/components/UI/theme";
+import NotificationCenter from "@/components/shared/NotificationCenter";
 import logo from "@/assets/bitacorapp-logo.png";
 
 interface HeaderProps {
   logoColumnWidth?: string;
 }
-
-const UNREAD_NOTIFICATIONS = 3;
 
 const Header: React.FC<HeaderProps> = ({ logoColumnWidth = "100px" }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -100,27 +98,7 @@ const Header: React.FC<HeaderProps> = ({ logoColumnWidth = "100px" }) => {
 
         <div className="flex items-center gap-2 md:gap-3">
           <div className="flex items-center gap-0.5 md:gap-1">
-            <button
-              type="button"
-              className="relative hidden h-9 w-9 items-center justify-center rounded-full text-subtle transition-colors hover:bg-muted sm:flex"
-              aria-label={
-                UNREAD_NOTIFICATIONS > 0
-                  ? `Notificaciones, ${UNREAD_NOTIFICATIONS} sin leer`
-                  : "Notificaciones"
-              }
-            >
-              <Bell size={18} strokeWidth={2.25} />
-              {UNREAD_NOTIFICATIONS > 0 ? (
-                <span
-                  aria-hidden
-                  className={`pointer-events-none absolute -right-0.5 -top-0.5 flex h-[18px] items-center justify-center rounded-full border-2 border-surface bg-primary text-[10px] font-bold leading-none text-[#ffffff] shadow-[0_2px_6px_rgba(255,118,28,0.45)] tabular-nums ${
-                    UNREAD_NOTIFICATIONS > 9 ? "min-w-[22px] px-1" : "w-[18px]"
-                  }`}
-                >
-                  {UNREAD_NOTIFICATIONS > 99 ? "99+" : UNREAD_NOTIFICATIONS}
-                </span>
-              ) : null}
-            </button>
+            <NotificationCenter />
             <button
               type="button"
               className="hidden rounded-full p-1.5 text-subtle transition-colors hover:bg-muted sm:block"

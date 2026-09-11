@@ -25,8 +25,8 @@ export default function TableCheckbox({
       onClick={() => onChange?.(!checked)}
       className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors ${
         checked || indeterminate
-          ? 'border-brand bg-brand text-white'
-          : 'border-gray-300 bg-surface text-transparent hover:border-gray-400'
+          ? 'border-brand bg-brand text-[#ffffff] dark:border-primary dark:bg-primary'
+          : 'border-border bg-surface text-transparent hover:border-[var(--surface-border-strong)]'
       } ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
     >
       {indeterminate ? <Minus size={12} strokeWidth={3} /> : checked ? <Check size={12} strokeWidth={3} /> : null}

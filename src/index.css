@@ -20,27 +20,30 @@
 :root {
   color-scheme: light;
 
-  --color-primary: #ff761c;
-  --color-primary-hover: #e66514;
-  --color-brand: #3c4070;
-  --color-brand-hover: #323668;
-  --color-secondary: #3c4070;
-  --color-secondary-hover: #323668;
-  --color-appbar: #3c4070;
+  --color-primary: #ff8f47;
+  --color-primary-hover: #f07830;
+  --color-brand: #5b67c7;
+  --color-brand-hover: #4e59b8;
+  --color-secondary: #5b67c7;
+  --color-secondary-hover: #4e59b8;
+  --color-appbar: #5b67c7;
 
-  --color-bg: #f8fafc;
+  --color-bg: #f4f6fa;
   --color-surface: #ffffff;
-  --color-surface-muted: #f1f5f9;
-  --color-text: #1e293b;
+  --color-surface-muted: #eef2f7;
+  --color-text: #0f172a;
   --color-text-muted: #64748b;
   --color-border: #e2e8f0;
   --color-overlay: rgb(15 17 23 / 0.45);
   --color-white: #ffffff;
 
-  --surface-border: rgb(60 64 112 / 0.14);
-  --surface-border-strong: rgb(60 64 112 / 0.22);
-  --surface-ring: rgb(60 64 112 / 0.06);
+  --surface-border: rgb(91 103 199 / 0.14);
+  --surface-border-strong: rgb(91 103 199 / 0.22);
+  --surface-ring: rgb(91 103 199 / 0.05);
   --surface-highlight: rgb(255 255 255 / 0.85);
+  --surface-shadow: 0 1px 1px rgb(0 0 0 / 0.03);
+  --surface-shadow-hover: 0 1px 2px rgb(0 0 0 / 0.05);
+  --surface-shadow-elevated: 0 2px 6px rgb(0 0 0 / 0.05);
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -62,27 +65,30 @@
 .dark {
   color-scheme: dark;
 
-  --color-primary: #ff761c;
-  --color-primary-hover: #ff8f47;
-  --color-brand: #ff761c;
-  --color-brand-hover: #ff9a5c;
+  --color-primary: #ff8f47;
+  --color-primary-hover: #ffa566;
+  --color-brand: #ff8f47;
+  --color-brand-hover: #ffa566;
   --color-secondary: #f8fafc;
   --color-secondary-hover: #ffffff;
   --color-appbar: rgb(255 255 255 / 0.04);
 
-  --color-bg: #090a0f;
-  --color-surface: #14161d;
-  --color-surface-muted: #1a1d26;
-  --color-text: #f1f5f9;
+  --color-bg: #0c0e14;
+  --color-surface: #161922;
+  --color-surface-muted: #1e222d;
+  --color-text: #f8fafc;
   --color-text-muted: #94a3b8;
-  --color-border: #2a2f3a;
+  --color-border: #2c3340;
   --color-overlay: rgb(0 0 0 / 0.58);
-  --color-white: #14161d;
+  --color-white: #ffffff;
 
-  --surface-border: #2a2f3a;
-  --surface-border-strong: #353b48;
-  --surface-ring: rgb(255 255 255 / 0.04);
+  --surface-border: rgb(255 255 255 / 0.08);
+  --surface-border-strong: rgb(255 255 255 / 0.14);
+  --surface-ring: rgb(255 255 255 / 0.03);
   --surface-highlight: transparent;
+  --surface-shadow: 0 1px 1px rgb(0 0 0 / 0.18);
+  --surface-shadow-hover: 0 1px 2px rgb(0 0 0 / 0.22);
+  --surface-shadow-elevated: 0 2px 8px rgb(0 0 0 / 0.28);
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.28);
   --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.35);
@@ -119,7 +125,7 @@
   h4,
   h5,
   h6 {
-    color: var(--color-secondary);
+    color: var(--color-text);
     font-weight: 700;
   }
 
@@ -172,7 +178,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
-    color: var(--color-secondary);
+    color: var(--color-text-muted);
   }
 }
 
@@ -198,7 +204,7 @@
   }
 
   .dark .page-header-title {
-    color: #ffffff;
+    color: var(--color-text);
   }
 
   .page-header-title-lg {
@@ -231,7 +237,7 @@
   }
 
   .dark .page-drawer-title {
-    color: var(--color-primary);
+    color: var(--color-text);
   }
 
   .page-section-title {
@@ -240,7 +246,7 @@
   }
 
   .dark .page-section-title {
-    color: var(--color-primary);
+    color: var(--color-text);
   }
 
   .danger-action-btn {
@@ -339,7 +345,7 @@
   }
 
   .dark .dashboard-section-title {
-    color: #ffffff;
+    color: var(--color-text);
   }
 
   .dashboard-section-link {

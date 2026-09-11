@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "photo": "https://ui-avatars.com/api/?name=Juan+Perez&background=3C4070&color=fff",
+    "photo": "https://ui-avatars.com/api/?name=Juan+Perez&background=5B67C7&color=fff",
     "nombre": "Juan Pérez",
     "perfil": "Administrador",
     "cliente": "Seguridad Shatter",
@@ -16,7 +16,7 @@
   },
   {
     "id": "2",
-    "photo": "https://ui-avatars.com/api/?name=Maria+Gomez&background=ff761c&color=fff",
+    "photo": "https://ui-avatars.com/api/?name=Maria+Gomez&background=ff8f47&color=fff",
     "nombre": "María Gómez",
     "perfil": "Supervisor",
     "cliente": "Seguridad Shatter",
@@ -106,7 +106,7 @@
   },
   {
     "id": "9",
-    "photo": "https://ui-avatars.com/api/?name=Andres+Silva&background=272b60&color=fff",
+    "photo": "https://ui-avatars.com/api/?name=Andres+Silva&background=5B67C7&color=fff",
     "nombre": "Andrés Silva",
     "perfil": "Cliente Admin",
     "cliente": "Alpha Security",

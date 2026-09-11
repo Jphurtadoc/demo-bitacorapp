@@ -1,0 +1,38 @@
+[
+  {
+    "id": "n1",
+    "kind": "pqrs_nueva",
+    "title": "Nueva PQRS PQRS-2026-0015",
+    "message": "Reclamo: Ingreso no autorizado reportado sin respuesta · Parque Industrial Occidente",
+    "path": "/pqrs/inbox",
+    "read": false,
+    "createdAt": "2026-08-17 11:05"
+  },
+  {
+    "id": "n2",
+    "kind": "pqrs_nueva",
+    "title": "Nueva PQRS PQRS-2026-0016",
+    "message": "Petición: Solicitud de ronda extra en parqueadero · Edificio Corporativo 90",
+    "path": "/pqrs/inbox",
+    "read": false,
+    "createdAt": "2026-08-18 09:40"
+  },
+  {
+    "id": "n3",
+    "kind": "pqrs_nueva",
+    "title": "Nueva PQRS PQRS-2026-0019",
+    "message": "Reclamo: Cámaras de perímetro fuera de servicio · Parque Industrial Occidente",
+    "path": "/pqrs/inbox",
+    "read": false,
+    "createdAt": "2026-08-18 07:15"
+  },
+  {
+    "id": "n4",
+    "kind": "pqrs_asignada",
+    "title": "PQRS asignada PQRS-2026-0014",
+    "message": "Queja asignada a María Gómez · Demora en el relevo del turno nocturno",
+    "path": "/pqrs/inbox",
+    "read": true,
+    "createdAt": "2026-08-16 08:25"
+  }
+]

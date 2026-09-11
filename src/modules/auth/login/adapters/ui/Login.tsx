@@ -90,7 +90,7 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        bgcolor: '#1a1d3d', // Darker variation of secondary
+        bgcolor: '#272B61',
         position: 'relative',
         overflow: 'hidden'
       }}
@@ -104,7 +104,7 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
           right: '-5%',
           width: 500,
           height: 500,
-          bgcolor: 'rgba(255, 118, 28, 0.05)',
+          bgcolor: 'rgba(255, 143, 71, 0.12)',
           filter: 'blur(80px)',
           pointerEvents: 'none'
         }}
@@ -117,7 +117,7 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
           left: '-5%',
           width: 400,
           height: 400,
-          bgcolor: 'rgba(39, 43, 96, 0.2)',
+          bgcolor: 'rgba(91, 103, 199, 0.35)',
           filter: 'blur(80px)',
           pointerEvents: 'none'
         }}
@@ -128,20 +128,20 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
         className="login-card animate-fade-in"
         sx={{
           width: '100%',
-          maxWidth: 440,
+          maxWidth: 560,
           bgcolor: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(10px)',
           zIndex: 10,
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' // equivalent to shadow-2xl
         }}
-        style={{ padding: '32px', borderRadius: '24px' }}
+        style={{ padding: '48px 44px', borderRadius: '24px' }}
         autoComplete="off"
         component="form"
         onSubmit={handleLogin}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} style={{ marginBottom: '40px' }}>
-          <img src={logoImg} alt="Bitacorapp" style={{ width: 180, marginBottom: 24 }} />
-          <Typography variant="h5" component="h1" sx={{ fontWeight: 700, color: '#272b60' }}>
+          <img src={logoImg} alt="Bitacorapp" style={{ width: 220, marginBottom: 24 }} />
+          <Typography variant="h5" component="h1" sx={{ fontWeight: 700, color: '#272B61' }}>
             Ingreso al Sistema
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
@@ -195,15 +195,15 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
                   sx={{ 
-                    color: '#ff761c', 
-                    '&.Mui-checked': { color: '#ff761c' } 
+                    color: '#ff8f47', 
+                    '&.Mui-checked': { color: '#ff8f47' } 
                   }} 
                 />
               }
               label={<Typography variant="body2">Mantener sesión</Typography>}
               sx={{ m: 0 }}
             />
-            <Button variant="text" size="small" sx={{ fontWeight: 600, color: '#ff761c', textTransform: 'none' }}>
+            <Button variant="text" size="small" sx={{ fontWeight: 600, color: '#ff8f47', textTransform: 'none' }}>
               ¿Problemas?
             </Button>
           </Box>
@@ -214,12 +214,12 @@ const Login: React.FC<LoginProps> = ({ authRepository }) => {
             type="submit"
             disabled={loading}
             sx={{
-              bgcolor: '#272b60',
+              bgcolor: '#ff8f47',
               color: 'white',
               fontWeight: 700,
               fontSize: '1rem',
-              '&:hover': { bgcolor: '#1e214a' },
-              boxShadow: '0 8px 16px rgba(39, 43, 96, 0.2)'
+              '&:hover': { bgcolor: '#f07830' },
+              boxShadow: '0 8px 16px rgba(255, 143, 71, 0.28)'
             }}
             style={{ paddingTop: '12px', paddingBottom: '12px', borderRadius: '8px' }}
           >

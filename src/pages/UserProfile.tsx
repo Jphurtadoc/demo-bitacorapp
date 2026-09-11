@@ -1,78 +1,78 @@
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
+import { Surface } from '@/components/UI/surface';
+import { EmphasisIcon } from '@/components/UI/emphasis';
 import { User, Mail, Shield, Key, Bell, Settings, ChevronRight } from 'lucide-react';
 
 const UserProfile = () => {
   return (
     <DashboardLayout>
-      <div style={{ maxWidth: '1000px', margin: '0 auto', paddingBottom: '40px' }}>
+      <div className="mx-auto max-w-[1000px] pb-10">
         <h1 className="page-header-title page-header-title-md mb-2">Mi Perfil</h1>
         <p className="page-header-subtitle mb-8">Administra tu información personal y preferencias de cuenta</p>
         
-        <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '32px' }}>
-          {/* Sidebar */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="col-span-1">
-            <div style={{ backgroundColor: '#fff', borderRadius: '24px', padding: '24px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9' }}>
-               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' }}>
-                 <div style={{ width: '80px', height: '80px', borderRadius: '24px', backgroundColor: '#eff6ff', color: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+            <Surface padding="lg" radius="xl">
+               <div className="mb-6 flex flex-col items-center">
+                 <EmphasisIcon tone="info" size="lg" className="mb-4 !h-20 !w-20 !rounded-2xl">
                    <User size={36} />
-                 </div>
+                 </EmphasisIcon>
                  <h2 className="page-section-title m-0 text-lg">Administrador Demo</h2>
-                 <p style={{ fontSize: '14px', color: '#94a3b8', margin: '4px 0 0 0' }}>Super Administrador</p>
+                 <p className="mt-1 text-sm text-subtle">Super Administrador</p>
                </div>
                
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                 <button style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: '12px', border: 'none', backgroundColor: '#f8fafc', color: '#272b60', fontWeight: '600', cursor: 'pointer' }}>
-                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Settings size={18} style={{ color: '#64748b' }}/> Información Básica</div>
-                   <ChevronRight size={16} />
+               <div className="flex flex-col gap-2">
+                 <button type="button" className="flex items-center justify-between rounded-lg bg-muted px-4 py-3 font-semibold text-foreground">
+                   <div className="flex items-center gap-3"><Settings size={18} className="text-subtle"/> Información Básica</div>
+                   <ChevronRight size={16} className="text-subtle" />
                  </button>
-                 <button style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: '12px', border: 'none', backgroundColor: 'transparent', color: '#64748b', fontWeight: '600', cursor: 'pointer' }} className="hover:bg-gray-50">
-                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Key size={18}/> Seguridad</div>
+                 <button type="button" className="flex items-center justify-between rounded-lg bg-transparent px-4 py-3 font-semibold text-subtle transition-colors hover:bg-muted hover:text-foreground">
+                   <div className="flex items-center gap-3"><Key size={18}/> Seguridad</div>
                  </button>
-                 <button style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: '12px', border: 'none', backgroundColor: 'transparent', color: '#64748b', fontWeight: '600', cursor: 'pointer' }} className="hover:bg-gray-50">
-                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Bell size={18}/> Notificaciones</div>
+                 <button type="button" className="flex items-center justify-between rounded-lg bg-transparent px-4 py-3 font-semibold text-subtle transition-colors hover:bg-muted hover:text-foreground">
+                   <div className="flex items-center gap-3"><Bell size={18}/> Notificaciones</div>
                  </button>
                </div>
-            </div>
+            </Surface>
           </div>
           
-          {/* Main Content */}
-          <div className="col-span-1 md:col-span-2" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <div style={{ backgroundColor: '#fff', borderRadius: '24px', padding: '32px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9' }}>
+          <div className="col-span-1 flex flex-col gap-6 md:col-span-2">
+            <Surface padding="xl" radius="xl">
                <h3 className="page-section-title mb-6 text-lg">Detalles de la Cuenta</h3>
                
-               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                  <div>
-                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>Nombres</label>
-                   <input type="text" defaultValue="Administrador" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#272b60', fontWeight: '500', outline: 'none' }} />
+                   <label className="mb-2 block text-xs font-bold uppercase text-subtle">Nombres</label>
+                   <input type="text" defaultValue="Administrador" className="w-full rounded-lg border border-border bg-surface px-4 py-3 font-medium text-foreground outline-none" />
                  </div>
                  <div>
-                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>Apellidos</label>
-                   <input type="text" defaultValue="Demo" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#272b60', fontWeight: '500', outline: 'none' }} />
+                   <label className="mb-2 block text-xs font-bold uppercase text-subtle">Apellidos</label>
+                   <input type="text" defaultValue="Demo" className="w-full rounded-lg border border-border bg-surface px-4 py-3 font-medium text-foreground outline-none" />
                  </div>
-                 <div style={{ gridColumn: 'span 2' }}>
-                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>Correo Electrónico</label>
-                   <div style={{ position: 'relative' }}>
-                     <Mail size={18} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
-                     <input type="email" defaultValue="admin.demo@bitacorapp.com" style={{ width: '100%', padding: '12px 16px 12px 42px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#272b60', fontWeight: '500', outline: 'none', boxSizing: 'border-box' }} />
+                 <div className="sm:col-span-2">
+                   <label className="mb-2 block text-xs font-bold uppercase text-subtle">Correo Electrónico</label>
+                   <div className="relative">
+                     <Mail size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-subtle" />
+                     <input type="email" defaultValue="admin.demo@bitacorapp.com" className="box-border w-full rounded-lg border border-border bg-surface py-3 pl-[42px] pr-4 font-medium text-foreground outline-none" />
                    </div>
                  </div>
-                 <div style={{ gridColumn: 'span 2' }}>
-                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>Rol Asignado</label>
-                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', backgroundColor: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                     <Shield size={18} style={{ color: '#10b981' }} />
-                     <span style={{ fontWeight: '600', color: '#272b60' }}>Super Administrador</span>
-                     <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#64748b', backgroundColor: '#e2e8f0', padding: '4px 10px', borderRadius: '10px' }}>Solo lectura</span>
+                 <div className="sm:col-span-2">
+                   <label className="mb-2 block text-xs font-bold uppercase text-subtle">Rol Asignado</label>
+                   <div className="flex items-center gap-3 rounded-lg border border-border bg-muted px-4 py-3">
+                     <Shield size={18} className="text-emerald-600 dark:text-emerald-400" />
+                     <span className="font-semibold text-foreground">Super Administrador</span>
+                     <span className="ml-auto rounded-lg bg-border px-2.5 py-1 text-xs text-subtle">Solo lectura</span>
                    </div>
                  </div>
                </div>
                
-               <div style={{ display: 'flex', justifySelf: 'flex-start', marginTop: '32px' }}>
-                 <button style={{ padding: '14px 28px', backgroundColor: '#272b60', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: '700', cursor: 'pointer', boxShadow: '0 4px 12px rgba(39,43,96,0.2)' }} className="hover:opacity-90 transition-all">
+               <div className="mt-8">
+                 <button type="button" className="rounded-lg bg-brand px-7 py-3.5 font-bold text-[#ffffff] transition-all hover:bg-brand-hover dark:bg-primary dark:hover:bg-primary-hover">
                    Guardar Cambios
                  </button>
                </div>
-            </div>
+            </Surface>
           </div>
         </div>
       </div>

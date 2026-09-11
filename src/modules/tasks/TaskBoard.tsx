@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { createPortal } from 'react-dom';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { Plus, X, Pencil, Trash2, ChevronRight } from 'lucide-react';
+import { Surface } from '@/components/UI/surface';
+import { ModalDrawer } from '@/components/UI/modal-drawer';
+import { Plus, Pencil, Trash2, ChevronRight } from 'lucide-react';
 
 type Priority = 'alta' | 'media' | 'baja';
 type Status = 'pendiente' | 'en_progreso' | 'completado';
@@ -15,16 +16,16 @@ interface Task {
   status: Status;
 }
 
-const priorityConfig: Record<Priority, { label: string; bg: string; text: string; dot: string }> = {
-  alta:   { label: 'Alta',   bg: '#fff1f2', text: '#e11d48', dot: '#f43f5e' },
-  media:  { label: 'Media',  bg: '#fff7ed', text: '#ea580c', dot: '#f97316' },
-  baja:   { label: 'Baja',   bg: '#f0fdf4', text: '#16a34a', dot: '#22c55e' },
+const priorityConfig: Record<Priority, { label: string; className: string; dot: string }> = {
+  alta: { label: 'Alta', className: 'bg-red-500/10 text-red-600 dark:text-red-300', dot: '#f43f5e' },
+  media: { label: 'Media', className: 'bg-amber-500/10 text-amber-700 dark:text-amber-300', dot: '#f97316' },
+  baja: { label: 'Baja', className: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300', dot: '#22c55e' },
 };
 
-const columns: { id: Status; label: string; color: string; bg: string }[] = [
-  { id: 'pendiente',   label: 'Pendiente',    color: '#94a3b8', bg: '#f8fafc' },
-  { id: 'en_progreso', label: 'En Progreso',  color: '#2563eb', bg: '#eff6ff' },
-  { id: 'completado',  label: 'Completado',   color: '#16a34a', bg: '#f0fdf4' },
+const columns: { id: Status; label: string; color: string }[] = [
+  { id: 'pendiente', label: 'Pendiente', color: '#94a3b8' },
+  { id: 'en_progreso', label: 'En Progreso', color: '#5b67c7' },
+  { id: 'completado', label: 'Completado', color: '#ff8f47' },
 ];
 
 const initialTasks: Task[] = [
@@ -36,8 +37,11 @@ const initialTasks: Task[] = [
 ];
 
 const emptyForm: Omit<Task, 'id'> = {
-  title: '', description: '', priority: 'media', assignee: '', status: 'pendiente'
+  title: '', description: '', priority: 'media', assignee: '', status: 'pendiente',
 };
+
+const fieldClassName =
+  'w-full rounded-lg border border-border bg-muted px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-subtle focus:border-border focus:bg-surface focus:ring-2 focus:ring-brand/10';
 
 const TaskBoard: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
@@ -61,401 +65,253 @@ const TaskBoard: React.FC = () => {
   const handleSave = () => {
     if (!form.title.trim()) return;
     if (editingTask) {
-      setTasks(prev => prev.map(t => t.id === editingTask.id ? { ...form, id: editingTask.id } : t));
+      setTasks((prev) => prev.map((t) => (t.id === editingTask.id ? { ...form, id: editingTask.id } : t)));
     } else {
-      const newId = Math.max(0, ...tasks.map(t => t.id)) + 1;
-      setTasks(prev => [...prev, { ...form, id: newId }]);
+      const newId = Math.max(0, ...tasks.map((t) => t.id)) + 1;
+      setTasks((prev) => [...prev, { ...form, id: newId }]);
     }
     setShowModal(false);
   };
 
-  const handleDelete = (id: number) => setTasks(prev => prev.filter(t => t.id !== id));
+  const handleDelete = (id: number) => setTasks((prev) => prev.filter((t) => t.id !== id));
 
   const moveTask = (id: number, newStatus: Status) => {
-    setTasks(prev => prev.map(t => t.id === id ? { ...t, status: newStatus } : t));
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status: newStatus } : t)));
   };
 
   const onDragStart = (id: number) => setDraggedId(id);
   const onDrop = (status: Status) => {
-    if (draggedId !== null) { moveTask(draggedId, status); setDraggedId(null); }
+    if (draggedId !== null) {
+      moveTask(draggedId, status);
+      setDraggedId(null);
+    }
   };
 
   return (
     <DashboardLayout>
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '32px' }}>
+      <div className="mx-auto max-w-[1280px]">
+        <div className="mb-8 flex items-end justify-between">
           <div>
             <h1 className="page-header-title page-header-title-md mb-1.5">
               Tablero de Tareas
             </h1>
             <p className="page-header-subtitle text-sm">
-              {tasks.length} tareas en total · {tasks.filter(t => t.status === 'completado').length} completadas
+              {tasks.length} tareas en total · {tasks.filter((t) => t.status === 'completado').length} completadas
             </p>
           </div>
           <button
+            type="button"
             onClick={openCreate}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              backgroundColor: '#272b60',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer',
-              fontSize: '13.5px',
-              fontWeight: '600',
-              padding: '10px 20px',
-              borderRadius: '12px',
-              boxShadow: '0 4px 12px rgba(39,43,96,0.2)',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-1px)')}
-            onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}
+            className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-[13.5px] font-semibold text-[#ffffff] transition-all hover:bg-brand-hover dark:bg-primary dark:hover:bg-primary-hover"
           >
             <Plus size={16} />
             Nueva Tarea
           </button>
         </div>
 
-        {/* Kanban Board */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', alignItems: 'start' }}>
-          {columns.map(col => {
-            const colTasks = tasks.filter(t => t.status === col.id);
+        <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-3">
+          {columns.map((col) => {
+            const colTasks = tasks.filter((t) => t.status === col.id);
             return (
-              <div
+              <Surface
                 key={col.id}
-                onDragOver={e => e.preventDefault()}
-                onDrop={() => onDrop(col.id)}
+                padding="md"
+                radius="xl"
+                variant="muted"
+                className="min-h-[200px]"
                 style={{
-                  backgroundColor: col.bg,
-                  borderRadius: '18px',
-                  padding: '16px',
-                  minHeight: '200px',
-                  border: `1px solid ${col.color}18`,
-                  transition: 'box-shadow 0.2s',
+                  backgroundColor: `color-mix(in srgb, ${col.color} 10%, var(--color-surface-muted))`,
+                  borderColor: `color-mix(in srgb, ${col.color} 22%, var(--surface-border))`,
                 }}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => onDrop(col.id)}
               >
-                {/* Column header */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: col.color, display: 'inline-block' }}></span>
-                    <span style={{ fontSize: '13px', fontWeight: '600', color: '#475569' }}>
-                      {col.label}
-                    </span>
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: col.color }} />
+                    <span className="text-[13px] font-semibold text-foreground">{col.label}</span>
                   </div>
-                  <span style={{
-                    fontSize: '11px',
-                    fontWeight: '700',
-                    color: col.color,
-                    backgroundColor: `${col.color}18`,
-                    padding: '3px 9px',
-                    borderRadius: '20px',
-                  }}>
+                  <span
+                    className="rounded-full px-2.5 py-0.5 text-[11px] font-bold"
+                    style={{
+                      color: col.color,
+                      backgroundColor: `color-mix(in srgb, ${col.color} 16%, transparent)`,
+                    }}
+                  >
                     {colTasks.length}
                   </span>
                 </div>
 
-                {/* Task cards */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {colTasks.map(task => {
+                <div className="flex flex-col gap-2.5">
+                  {colTasks.map((task) => {
                     const pc = priorityConfig[task.priority];
                     return (
-                      <div
+                      <Surface
                         key={task.id}
+                        padding="md"
+                        radius="lg"
+                        interactive
+                        className="cursor-grab"
                         draggable
                         onDragStart={() => onDragStart(task.id)}
-                        style={{
-                          backgroundColor: 'white',
-                          borderRadius: '14px',
-                          padding: '16px',
-                          border: '1px solid #f1f5f9',
-                          boxShadow: '0 1px 6px rgba(0,0,0,0.04)',
-                          cursor: 'grab',
-                          transition: 'all 0.15s',
-                        }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
-                          e.currentTarget.style.transform = 'translateY(-1px)';
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.boxShadow = '0 1px 6px rgba(0,0,0,0.04)';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        }}
                       >
-                        {/* Priority badge */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                          <span style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '5px',
-                            fontSize: '11px',
-                            fontWeight: '600',
-                            color: pc.text,
-                            backgroundColor: pc.bg,
-                            padding: '3px 8px',
-                            borderRadius: '6px',
-                          }}>
-                            <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: pc.dot, display: 'inline-block' }}></span>
+                        <div className="mb-2.5 flex items-center justify-between">
+                          <span className={`inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-semibold ${pc.className}`}>
+                            <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: pc.dot }} />
                             {pc.label}
                           </span>
-                          <div style={{ display: 'flex', gap: '4px' }}>
+                          <div className="flex gap-1">
                             <button
+                              type="button"
                               onClick={() => openEdit(task)}
-                              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', borderRadius: '6px', color: '#94a3b8', display: 'flex', alignItems: 'center' }}
-                              onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#f1f5f9'; e.currentTarget.style.color = '#272b60'; }}
-                              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#94a3b8'; }}
+                              className="rounded-md p-1 text-subtle transition-colors hover:bg-muted hover:text-foreground"
                             >
                               <Pencil size={13} />
                             </button>
                             <button
+                              type="button"
                               onClick={() => handleDelete(task.id)}
-                              className="danger-action-btn flex cursor-pointer items-center rounded-md border-transparent bg-transparent p-1 transition-colors"
+                              className="danger-action-btn flex cursor-pointer items-center rounded-md border-transparent bg-transparent p-1"
                             >
                               <Trash2 size={13} />
                             </button>
                           </div>
                         </div>
 
-                        {/* Title */}
-                        <p style={{ fontSize: '14px', fontWeight: '600', color: '#272b60', margin: '0 0 6px 0', lineHeight: '1.4' }}>
-                          {task.title}
-                        </p>
-                        {/* Description */}
-                        {task.description && (
-                          <p style={{ fontSize: '12.5px', color: '#94a3b8', margin: '0 0 12px 0', lineHeight: '1.5' }}>
-                            {task.description}
-                          </p>
-                        )}
-                        {/* Footer */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '10px', borderTop: '1px solid #f8fafc' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <div style={{ width: '24px', height: '24px', borderRadius: '8px', backgroundColor: 'rgba(39,43,96,0.08)', color: '#272b60', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '700' }}>
+                        <p className="mb-1.5 text-sm font-semibold leading-snug text-foreground">{task.title}</p>
+                        {task.description ? (
+                          <p className="mb-3 text-[12.5px] leading-relaxed text-subtle">{task.description}</p>
+                        ) : null}
+
+                        <div className="flex items-center justify-between border-t border-border pt-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-brand/10 text-[10px] font-bold text-brand dark:bg-primary/15 dark:text-primary">
                               {task.assignee[0]}
                             </div>
-                            <span style={{ fontSize: '12px', color: '#64748b' }}>{task.assignee}</span>
+                            <span className="text-xs text-subtle">{task.assignee}</span>
                           </div>
-                          {/* Move arrows */}
-                          <div style={{ display: 'flex', gap: '2px' }}>
+                          <div className="flex gap-0.5">
                             {col.id !== 'pendiente' && (
                               <button
+                                type="button"
                                 onClick={() => moveTask(task.id, col.id === 'completado' ? 'en_progreso' : 'pendiente')}
                                 title="Mover atrás"
-                                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '3px', color: '#cbd5e1', display: 'flex', alignItems: 'center', transform: 'rotate(180deg)', borderRadius: '4px' }}
-                                onMouseEnter={e => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.backgroundColor = '#f1f5f9'; }}
-                                onMouseLeave={e => { e.currentTarget.style.color = '#cbd5e1'; e.currentTarget.style.backgroundColor = 'transparent'; }}
+                                className="rounded p-0.5 text-subtle transition-colors hover:bg-muted hover:text-foreground"
+                                style={{ transform: 'rotate(180deg)' }}
                               >
                                 <ChevronRight size={14} />
                               </button>
                             )}
                             {col.id !== 'completado' && (
                               <button
+                                type="button"
                                 onClick={() => moveTask(task.id, col.id === 'pendiente' ? 'en_progreso' : 'completado')}
                                 title="Mover adelante"
-                                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '3px', color: '#cbd5e1', display: 'flex', alignItems: 'center', borderRadius: '4px' }}
-                                onMouseEnter={e => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.backgroundColor = '#f1f5f9'; }}
-                                onMouseLeave={e => { e.currentTarget.style.color = '#cbd5e1'; e.currentTarget.style.backgroundColor = 'transparent'; }}
+                                className="rounded p-0.5 text-subtle transition-colors hover:bg-muted hover:text-foreground"
                               >
                                 <ChevronRight size={14} />
                               </button>
                             )}
                           </div>
                         </div>
-                      </div>
+                      </Surface>
                     );
                   })}
 
                   {colTasks.length === 0 && (
-                    <div style={{ textAlign: 'center', padding: '32px 20px', color: '#cbd5e1' }}>
-                      <p style={{ fontSize: '13px', margin: 0 }}>Sin tareas</p>
-                    </div>
+                    <p className="px-5 py-8 text-center text-[13px] text-subtle">Sin tareas</p>
                   )}
                 </div>
-              </div>
+              </Surface>
             );
           })}
         </div>
       </div>
 
-      {/* Modal */}
-      {showModal && createPortal(
-        <div
-          style={{
-            position: 'fixed', inset: 0, zIndex: 9999,
-            backgroundColor: 'rgba(15,23,42,0.5)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backdropFilter: 'blur(4px)',
-            padding: '20px'
-          }}
-          onClick={e => { if (e.target === e.currentTarget) setShowModal(false); }}
-        >
-          <div
-            style={{
-              backgroundColor: 'white',
-              borderRadius: '24px',
-              padding: '32px',
-              width: '100%',
-              maxWidth: '480px',
-              boxShadow: '0 24px 60px rgba(0,0,0,0.15)',
-              animation: 'fadeIn 0.2s ease-out',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-              <h2 className="page-drawer-title m-0 text-lg">
-                {editingTask ? 'Editar Tarea' : 'Nueva Tarea'}
-              </h2>
-              <button
-                onClick={() => setShowModal(false)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px', borderRadius: '8px', color: '#94a3b8', display: 'flex', alignItems: 'center' }}
-                onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#f1f5f9'; e.currentTarget.style.color = '#272b60'; }}
-                onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#94a3b8'; }}
+      <ModalDrawer
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        title={editingTask ? 'Editar Tarea' : 'Nueva Tarea'}
+        size="md"
+        footer={
+          <div className="flex w-full gap-2.5">
+            <button
+              type="button"
+              onClick={() => setShowModal(false)}
+              className="flex-1 rounded-lg border border-border bg-surface px-5 py-2.5 text-sm font-medium text-subtle transition-colors hover:bg-muted hover:text-foreground"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              onClick={handleSave}
+              disabled={!form.title.trim()}
+              className="flex-1 rounded-lg bg-brand px-5 py-2.5 text-sm font-semibold text-[#ffffff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:bg-muted disabled:text-subtle dark:bg-primary dark:hover:bg-primary-hover"
+            >
+              {editingTask ? 'Guardar Cambios' : 'Crear Tarea'}
+            </button>
+          </div>
+        }
+      >
+        <div className="flex flex-col gap-4">
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-subtle">Título *</label>
+            <input
+              type="text"
+              value={form.title}
+              onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+              placeholder="Nombre de la tarea..."
+              className={fieldClassName}
+            />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-subtle">Descripción</label>
+            <textarea
+              value={form.description}
+              onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+              placeholder="Descripción de la tarea..."
+              rows={3}
+              className={`${fieldClassName} resize-none leading-relaxed`}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-subtle">Prioridad</label>
+              <select
+                value={form.priority}
+                onChange={(e) => setForm((f) => ({ ...f, priority: e.target.value as Priority }))}
+                className={fieldClassName}
               >
-                <X size={18} />
-              </button>
+                <option value="alta">Alta</option>
+                <option value="media">Media</option>
+                <option value="baja">Baja</option>
+              </select>
             </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {/* Title */}
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '6px' }}>
-                  Título *
-                </label>
-                <input
-                  type="text"
-                  value={form.title}
-                  onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
-                  placeholder="Nombre de la tarea..."
-                  style={{
-                    width: '100%', padding: '10px 14px', borderRadius: '12px',
-                    border: '1px solid #e2e8f0', fontSize: '14px', color: '#272b60',
-                    outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
-                    transition: 'border-color 0.2s',
-                  }}
-                  onFocus={e => (e.target.style.borderColor = '#ff761c')}
-                  onBlur={e => (e.target.style.borderColor = '#e2e8f0')}
-                />
-              </div>
-              {/* Description */}
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '6px' }}>
-                  Descripción
-                </label>
-                <textarea
-                  value={form.description}
-                  onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-                  placeholder="Descripción de la tarea..."
-                  rows={3}
-                  style={{
-                    width: '100%', padding: '10px 14px', borderRadius: '12px',
-                    border: '1px solid #e2e8f0', fontSize: '14px', color: '#272b60',
-                    outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
-                    resize: 'none', lineHeight: '1.5', transition: 'border-color 0.2s',
-                  }}
-                  onFocus={e => (e.target.style.borderColor = '#ff761c')}
-                  onBlur={e => (e.target.style.borderColor = '#e2e8f0')}
-                />
-              </div>
-              {/* Row: Priority + Assignee */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '6px' }}>
-                    Prioridad
-                  </label>
-                  <select
-                    value={form.priority}
-                    onChange={e => setForm(f => ({ ...f, priority: e.target.value as Priority }))}
-                    style={{
-                      width: '100%', padding: '10px 14px', borderRadius: '12px',
-                      border: '1px solid #e2e8f0', fontSize: '14px', color: '#272b60',
-                      outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
-                      appearance: 'none', cursor: 'pointer', backgroundColor: 'white',
-                    }}
-                  >
-                    <option value="alta">Alta</option>
-                    <option value="media">Media</option>
-                    <option value="baja">Baja</option>
-                  </select>
-                </div>
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '6px' }}>
-                    Asignado a
-                  </label>
-                  <input
-                    type="text"
-                    value={form.assignee}
-                    onChange={e => setForm(f => ({ ...f, assignee: e.target.value }))}
-                    placeholder="Nombre..."
-                    style={{
-                      width: '100%', padding: '10px 14px', borderRadius: '12px',
-                      border: '1px solid #e2e8f0', fontSize: '14px', color: '#272b60',
-                      outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
-                      transition: 'border-color 0.2s',
-                    }}
-                    onFocus={e => (e.target.style.borderColor = '#ff761c')}
-                    onBlur={e => (e.target.style.borderColor = '#e2e8f0')}
-                  />
-                </div>
-              </div>
-              {/* Status */}
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '6px' }}>
-                  Estado
-                </label>
-                <select
-                  value={form.status}
-                  onChange={e => setForm(f => ({ ...f, status: e.target.value as Status }))}
-                  style={{
-                    width: '100%', padding: '10px 14px', borderRadius: '12px',
-                    border: '1px solid #e2e8f0', fontSize: '14px', color: '#272b60',
-                    outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
-                    appearance: 'none', cursor: 'pointer', backgroundColor: 'white',
-                  }}
-                >
-                  <option value="pendiente">Pendiente</option>
-                  <option value="en_progreso">En Progreso</option>
-                  <option value="completado">Completado</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Actions */}
-            <div style={{ display: 'flex', gap: '10px', marginTop: '28px' }}>
-              <button
-                onClick={() => setShowModal(false)}
-                style={{
-                  flex: 1, padding: '11px 20px', borderRadius: '12px',
-                  border: '1px solid #e2e8f0', backgroundColor: 'white',
-                  color: '#64748b', fontSize: '14px', fontWeight: '500',
-                  cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#f8fafc')}
-                onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'white')}
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleSave}
-                disabled={!form.title.trim()}
-                style={{
-                  flex: 1, padding: '11px 20px', borderRadius: '12px',
-                  border: 'none',
-                  backgroundColor: form.title.trim() ? '#272b60' : '#e2e8f0',
-                  color: form.title.trim() ? 'white' : '#94a3b8',
-                  fontSize: '14px', fontWeight: '600',
-                  cursor: form.title.trim() ? 'pointer' : 'not-allowed',
-                  fontFamily: 'inherit', transition: 'all 0.2s',
-                  boxShadow: form.title.trim() ? '0 4px 12px rgba(39,43,96,0.25)' : 'none',
-                }}
-                onMouseEnter={e => { if (form.title.trim()) e.currentTarget.style.opacity = '0.9'; }}
-                onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
-              >
-                {editingTask ? 'Guardar Cambios' : 'Crear Tarea'}
-              </button>
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-subtle">Asignado a</label>
+              <input
+                type="text"
+                value={form.assignee}
+                onChange={(e) => setForm((f) => ({ ...f, assignee: e.target.value }))}
+                placeholder="Nombre..."
+                className={fieldClassName}
+              />
             </div>
           </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-subtle">Estado</label>
+            <select
+              value={form.status}
+              onChange={(e) => setForm((f) => ({ ...f, status: e.target.value as Status }))}
+              className={fieldClassName}
+            >
+              <option value="pendiente">Pendiente</option>
+              <option value="en_progreso">En Progreso</option>
+              <option value="completado">Completado</option>
+            </select>
+          </div>
         </div>
-      , document.body)}
+      </ModalDrawer>
     </DashboardLayout>
   );
 };

@@ -8,6 +8,6 @@ interface TableContainerProps {
 
 export default function TableContainer({ children, className = '' }: TableContainerProps) {
   return (
-    <Surface className={`overflow-hidden ${className}`}>{children}</Surface>
+    <Surface radius="lg" className={`overflow-hidden ${className}`}>{children}</Surface>
   );
 }

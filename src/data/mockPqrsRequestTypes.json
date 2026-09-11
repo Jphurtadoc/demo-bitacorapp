@@ -1,0 +1,30 @@
+[
+  {
+    "id": "peticion",
+    "codigo": "PET",
+    "nombre": "Petición",
+    "slaHoras": 72,
+    "activa": true
+  },
+  {
+    "id": "queja",
+    "codigo": "QUE",
+    "nombre": "Queja",
+    "slaHoras": 48,
+    "activa": true
+  },
+  {
+    "id": "reclamo",
+    "codigo": "REC",
+    "nombre": "Reclamo",
+    "slaHoras": 24,
+    "activa": true
+  },
+  {
+    "id": "sugerencia",
+    "codigo": "SUG",
+    "nombre": "Sugerencia",
+    "slaHoras": 120,
+    "activa": true
+  }
+]

@@ -21,7 +21,7 @@ export default function TableFilters({
   if (!filters.length && !onSearchChange && !metaLabel) return null;
 
   return (
-    <Surface padding="md" className="flex flex-col gap-4">
+    <Surface padding="md" radius="lg" className="flex flex-col gap-4">
       <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:flex-wrap lg:items-end">
         {onSearchChange ? (
           <TableSearchInput

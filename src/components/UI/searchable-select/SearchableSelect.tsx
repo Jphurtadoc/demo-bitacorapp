@@ -68,7 +68,7 @@ export default function SearchableSelect({
   };
 
   const triggerClassName =
-    'flex w-full items-center justify-between gap-2 rounded-xl border border-border bg-muted px-3 py-2.5 text-left text-sm text-foreground outline-none transition-colors focus:border-gray-300 focus:bg-surface focus:ring-2 focus:ring-brand/10 disabled:cursor-not-allowed disabled:opacity-60';
+    'flex w-full items-center justify-between gap-2 rounded-xl border border-border bg-muted px-3 py-2.5 text-left text-sm text-foreground outline-none transition-colors focus:border-border focus:bg-surface focus:ring-2 focus:ring-brand/10 disabled:cursor-not-allowed disabled:opacity-60';
 
   return (
     <div ref={containerRef} className={`relative ${className}`}>
@@ -108,7 +108,7 @@ export default function SearchableSelect({
                 value={search}
                 placeholder={searchPlaceholder}
                 onChange={(event) => setSearch(event.target.value)}
-                className="w-full rounded-lg border border-border bg-muted py-2 pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-subtle focus:border-gray-300 focus:bg-surface focus:ring-2 focus:ring-brand/10"
+                className="w-full rounded-lg border border-border bg-muted py-2 pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-subtle focus:border-border focus:bg-surface focus:ring-2 focus:ring-brand/10"
               />
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function SearchableSelect({
                       onClick={() => handleSelect(option.value)}
                       className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm transition-colors ${
                         isSelected
-                          ? 'bg-brand/5 font-medium text-brand'
+                          ? 'bg-brand/5 font-medium text-brand dark:bg-primary/10 dark:text-primary'
                           : 'text-foreground hover:bg-muted'
                       }`}
                     >

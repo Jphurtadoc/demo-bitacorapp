@@ -12,8 +12,8 @@ const activities = [
 const statusColors: Record<string, { bg: string; text: string; dot: string }> = {
   success: { bg: '#f0fdf4', text: '#16a34a', dot: '#22c55e' },
   neutral: { bg: '#f8fafc', text: '#64748b', dot: '#94a3b8' },
-  info:    { bg: '#eff6ff', text: '#2563eb', dot: '#60a5fa' },
-  warning: { bg: '#fff7ed', text: '#ea580c', dot: '#f97316' },
+  info:    { bg: '#eef0fb', text: '#5b67c7', dot: '#7a84d8' },
+  warning: { bg: '#fff3eb', text: '#ff8f47', dot: '#ffa566' },
 };
 
 const AdminDashboard: React.FC = () => {
@@ -31,9 +31,9 @@ const AdminDashboard: React.FC = () => {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3" style={{ marginBottom: '32px', gap: '20px' }}>
           {[
-            { title: 'Bitácoras Hoy', value: '24', sub: '+3 desde ayer', color: '#ff761c', bg: 'rgba(255, 118, 28, 0.07)' },
-            { title: 'Usuarios Activos', value: '156', sub: '12 en línea ahora', color: '#6366f1', bg: 'rgba(99, 102, 241, 0.07)' },
-            { title: 'Alertas Sistema', value: '03', sub: '1 crítica', color: '#f43f5e', bg: 'rgba(244, 63, 94, 0.07)' },
+            { title: 'Bitácoras Hoy', value: '24', sub: '+3 desde ayer', color: '#ff8f47', bg: 'rgba(255, 143, 71, 0.08)' },
+            { title: 'Usuarios Activos', value: '156', sub: '12 en línea ahora', color: '#5b67c7', bg: 'rgba(91, 103, 199, 0.08)' },
+            { title: 'Alertas Sistema', value: '03', sub: '1 crítica', color: '#e88840', bg: 'rgba(232, 136, 64, 0.08)' },
           ].map((stat, i) => (
             <div 
               key={i}
@@ -106,17 +106,17 @@ const AdminDashboard: React.FC = () => {
             </div>
             <button 
               style={{ 
-                color: '#ff761c', 
+                color: '#ff8f47', 
                 fontSize: '13px', 
                 fontWeight: '600', 
                 background: 'none', 
-                border: '1px solid rgba(255,118,28,0.2)', 
+                border: '1px solid rgba(255,143,71,0.22)', 
                 cursor: 'pointer',
                 padding: '7px 16px',
                 borderRadius: '10px',
                 transition: 'all 0.2s'
               }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,118,28,0.05)')}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,143,71,0.06)')}
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
               Ver todo
@@ -148,8 +148,8 @@ const AdminDashboard: React.FC = () => {
                         width: '36px', 
                         height: '36px', 
                         borderRadius: '10px', 
-                        backgroundColor: 'rgba(255,118,28,0.1)', 
-                        color: '#ff761c',
+                        backgroundColor: 'rgba(255,143,71,0.1)', 
+                        color: '#ff8f47',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -160,7 +160,7 @@ const AdminDashboard: React.FC = () => {
                     >
                       {row.initial}
                     </div>
-                    <span style={{ fontSize: '14px', fontWeight: '600', color: '#272b60' }}>
+                    <span style={{ fontSize: '14px', fontWeight: '600', color: '#5b67c7' }}>
                       {row.user}
                     </span>
                   </div>

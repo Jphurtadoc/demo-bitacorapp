@@ -6,7 +6,7 @@
   padding: 1.5rem;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: #272B61;
 }
 
 .login-card {
@@ -42,7 +42,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 16px rgba(255, 118, 28, 0.2);
+  box-shadow: 0 8px 16px rgba(255, 143, 71, 0.2);
 }
 
 .logo-text {
@@ -116,13 +116,13 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(39, 43, 96, 0.2);
+  box-shadow: 0 4px 12px rgba(91, 103, 199, 0.2);
 }
 
 .login-button:hover:not(:disabled) {
   background-color: var(--color-secondary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(39, 43, 96, 0.25);
+  box-shadow: 0 6px 15px rgba(91, 103, 199, 0.25);
 }
 
 .login-button:active:not(:disabled) {

@@ -1,0 +1,80 @@
+[
+  {
+    "id": "1",
+    "subjectType": "persona",
+    "movement": "ingreso",
+    "subjectId": "1",
+    "subjectName": "Juan Pérez",
+    "subjectDetail": "Administrador",
+    "photo": "https://ui-avatars.com/api/?name=Juan+Perez&background=5B67C7&color=fff",
+    "documento": "1023456789",
+    "cliente": "Seguridad Shatter",
+    "observacion": "Ingreso por portería principal",
+    "registeredAt": "2026-08-19 07:12"
+  },
+  {
+    "id": "2",
+    "subjectType": "vehiculo",
+    "movement": "ingreso",
+    "subjectId": "1",
+    "subjectName": "ABC-123",
+    "subjectDetail": "Toyota Hilux 2022",
+    "photo": "https://ui-avatars.com/api/?name=ABC+123&background=5B67C7&color=fff",
+    "documento": "1023456789",
+    "cliente": "Seguridad Shatter",
+    "observacion": "Visita de coordinación",
+    "registeredAt": "2026-08-19 07:18"
+  },
+  {
+    "id": "3",
+    "subjectType": "persona",
+    "movement": "ingreso",
+    "subjectId": "2",
+    "subjectName": "María Gómez",
+    "subjectDetail": "Supervisor",
+    "photo": "https://ui-avatars.com/api/?name=Maria+Gomez&background=ff8f47&color=fff",
+    "documento": "1034567890",
+    "cliente": "Seguridad Shatter",
+    "observacion": "",
+    "registeredAt": "2026-08-19 07:40"
+  },
+  {
+    "id": "4",
+    "subjectType": "vehiculo",
+    "movement": "salida",
+    "subjectId": "2",
+    "subjectName": "MED-456",
+    "subjectDetail": "Yamaha FZ 250",
+    "photo": "https://ui-avatars.com/api/?name=MED+456&background=ff8f47&color=fff",
+    "documento": "1034567890",
+    "cliente": "Seguridad Shatter",
+    "observacion": "Salida a ronda",
+    "registeredAt": "2026-08-19 08:05"
+  },
+  {
+    "id": "5",
+    "subjectType": "persona",
+    "movement": "salida",
+    "subjectId": "8",
+    "subjectName": "Laura Vega",
+    "subjectDetail": "Supervisor",
+    "photo": "https://ui-avatars.com/api/?name=Laura+Vega&background=dc2626&color=fff",
+    "documento": "1090123456",
+    "cliente": "Prosegur Andina",
+    "observacion": "",
+    "registeredAt": "2026-08-19 08:22"
+  },
+  {
+    "id": "6",
+    "subjectType": "vehiculo",
+    "movement": "ingreso",
+    "subjectId": "6",
+    "subjectName": "BOG-987",
+    "subjectDetail": "Ford F-150",
+    "photo": "https://ui-avatars.com/api/?name=BOG+987&background=ca8a04&color=fff",
+    "documento": "1089012345",
+    "cliente": "Seguridad Shatter",
+    "observacion": "Entrega de insumos",
+    "registeredAt": "2026-08-19 09:10"
+  }
+]

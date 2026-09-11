@@ -24,7 +24,7 @@ export default function TableSearchInput({
         value={value}
         placeholder={placeholder}
         onChange={(event) => onChange?.(event.target.value)}
-        className="w-full rounded-xl border border-border bg-muted py-2.5 pl-10 pr-4 text-sm text-foreground outline-none transition-colors placeholder:text-subtle focus:border-gray-300 focus:bg-surface focus:ring-2 focus:ring-brand/10"
+        className="w-full rounded-xl border border-border bg-muted py-2.5 pl-10 pr-4 text-sm text-foreground outline-none transition-colors placeholder:text-subtle focus:border-border focus:bg-surface focus:ring-2 focus:ring-brand/10"
       />
     </div>
   );

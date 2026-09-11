@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from '@/App'
 import { ThemeProvider } from '@/context/ThemeContext'
+import { NotificationProvider } from '@/context/NotificationContext'
 import { initTheme } from '@/lib/theme'
 
 initTheme()
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <App />
+        <NotificationProvider>
+          <App />
+        </NotificationProvider>
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,

@@ -8,7 +8,7 @@ interface TableSortIconProps {
 
 export default function TableSortIcon({ direction = null, active = false }: TableSortIconProps) {
   if (!active || !direction) {
-    return <ArrowUpDown size={14} className="text-gray-300" />;
+    return <ArrowUpDown size={14} className="text-subtle/50" />;
   }
 
   return direction === 'asc' ? (

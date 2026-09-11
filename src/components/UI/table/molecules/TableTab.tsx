@@ -11,27 +11,27 @@ const tabToneStyles: Record<
 > = {
   default: {
     activeText: 'text-foreground',
-    activeIndicator: 'bg-gray-500',
+    activeIndicator: 'bg-subtle',
     activeCount: 'text-subtle',
     inactiveCount: 'text-subtle',
   },
   primary: {
-    activeText: 'text-brand',
-    activeIndicator: 'bg-brand',
-    activeCount: 'text-brand/80',
-    inactiveCount: 'text-brand/60',
+    activeText: 'text-brand dark:text-primary',
+    activeIndicator: 'bg-brand dark:bg-primary',
+    activeCount: 'text-brand/80 dark:text-primary/80',
+    inactiveCount: 'text-brand/60 dark:text-primary/60',
   },
   success: {
-    activeText: 'text-emerald-700',
+    activeText: 'text-emerald-700 dark:text-emerald-300',
     activeIndicator: 'bg-emerald-500',
-    activeCount: 'text-emerald-600',
-    inactiveCount: 'text-emerald-500/80',
+    activeCount: 'text-emerald-600 dark:text-emerald-300',
+    inactiveCount: 'text-emerald-500/80 dark:text-emerald-400/80',
   },
   warning: {
-    activeText: 'text-amber-700',
+    activeText: 'text-amber-700 dark:text-amber-300',
     activeIndicator: 'bg-amber-500',
-    activeCount: 'text-amber-600',
-    inactiveCount: 'text-amber-500/80',
+    activeCount: 'text-amber-600 dark:text-amber-300',
+    inactiveCount: 'text-amber-500/80 dark:text-amber-400/80',
   },
   danger: {
     activeText: 'text-red-700 dark:text-red-300',
@@ -40,14 +40,14 @@ const tabToneStyles: Record<
     inactiveCount: 'text-red-500/80 dark:text-red-400/80',
   },
   info: {
-    activeText: 'text-sky-700',
+    activeText: 'text-sky-700 dark:text-sky-300',
     activeIndicator: 'bg-sky-500',
-    activeCount: 'text-sky-600',
-    inactiveCount: 'text-sky-500/80',
+    activeCount: 'text-sky-600 dark:text-sky-300',
+    inactiveCount: 'text-sky-500/80 dark:text-sky-400/80',
   },
   neutral: {
     activeText: 'text-foreground',
-    activeIndicator: 'bg-gray-500',
+    activeIndicator: 'bg-subtle',
     activeCount: 'text-subtle',
     inactiveCount: 'text-subtle',
   },
@@ -75,7 +75,7 @@ export default function TableTab({
       onClick={onClick}
       className={`relative -mb-px inline-flex items-center gap-1.5 rounded-t-lg border px-4 py-2.5 text-sm font-medium transition-colors ${
         active
-          ? `z-10 border-border border-b-surface bg-surface shadow-[0_-1px_0_0_#e5e7eb_inset] ${tone.activeText}`
+          ? `z-10 border-border border-b-surface bg-surface ${tone.activeText}`
           : 'border-transparent bg-transparent text-subtle hover:bg-surface/50 hover:text-foreground'
       }`}
     >

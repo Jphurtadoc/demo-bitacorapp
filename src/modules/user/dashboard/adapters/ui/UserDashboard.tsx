@@ -21,13 +21,13 @@ const UserDashboard: React.FC = () => {
             style={{ 
               width: '64px', 
               height: '64px', 
-              backgroundColor: '#fff7ed', 
+              backgroundColor: '#fff3eb', 
               borderRadius: '16px', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
               margin: '0 auto 24px auto', 
-              color: '#f97316' 
+              color: '#ff8f47' 
             }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -43,7 +43,7 @@ const UserDashboard: React.FC = () => {
           <div style={{ marginTop: '40px', display: 'flex', gap: '16px', justifyContent: 'center' }}>
             <button 
               style={{ 
-                backgroundColor: '#272b60', 
+                backgroundColor: '#5b67c7', 
                 color: 'white', 
                 padding: '12px 32px', 
                 borderRadius: '12px', 
@@ -59,7 +59,7 @@ const UserDashboard: React.FC = () => {
               style={{ 
                 backgroundColor: 'white', 
                 border: '1px solid #e2e8f0', 
-                color: '#272b60', 
+                color: '#5b67c7', 
                 padding: '12px 32px', 
                 borderRadius: '12px', 
                 fontWeight: '700', 
@@ -78,9 +78,9 @@ const UserDashboard: React.FC = () => {
           style={{ gap: '24px', marginTop: '40px' }}
         >
           {[
-            { label: 'Registros Hoy', value: '12', color: '#2563eb', bg: '#eff6ff' },
-            { label: 'Pendientes', value: '05', color: '#ea580c', bg: '#fff7ed' },
-            { label: 'Completados', value: '28', color: '#16a34a', bg: '#f0fdf4' },
+            { label: 'Registros Hoy', value: '12', color: '#5b67c7', bg: '#eef0fb' },
+            { label: 'Pendientes', value: '05', color: '#ff8f47', bg: '#fff3eb' },
+            { label: 'Completados', value: '28', color: '#6b9be8', bg: '#eef5fc' },
           ].map((stat, i) => (
             <div 
               key={i}

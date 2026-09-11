@@ -11,33 +11,33 @@ import {
 } from 'lucide-react';
 
 const stats = [
-  { label: 'Rondas Programadas', value: '48', trend: '+12%', trendUp: true, icon: <Map size={20} />, color: '#2563eb', bg: '#eff6ff' },
-  { label: 'Rondas Completadas', value: '36', sub: '75% del total', icon: <CheckCircle2 size={20} />, color: '#16a34a', bg: '#f0fdf4' },
-  { label: 'Novedades Registradas', value: '7', trend: '-22%', trendUp: false, icon: <Bell size={20} />, color: '#dc2626', bg: '#fef2f2' },
-  { label: 'Incidentes Abiertos', value: '3', trend: '-14%', trendUp: false, icon: <AlertTriangle size={20} />, color: '#ea580c', bg: '#fff7ed' },
-  { label: 'Guardias Activos', value: '112', sub: 'En este momento', icon: <Users size={20} />, color: '#7c3aed', bg: '#f5f3ff' },
+  { label: 'Rondas Programadas', value: '48', trend: '+12%', trendUp: true, icon: <Map size={20} />, color: '#5b67c7', bg: '#eef0fb' },
+  { label: 'Rondas Completadas', value: '36', sub: '75% del total', icon: <CheckCircle2 size={20} />, color: '#6b9be8', bg: '#eef5fc' },
+  { label: 'Novedades Registradas', value: '7', trend: '-22%', trendUp: false, icon: <Bell size={20} />, color: '#ff8f47', bg: '#fff3eb' },
+  { label: 'Incidentes Abiertos', value: '3', trend: '-14%', trendUp: false, icon: <AlertTriangle size={20} />, color: '#e88840', bg: '#fff4ea' },
+  { label: 'Guardias Activos', value: '112', sub: 'En este momento', icon: <Users size={20} />, color: '#7a84d8', bg: '#f0f2fc' },
 ];
 
 const quickActions = [
-  { label: 'Administración', icon: <Shield size={18} />, path: '/admin/dashboard', color: '#6366f1', bg: '#eef2ff' },
-  { label: 'Comercial', icon: <FilePieChart size={18} />, path: '/oper/dashboard', color: '#2563eb', bg: '#eff6ff' },
-  { label: 'Tareas', icon: <ListTodo size={18} />, path: '/tasks/dashboard', color: '#7c3aed', bg: '#f5f3ff' },
-  { label: 'Logística', icon: <Truck size={18} />, path: '/logistics/dashboard', color: '#16a34a', bg: '#f0fdf4' },
-  { label: 'Vigilancia', icon: <Eye size={18} />, path: '/security/dashboard', color: '#dc2626', bg: '#fef2f2' },
-  { label: 'PQRS', icon: <MessageSquare size={18} />, path: '/pqrs/dashboard', color: '#ea580c', bg: '#fff7ed' },
-  { label: 'Calidad', icon: <Award size={18} />, path: '/quality/dashboard', color: '#ca8a04', bg: '#fefce8' },
-  { label: 'Gestión Humana', icon: <UserRound size={18} />, path: '/hr/dashboard', color: '#9333ea', bg: '#faf5ff' },
-  { label: 'Reportes', icon: <BarChart3 size={18} />, path: '/reports/dashboard', color: '#0891b2', bg: '#ecfeff' },
-  { label: 'Comunicaciones', icon: <Globe size={18} />, path: '/comms/dashboard', color: '#db2777', bg: '#fdf2f8' },
-  { label: 'Soporte', icon: <LifeBuoy size={18} />, path: '/support/dashboard', color: '#059669', bg: '#ecfdf5' },
+  { label: 'Administración', icon: <Shield size={18} />, path: '/admin/dashboard', color: '#5b67c7', bg: '#eef0fb' },
+  { label: 'Comercial', icon: <FilePieChart size={18} />, path: '/oper/dashboard', color: '#ff8f47', bg: '#fff3eb' },
+  { label: 'Tareas', icon: <ListTodo size={18} />, path: '/tasks/dashboard', color: '#7a84d8', bg: '#f0f2fc' },
+  { label: 'Logística', icon: <Truck size={18} />, path: '/logistics/dashboard', color: '#6b9be8', bg: '#eef5fc' },
+  { label: 'Vigilancia', icon: <Eye size={18} />, path: '/security/dashboard', color: '#e88840', bg: '#fff4ea' },
+  { label: 'PQRS', icon: <MessageSquare size={18} />, path: '/pqrs/dashboard', color: '#4f7cd1', bg: '#eef4fc' },
+  { label: 'Calidad', icon: <Award size={18} />, path: '/quality/dashboard', color: '#ffb07a', bg: '#fff7f0' },
+  { label: 'Gestión Humana', icon: <UserRound size={18} />, path: '/hr/dashboard', color: '#6a8fd8', bg: '#eef3fb' },
+  { label: 'Reportes', icon: <BarChart3 size={18} />, path: '/reports/dashboard', color: '#ffa566', bg: '#fff6ee' },
+  { label: 'Comunicaciones', icon: <Globe size={18} />, path: '/comms/dashboard', color: '#ff9a5c', bg: '#fff4ec' },
+  { label: 'Soporte', icon: <LifeBuoy size={18} />, path: '/support/dashboard', color: '#5a75d0', bg: '#eef1fb' },
 ];
 
 const recentActivity = [
-  { icon: <CheckCircle2 size={14} />, color: '#16a34a', bg: '#f0fdf4', title: 'Ronda Complejo Industrial', sub: 'Completada por Carlos Mendoza', time: '08:45' },
-  { icon: <AlertTriangle size={14} />, color: '#ea580c', bg: '#fff7ed', title: 'Novedad: Puerta forzada', sub: 'Reportada en Bodega Norte', time: '08:25' },
-  { icon: <Users size={14} />, color: '#2563eb', bg: '#eff6ff', title: 'Nuevo usuario registrado', sub: 'María González', time: '07:58' },
-  { icon: <Truck size={14} />, color: '#16a34a', bg: '#f0fdf4', title: 'Vehículo ABC-123 asignado', sub: 'A la ronda Turno Nocturno', time: '07:30' },
-  { icon: <CheckCircle2 size={14} />, color: '#16a34a', bg: '#f0fdf4', title: 'Ronda Condominio Campestre', sub: 'Completada por Luis Ramírez', time: '07:15' },
+  { icon: <CheckCircle2 size={14} />, color: '#5b67c7', bg: '#eef0fb', title: 'Ronda Complejo Industrial', sub: 'Completada por Carlos Mendoza', time: '08:45' },
+  { icon: <AlertTriangle size={14} />, color: '#ff8f47', bg: '#fff3eb', title: 'Novedad: Puerta forzada', sub: 'Reportada en Bodega Norte', time: '08:25' },
+  { icon: <Users size={14} />, color: '#6b9be8', bg: '#eef5fc', title: 'Nuevo usuario registrado', sub: 'María González', time: '07:58' },
+  { icon: <Truck size={14} />, color: '#e88840', bg: '#fff4ea', title: 'Vehículo ABC-123 asignado', sub: 'A la ronda Turno Nocturno', time: '07:30' },
+  { icon: <CheckCircle2 size={14} />, color: '#7a84d8', bg: '#f0f2fc', title: 'Ronda Condominio Campestre', sub: 'Completada por Luis Ramírez', time: '07:15' },
 ];
 
 const nextRounds = [
@@ -56,7 +56,7 @@ const DashboardPage: React.FC = () => {
       <div className="space-y-6 pb-6">
 
         {/* Greeting Banner */}
-        <div className="relative flex items-center justify-between overflow-hidden rounded-2xl bg-linear-to-br from-[#4a4f8a] via-brand to-[#0f1240] px-8 py-6 shadow-lg dark:from-[#ff8f47] dark:via-primary dark:to-[#7c2d12]">
+        <div className="relative flex items-center justify-between overflow-hidden rounded-2xl bg-linear-to-br from-[#7a84d8] via-brand to-[#3d48a0] px-8 py-6 shadow-lg dark:from-[#ffa566] dark:via-primary dark:to-[#e88840]">
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -122,7 +122,7 @@ const DashboardPage: React.FC = () => {
                   {stat.icon}
                 </EmphasisIcon>
                 {stat.trend && (
-                  <span className={`flex items-center gap-0.5 text-[11px] font-bold ${stat.trendUp ? 'text-green-600' : 'text-red-500'}`}>
+                  <span className={`flex items-center gap-0.5 text-[11px] font-bold ${stat.trendUp ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
                     {stat.trendUp ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
                     {stat.trend}
                   </span>
@@ -202,7 +202,7 @@ const DashboardPage: React.FC = () => {
                 <div key={i} className="flex items-center gap-3">
                   <div
                     className="emphasis-accent shrink-0 rounded-lg border px-2 py-1.5 text-center text-[11px] font-bold min-w-[46px]"
-                    style={getAccentEmphasisStyle('#2563eb')}
+                    style={getAccentEmphasisStyle('#5b67c7')}
                   >
                     {round.time}
                   </div>
@@ -210,7 +210,7 @@ const DashboardPage: React.FC = () => {
                     <p className="text-[12.5px] font-semibold text-foreground leading-tight truncate">{round.name}</p>
                     <p className="text-[11px] text-subtle truncate">Guardia: {round.guard}</p>
                   </div>
-                  <span className="emphasis-accent shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold" style={getAccentEmphasisStyle('#16a34a')}>
+                  <span className="emphasis-accent shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold" style={getAccentEmphasisStyle('#6b9be8')}>
                     Programada
                   </span>
                 </div>
@@ -228,9 +228,9 @@ const DashboardPage: React.FC = () => {
             </div>
             <div className="space-y-3">
               {[
-                { label: 'Completadas', value: 36, total: 48, color: '#16a34a' },
-                { label: 'En progreso', value: 8, total: 48, color: '#2563eb' },
-                { label: 'Pendientes', value: 3, total: 48, color: '#ea580c' },
+                { label: 'Completadas', value: 36, total: 48, color: '#5b67c7' },
+                { label: 'En progreso', value: 8, total: 48, color: '#6b9be8' },
+                { label: 'Pendientes', value: 3, total: 48, color: '#ff8f47' },
                 { label: 'Canceladas', value: 1, total: 48, color: '#6b7280' },
               ].map((item) => (
                 <div key={item.label}>
@@ -258,12 +258,12 @@ const DashboardPage: React.FC = () => {
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: 'Incidente', value: 18, color: '#dc2626', bg: '#fef2f2' },
-                { label: 'Observación', value: 9, color: '#ea580c', bg: '#fff7ed' },
-                { label: 'Falla', value: 6, color: '#ca8a04', bg: '#fefce8' },
-                { label: 'Solicitud', value: 4, color: '#2563eb', bg: '#eff6ff' },
+                { label: 'Incidente', value: 18, color: '#e88840', bg: '#fff4ea' },
+                { label: 'Observación', value: 9, color: '#ff8f47', bg: '#fff3eb' },
+                { label: 'Falla', value: 6, color: '#ffa566', bg: '#fff6ee' },
+                { label: 'Solicitud', value: 4, color: '#5b67c7', bg: '#eef0fb' },
                 { label: 'Otro', value: 2, color: '#6b7280', bg: '#f9fafb' },
-                { label: 'Urgente', value: 1, color: '#7c3aed', bg: '#f5f3ff' },
+                { label: 'Urgente', value: 1, color: '#7a84d8', bg: '#f0f2fc' },
               ].map((item) => (
                 <div
                   key={item.label}
