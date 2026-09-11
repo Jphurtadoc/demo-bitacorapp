@@ -29,6 +29,7 @@ import {
   ConfirmModalContent,
   ConfirmModalFooter,
   PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
   RegistryDetailField,
   RegistryFormField,
   inputClassName,
@@ -92,6 +93,7 @@ export default function SecurityParametrizationPage() {
 
   const [mainTab, setMainTab] = useState<MainTab>('asignaciones');
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
   const [sortKey, setSortKey] = useState<string | null>(null);
@@ -247,16 +249,16 @@ export default function SecurityParametrizationPage() {
   }, [filteredRounds, sortDirection, sortKey]);
 
   const currentList = mainTab === 'asignaciones' ? sortedAssignments : sortedRounds;
-  const totalPages = Math.max(1, Math.ceil(currentList.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(currentList.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const paginatedAssignments = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedAssignments.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedAssignments]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedAssignments.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedAssignments]);
   const paginatedRounds = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedRounds.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedRounds]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedRounds.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedRounds]);
 
   const openAssignmentDrawer = (assignment: SecurityAssignment) => {
     setDrawerMode('detail');
@@ -638,9 +640,14 @@ export default function SecurityParametrizationPage() {
     },
     pagination: {
       page: currentPage,
-      pageSize: PAGE_SIZE,
+      pageSize,
       total: currentList.length,
       onPageChange: setPage,
+      pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+      onPageSizeChange: (size: number) => {
+        setPageSize(size);
+        setPage(1);
+      },
     },
   };
 
@@ -920,7 +927,7 @@ export default function SecurityParametrizationPage() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+      <div className="page-shell pb-6">
         {mainTab === 'asignaciones' ? (
           <DataTable
             {...sharedTableProps}

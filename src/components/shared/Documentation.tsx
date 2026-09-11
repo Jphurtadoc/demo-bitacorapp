@@ -7,7 +7,7 @@ import { BookOpen, PlayCircle, Image as ImageIcon } from 'lucide-react';
 const Documentation = () => {
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1000px] pb-10">
+      <div className="page-shell pb-10">
         <div className="mb-2 flex items-center gap-4">
           <EmphasisIcon tone="primary" size="lg" className="!h-14 !w-14 !rounded-xl">
             <BookOpen size={28} />

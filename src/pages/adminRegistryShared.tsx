@@ -3,6 +3,7 @@ import { Camera } from 'lucide-react';
 import { Surface } from '@/components/UI/surface';
 
 export const PAGE_SIZE = 5;
+export const PAGE_SIZE_OPTIONS = [5, 10, 15, 25, 50] as const;
 
 export const inputClassName =
   'w-full rounded-xl border border-border bg-surface px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-border focus:ring-2 focus:ring-brand/10';

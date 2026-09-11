@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Surface } from '@/components/UI/surface';
 import { EmphasisIcon, getAccentEmphasisStyle } from '@/components/UI/emphasis';
+import { getStoredUser } from '@/modules/auth/login/infrastructure/AuthRepository';
+import RootPlatformOverview from '@/modules/admin/dashboard/adapters/ui/RootPlatformOverview';
 import {
   Shield, FilePieChart, ListTodo, BarChart3, Truck, Eye,
   MessageSquare, Award, LifeBuoy, Globe, UserRound,
@@ -49,11 +51,20 @@ const nextRounds = [
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
+  const currentUser = getStoredUser();
   const today = new Date().toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+  if (currentUser?.role === 'root') {
+    return (
+      <DashboardLayout>
+        <RootPlatformOverview />
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 pb-6">
+      <div className="page-shell space-y-6 pb-6">
 
         {/* Greeting Banner */}
         <div className="relative flex items-center justify-between overflow-hidden rounded-2xl bg-linear-to-br from-[#7a84d8] via-brand to-[#3d48a0] px-8 py-6 shadow-lg dark:from-[#ffa566] dark:via-primary dark:to-[#e88840]">

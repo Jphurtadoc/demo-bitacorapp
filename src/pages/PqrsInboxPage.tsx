@@ -62,6 +62,7 @@ import {
 } from '@/types/pqrs';
 import {
   PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
   RegistryDetailField,
   RegistryFormField,
   inputClassName,
@@ -557,6 +558,7 @@ export default function PqrsInboxPage() {
   const [tickets, setTickets] = useState<PqrsTicket[]>(mockPqrsData as PqrsTicket[]);
   const [view, setView] = useState<PqrsViewMode>('tabla');
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [sortKey, setSortKey] = useState<string | null>('dueAt');
   const [sortDirection, setSortDirection] = useState<TableSortDirection>('asc');
   const [search, setSearch] = useState('');
@@ -653,12 +655,12 @@ export default function PqrsInboxPage() {
     });
   }, [filteredTickets, now, sortDirection, sortKey]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedTickets.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(sortedTickets.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const paginatedTickets = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedTickets.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedTickets]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedTickets.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedTickets]);
 
   const semaphoreGroups = useMemo(() => {
     const groups: Record<PqrsSlaLevel, PqrsTicket[]> = { verde: [], amarillo: [], rojo: [] };
@@ -1090,7 +1092,7 @@ export default function PqrsInboxPage() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+      <div className="page-shell pb-6">
         {view === 'tabla' ? (
           <DataTable
             title="PQRS recibidos"
@@ -1119,9 +1121,14 @@ export default function PqrsInboxPage() {
             onRowClick={openDetailDrawer}
             pagination={{
               page: currentPage,
-              pageSize: PAGE_SIZE,
+              pageSize,
               total: sortedTickets.length,
               onPageChange: setPage,
+              pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+              onPageSizeChange: (size: number) => {
+                setPageSize(size);
+                setPage(1);
+              },
             }}
             emptyMessage="No hay PQRS con los filtros aplicados."
           />

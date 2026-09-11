@@ -13,4 +13,5 @@ export interface SearchableSelectProps {
   onChange?: (value: string) => void;
   className?: string;
   disabled?: boolean;
+  'aria-label'?: string;
 }

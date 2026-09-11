@@ -2,7 +2,9 @@ import type { ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
 export type TableAlign = 'left' | 'center' | 'right';
-export type TableSortDirection = 'asc' | 'desc' | null;export type TableBadgeTone =
+export type TableSortDirection = 'asc' | 'desc' | null;
+
+export type TableBadgeTone =
   | 'default'
   | 'primary'
   | 'success'
@@ -56,11 +58,15 @@ export interface TableFilterField {
   onChange?: (value: string) => void;
 }
 
+export const DEFAULT_PAGE_SIZE_OPTIONS = [5, 10, 15, 25, 50] as const;
+
 export interface TablePaginationConfig {
   page: number;
   pageSize: number;
   total: number;
   onPageChange: (page: number) => void;
+  pageSizeOptions?: number[];
+  onPageSizeChange?: (pageSize: number) => void;
 }
 
 export interface DataTableProps<T extends { id: string }> {

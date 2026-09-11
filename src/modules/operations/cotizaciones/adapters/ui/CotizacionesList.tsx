@@ -122,7 +122,7 @@ const CotizacionesList = () => {
 
   return (
     <DashboardLayout>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="page-shell" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         
         {/* Header Section */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', paddingBottom: '16px' }}>

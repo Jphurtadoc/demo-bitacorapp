@@ -19,7 +19,7 @@ const statusColors: Record<string, { bg: string; text: string; dot: string }> = 
 const AdminDashboard: React.FC = () => {
   return (
     <DashboardLayout>
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+      <div className="page-shell">
 
         <PageHeader
           className="mb-9"

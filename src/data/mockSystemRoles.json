@@ -1,0 +1,279 @@
+{
+  "permissions": [
+    {
+      "id": "pp-1",
+      "code": "platform.tenants.read",
+      "label": "Ver tenants",
+      "module": "Clientes",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-2",
+      "code": "platform.tenants.write",
+      "label": "Administrar tenants",
+      "module": "Clientes",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-3",
+      "code": "platform.users.read",
+      "label": "Ver usuarios de plataforma",
+      "module": "Usuarios",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-4",
+      "code": "platform.users.write",
+      "label": "Administrar usuarios de plataforma",
+      "module": "Usuarios",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-5",
+      "code": "platform.roles.read",
+      "label": "Ver roles del sistema",
+      "module": "Roles",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-6",
+      "code": "platform.roles.write",
+      "label": "Administrar roles del sistema",
+      "module": "Roles",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-7",
+      "code": "platform.settings.write",
+      "label": "Configuración global",
+      "module": "Configuración",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-8",
+      "code": "platform.billing.read",
+      "label": "Ver facturación",
+      "module": "Facturación",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-9",
+      "code": "platform.billing.write",
+      "label": "Administrar facturación",
+      "module": "Facturación",
+      "scope": "platform"
+    },
+    {
+      "id": "pp-10",
+      "code": "platform.audit.read",
+      "label": "Ver auditoría de plataforma",
+      "module": "Auditoría",
+      "scope": "platform"
+    },
+    {
+      "id": "tp-1",
+      "code": "tenant.users.read",
+      "label": "Ver usuarios",
+      "module": "Administración",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-2",
+      "code": "tenant.users.write",
+      "label": "Administrar usuarios",
+      "module": "Administración",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-3",
+      "code": "tenant.people.read",
+      "label": "Ver personas",
+      "module": "Administración",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-4",
+      "code": "tenant.people.write",
+      "label": "Administrar personas",
+      "module": "Administración",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-5",
+      "code": "tenant.vehicles.read",
+      "label": "Ver vehículos",
+      "module": "Administración",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-6",
+      "code": "tenant.vehicles.write",
+      "label": "Administrar vehículos",
+      "module": "Administración",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-7",
+      "code": "tenant.security.operate",
+      "label": "Operación de vigilancia",
+      "module": "Vigilancia",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-8",
+      "code": "tenant.security.parametrize",
+      "label": "Parametrizar vigilancia",
+      "module": "Vigilancia",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-9",
+      "code": "tenant.pqrs.read",
+      "label": "Ver PQRS",
+      "module": "PQRS",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-10",
+      "code": "tenant.pqrs.write",
+      "label": "Gestionar PQRS",
+      "module": "PQRS",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-11",
+      "code": "tenant.comms.read",
+      "label": "Ver comunicaciones",
+      "module": "Comunicaciones",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-12",
+      "code": "tenant.comms.write",
+      "label": "Publicar comunicaciones",
+      "module": "Comunicaciones",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-13",
+      "code": "tenant.reports.read",
+      "label": "Ver reportes",
+      "module": "Reportes",
+      "scope": "tenant"
+    },
+    {
+      "id": "tp-14",
+      "code": "tenant.settings.write",
+      "label": "Configurar tenant",
+      "module": "Configuración",
+      "scope": "tenant"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "Super Admin",
+      "code": "root",
+      "description": "Acceso total a la plataforma Bitacorapp.",
+      "scope": "platform",
+      "permissionIds": [
+        "pp-1",
+        "pp-2",
+        "pp-3",
+        "pp-4",
+        "pp-5",
+        "pp-6",
+        "pp-7",
+        "pp-8",
+        "pp-9",
+        "pp-10"
+      ],
+      "isSystem": true,
+      "activo": true
+    },
+    {
+      "id": "2",
+      "name": "Operaciones Plataforma",
+      "code": "platform_ops",
+      "description": "Gestión de tenants y soporte sin acceso a facturación.",
+      "scope": "platform",
+      "permissionIds": ["pp-1", "pp-2", "pp-3", "pp-5", "pp-10"],
+      "isSystem": false,
+      "activo": true
+    },
+    {
+      "id": "3",
+      "name": "Facturación",
+      "code": "platform_billing",
+      "description": "Consulta y gestión de cobros de la plataforma.",
+      "scope": "platform",
+      "permissionIds": ["pp-1", "pp-8", "pp-9"],
+      "isSystem": false,
+      "activo": true
+    },
+    {
+      "id": "4",
+      "name": "Administrador",
+      "code": "admin",
+      "description": "Rol por defecto del administrador del tenant.",
+      "scope": "tenant",
+      "permissionIds": [
+        "tp-1",
+        "tp-2",
+        "tp-3",
+        "tp-4",
+        "tp-5",
+        "tp-6",
+        "tp-7",
+        "tp-8",
+        "tp-9",
+        "tp-10",
+        "tp-11",
+        "tp-12",
+        "tp-13",
+        "tp-14"
+      ],
+      "isSystem": true,
+      "activo": true
+    },
+    {
+      "id": "5",
+      "name": "Supervisor",
+      "code": "supervisor",
+      "description": "Supervisión operativa del cliente.",
+      "scope": "tenant",
+      "permissionIds": [
+        "tp-1",
+        "tp-3",
+        "tp-5",
+        "tp-7",
+        "tp-8",
+        "tp-9",
+        "tp-11",
+        "tp-13"
+      ],
+      "isSystem": true,
+      "activo": true
+    },
+    {
+      "id": "6",
+      "name": "Vigilante",
+      "code": "vigilante",
+      "description": "Operación de turno y bitácora en puesto.",
+      "scope": "tenant",
+      "permissionIds": ["tp-7", "tp-9", "tp-11"],
+      "isSystem": true,
+      "activo": true
+    },
+    {
+      "id": "7",
+      "name": "Cliente Admin",
+      "code": "cliente_admin",
+      "description": "Administración limitada del lado del cliente final.",
+      "scope": "tenant",
+      "permissionIds": ["tp-3", "tp-5", "tp-9", "tp-11", "tp-13"],
+      "isSystem": false,
+      "activo": true
+    }
+  ]
+}

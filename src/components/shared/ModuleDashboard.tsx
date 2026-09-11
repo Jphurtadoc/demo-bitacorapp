@@ -28,7 +28,7 @@ const ModuleDashboard: React.FC<ModuleDashboardProps> = ({
   const accentStyle = getAccentEmphasisStyle(accentColor);
   return (
     <DashboardLayout>
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div className="page-shell">
         <PageHeader
           className="animate-fade-in mb-10 pb-2.5"
           title={isDemoBlocked ? 'Acceso Restringido' : `Dashboard de ${moduleName}`}

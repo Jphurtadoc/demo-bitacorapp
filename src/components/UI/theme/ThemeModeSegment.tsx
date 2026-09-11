@@ -23,7 +23,7 @@ const options: Array<{
 export default function ThemeModeSegment({
   size = 'md',
   className = '',
-  showLabels = true,
+  showLabels = false,
 }: ThemeModeSegmentProps) {
   const { preference, setTheme } = useTheme();
 
@@ -55,9 +55,10 @@ export default function ThemeModeSegment({
             type="button"
             onClick={() => setTheme(option.value)}
             aria-pressed={isActive}
+            aria-label={option.label}
             className={`flex flex-1 items-center justify-center gap-1.5 font-semibold transition-all ${buttonClasses} ${
               isActive
-                ? 'bg-surface text-brand shadow-sm ring-1 ring-border dark:bg-primary dark:text-[#ffffff] dark:ring-primary/40'
+                ? 'bg-surface text-primary shadow-sm ring-1 ring-border dark:bg-primary dark:text-[#ffffff] dark:ring-primary/40'
                 : 'text-subtle hover:text-foreground'
             }`}
           >

@@ -31,6 +31,7 @@ import {
   ConfirmModalContent,
   ConfirmModalFooter,
   PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
   RegistryAvatarEditor,
   RegistryDetailField,
   RegistryFormField,
@@ -255,6 +256,7 @@ function VehicleDetailsContent({
 export default function AdminVehiclesPage() {
   const [vehicles, setVehicles] = useState<AdminVehicle[]>(mockVehiclesData as AdminVehicle[]);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [sortKey, setSortKey] = useState<string | null>('placa');
   const [sortDirection, setSortDirection] = useState<TableSortDirection>('asc');
@@ -340,12 +342,12 @@ export default function AdminVehiclesPage() {
     });
   }, [filteredVehicles, sortDirection, sortKey]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedVehicles.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(sortedVehicles.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const paginatedVehicles = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedVehicles.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedVehicles]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedVehicles.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedVehicles]);
 
   const resetPage = () => setPage(1);
 
@@ -561,7 +563,7 @@ export default function AdminVehiclesPage() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+      <div className="page-shell pb-6">
         <DataTable
           title="Vehículos"
           subtitle="Registro de vehículos autorizados por cliente y propietario."
@@ -666,9 +668,14 @@ export default function AdminVehiclesPage() {
           ]}
           pagination={{
             page: currentPage,
-            pageSize: PAGE_SIZE,
+            pageSize,
             total: sortedVehicles.length,
             onPageChange: setPage,
+            pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+            onPageSizeChange: (size: number) => {
+              setPageSize(size);
+              setPage(1);
+            },
           }}
           emptyMessage="No se encontraron vehículos con los filtros aplicados."
         />

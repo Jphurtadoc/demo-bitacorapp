@@ -17,6 +17,7 @@ import {
   ConfirmModalContent,
   ConfirmModalFooter,
   PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
   RegistryFormField,
   inputClassName,
   inputErrorClassName,
@@ -40,6 +41,7 @@ function slugFromName(nombre: string) {
 export default function PqrsSettingsPage() {
   const [types, setTypes] = useState<PqrsRequestType[]>(mockRequestTypes as PqrsRequestType[]);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [search, setSearch] = useState('');
   const [sortKey, setSortKey] = useState<string | null>('nombre');
   const [sortDirection, setSortDirection] = useState<TableSortDirection>('asc');
@@ -68,12 +70,12 @@ export default function PqrsSettingsPage() {
     });
   }, [filtered, sortDirection, sortKey]);
 
-  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const paginated = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sorted.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sorted]);
+    const start = (currentPage - 1) * pageSize;
+    return sorted.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sorted]);
 
   const closeDrawer = () => {
     setDrawerOpen(false);
@@ -179,7 +181,7 @@ export default function PqrsSettingsPage() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+      <div className="page-shell pb-6">
         <DataTable
           title="Configuraciones"
           subtitle="Parametrice los tipos de solicitud que se podrán radicar en PQRS."
@@ -211,9 +213,14 @@ export default function PqrsSettingsPage() {
           ]}
           pagination={{
             page: currentPage,
-            pageSize: PAGE_SIZE,
+            pageSize,
             total: sorted.length,
             onPageChange: setPage,
+            pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+            onPageSizeChange: (size: number) => {
+              setPageSize(size);
+              setPage(1);
+            },
           }}
           emptyMessage="No hay tipos de solicitud parametrizados."
         />

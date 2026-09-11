@@ -43,6 +43,7 @@ import type { UserLog, UserLogType } from '@/types/userLog';
 import { getUserLogs } from '@/data/userLogs';
 
 const PAGE_SIZE = 5;
+const PAGE_SIZE_OPTIONS = [5, 10, 15, 25, 50] as const;
 
 const PERFIL_OPTIONS = [
   'Super Admin',
@@ -764,9 +765,15 @@ function UserLogsContent({ logs }: { logs: UserLog[] }) {
   );
 }
 
-export default function AdminUsersPage() {
+interface AdminUsersPageProps {
+  /** When true, render table chrome without DashboardLayout (for embedding in SystemSettings). */
+  embedded?: boolean;
+}
+
+export default function AdminUsersPage({ embedded = false }: AdminUsersPageProps) {
   const [users, setUsers] = useState<AdminUser[]>(mockUsersData as AdminUser[]);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [sortKey, setSortKey] = useState<string | null>('nombre');
   const [sortDirection, setSortDirection] = useState<TableSortDirection>('asc');
@@ -863,13 +870,13 @@ export default function AdminUsersPage() {
     });
   }, [filteredUsers, sortDirection, sortKey]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedUsers.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(sortedUsers.length / pageSize));
   const currentPage = Math.min(page, totalPages);
 
   const paginatedUsers = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedUsers.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedUsers]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedUsers.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedUsers]);
 
   const resetPage = () => setPage(1);
 
@@ -1326,12 +1333,15 @@ export default function AdminUsersPage() {
     },
   ];
 
-  return (
-    <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+  const tableSubtitle = embedded
+    ? 'Usuarios de plataforma: super admin y colaboradores de la empresa dueña.'
+    : 'Gestión de usuarios, perfiles y asignación de clientes.';
+
+  const pageContent = (
+      <div className="page-shell pb-6">
         <DataTable
           title="Usuarios"
-          subtitle="Gestión de usuarios, perfiles y asignación de clientes."
+          subtitle={tableSubtitle}
           columns={columns}
           data={paginatedUsers}
           onRowClick={openUserDrawer}
@@ -1435,9 +1445,14 @@ export default function AdminUsersPage() {
           ]}
           pagination={{
             page: currentPage,
-            pageSize: PAGE_SIZE,
+            pageSize,
             total: sortedUsers.length,
             onPageChange: setPage,
+            pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+            onPageSizeChange: (size: number) => {
+              setPageSize(size);
+              setPage(1);
+            },
           }}
           emptyMessage="No se encontraron usuarios con los filtros aplicados."
         />
@@ -1666,6 +1681,11 @@ export default function AdminUsersPage() {
           </div>
         </ModalDrawer>
       </div>
-    </DashboardLayout>
   );
+
+  if (embedded) {
+    return pageContent;
+  }
+
+  return <DashboardLayout>{pageContent}</DashboardLayout>;
 }

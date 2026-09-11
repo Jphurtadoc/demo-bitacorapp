@@ -31,6 +31,7 @@ import {
   ConfirmModalContent,
   ConfirmModalFooter,
   PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
   RegistryAvatarEditor,
   RegistryDetailField,
   RegistryFormField,
@@ -238,6 +239,7 @@ function PetDetailsContent({
 export default function AdminPetsPage() {
   const [pets, setPets] = useState<AdminPet[]>(mockPetsData as AdminPet[]);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [sortKey, setSortKey] = useState<string | null>('nombre');
   const [sortDirection, setSortDirection] = useState<TableSortDirection>('asc');
@@ -317,12 +319,12 @@ export default function AdminPetsPage() {
     });
   }, [filteredPets, sortDirection, sortKey]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedPets.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(sortedPets.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const paginatedPets = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedPets.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedPets]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedPets.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedPets]);
 
   const resetPage = () => setPage(1);
 
@@ -537,7 +539,7 @@ export default function AdminPetsPage() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+      <div className="page-shell pb-6">
         <DataTable
           title="Mascotas"
           subtitle="Registro de mascotas autorizadas por cliente y propietario."
@@ -642,9 +644,14 @@ export default function AdminPetsPage() {
           ]}
           pagination={{
             page: currentPage,
-            pageSize: PAGE_SIZE,
+            pageSize,
             total: sortedPets.length,
             onPageChange: setPage,
+            pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+            onPageSizeChange: (size: number) => {
+              setPageSize(size);
+              setPage(1);
+            },
           }}
           emptyMessage="No se encontraron mascotas con los filtros aplicados."
         />

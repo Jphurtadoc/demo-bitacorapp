@@ -24,6 +24,7 @@ import type {
 } from '@/types/securityMovement';
 import {
   PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
   RegistryFormField,
   inputClassName,
   inputErrorClassName,
@@ -106,6 +107,7 @@ export default function SecurityOperationPage() {
     mockMovementsData as SecurityMovement[],
   );
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [sortKey, setSortKey] = useState<string | null>('registeredAt');
   const [sortDirection, setSortDirection] = useState<TableSortDirection>('desc');
   const [tab, setTab] = useState<MovementTab>('all');
@@ -177,12 +179,12 @@ export default function SecurityOperationPage() {
     });
   }, [filteredMovements, sortDirection, sortKey]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedMovements.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(sortedMovements.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const paginatedMovements = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedMovements.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedMovements]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedMovements.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedMovements]);
 
   const resetPage = () => setPage(1);
 
@@ -289,7 +291,7 @@ export default function SecurityOperationPage() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+      <div className="page-shell pb-6">
         <DataTable
           title="Operación"
           subtitle="Registro de ingresos y salidas de personas y vehículos."
@@ -371,9 +373,14 @@ export default function SecurityOperationPage() {
           ]}
           pagination={{
             page: currentPage,
-            pageSize: PAGE_SIZE,
+            pageSize,
             total: sortedMovements.length,
             onPageChange: setPage,
+            pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+            onPageSizeChange: (size: number) => {
+              setPageSize(size);
+              setPage(1);
+            },
           }}
           emptyMessage="No hay movimientos registrados con los filtros aplicados."
         />

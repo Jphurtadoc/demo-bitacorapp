@@ -13,6 +13,7 @@ export default function SearchableSelect({
   onChange,
   className = '',
   disabled = false,
+  'aria-label': ariaLabel,
 }: SearchableSelectProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -76,6 +77,7 @@ export default function SearchableSelect({
         id={id}
         type="button"
         disabled={disabled}
+        aria-label={ariaLabel}
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => {

@@ -188,9 +188,9 @@ const ItemsList: React.FC = () => {
 
   return (
     <DashboardLayout>
-      <div 
-        className="animate-fade-in relative"
-        style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}
+      <div
+        className="page-shell animate-fade-in relative"
+        style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
       >
         {/* Header Section */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>

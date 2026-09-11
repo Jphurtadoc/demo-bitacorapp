@@ -1,6 +1,9 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Login from "@/modules/auth/login/adapters/ui/Login";
 import UserDashboard from "@/modules/user/dashboard/adapters/ui/UserDashboard";
+import VigilanteWorkPostsPage from "@/modules/user/dashboard/adapters/ui/VigilanteWorkPostsPage";
+import VigilanteShiftOverviewPage from "@/modules/user/dashboard/adapters/ui/VigilanteShiftOverviewPage";
+import VigilanteShiftInicioPage from "@/modules/user/dashboard/adapters/ui/VigilanteShiftInicioPage";
 import { AuthRepository } from "@/modules/auth/login/infrastructure/AuthRepository";
 import ModuleDashboard from "@/components/shared/ModuleDashboard";
 import TaskBoard from "@/modules/tasks/TaskBoard";
@@ -21,6 +24,9 @@ import AdminUsersPage from "@/pages/AdminUsersPage";
 import AdminVehiclesPage from "@/pages/AdminVehiclesPage";
 import AdminPetsPage from "@/pages/AdminPetsPage";
 import AdminPeoplePage from "@/pages/AdminPeoplePage";
+import AdminClientsPage from "@/pages/AdminClientsPage";
+import AdminClientDetailPage from "@/pages/AdminClientDetailPage";
+import AdminRolesPage from "@/pages/AdminRolesPage";
 import SecurityOperationPage from "@/pages/SecurityOperationPage";
 import SecurityParametrizationPage from "@/pages/SecurityParametrizationPage";
 import CommunicationsPage from "@/pages/CommunicationsPage";
@@ -59,7 +65,19 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login authRepository={authRepository} />} />
-      <Route path="/user" element={<UserDashboard />} />
+      <Route path="/vigilancia/turno" element={<UserDashboard />} />
+      <Route path="/vigilancia/turno/puestos" element={<VigilanteWorkPostsPage />} />
+      <Route
+        path="/vigilancia/turno/cliente/:workPostId/inicio"
+        element={<VigilanteShiftInicioPage />}
+      />
+      <Route
+        path="/vigilancia/turno/cliente/:workPostId/overview"
+        element={<VigilanteShiftOverviewPage />}
+      />
+      <Route path="/user" element={<Navigate to="/vigilancia/turno" replace />} />
+      <Route path="/user/puestos" element={<Navigate to="/vigilancia/turno/puestos" replace />} />
+      <Route path="/user/turno" element={<Navigate to="/vigilancia/turno" replace />} />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="/dashboard" element={<DashboardPage />} />
 
@@ -69,6 +87,9 @@ function App() {
       <Route path="/admin/people" element={<AdminPeoplePage />} />
       <Route path="/admin/vehicles" element={<AdminVehiclesPage />} />
       <Route path="/admin/pets" element={<AdminPetsPage />} />
+      <Route path="/admin/clients" element={<AdminClientsPage />} />
+      <Route path="/admin/clients/:clientId" element={<AdminClientDetailPage />} />
+      <Route path="/admin/roles" element={<AdminRolesPage />} />
       <Route path="/admin/ind-gerenciales" element={
         <ModuleDashboard 
           moduleName="Indicadores Gerenciales" 

@@ -67,7 +67,19 @@ export function flattenMenuEntries(entries: MenuEntry[]): MenuLink[] {
   );
 }
 
-export const modules = [
+export interface NavModule {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  color: string;
+  /** When set, the module is a leaf: click navigates here (no submenu). */
+  path?: string;
+}
+
+/**
+ * Full tenant/operator module catalog shown to non-root roles.
+ */
+export const modules: readonly NavModule[] = [
   { id: 'administracion', label: 'Administración', icon: <Shield size={18} />, color: '#5b67c7' },
   { id: 'comercial', label: 'Comercial', icon: <FilePieChart size={18} />, color: '#ff8f47' },
   { id: 'tareas', label: 'Tareas', icon: <ListTodo size={18} />, color: '#7a84d8' },
@@ -81,7 +93,28 @@ export const modules = [
   { id: 'gestion_humana', label: 'Gestión Humana', icon: <UserRound size={18} />, color: '#6a8fd8' },
 ] as const;
 
-const pathPrefixToModuleId: Record<string, (typeof modules)[number]['id']> = {
+/**
+ * System-root sidebar modules: tenant clients and system settings entry (/settings).
+ * Platform users are managed inside System Settings (inner tab), not the sidebar.
+ */
+export const rootModules: readonly NavModule[] = [
+  {
+    id: 'clientes',
+    label: 'Clientes',
+    icon: <Building2 size={18} />,
+    color: '#ff8f47',
+    path: '/admin/clients',
+  },
+  {
+    id: 'configuraciones',
+    label: 'Configuraciones',
+    icon: <Settings size={18} />,
+    color: '#ff8f47',
+    path: '/settings',
+  },
+] as const;
+
+const pathPrefixToModuleId: Record<string, string> = {
   admin: 'administracion',
   oper: 'comercial',
   tasks: 'tareas',
@@ -93,16 +126,26 @@ const pathPrefixToModuleId: Record<string, (typeof modules)[number]['id']> = {
   comms: 'comunicaciones',
   hr: 'gestion_humana',
   reports: 'reportes',
+  settings: 'configuraciones',
 };
 
 export function getModuleIdFromPath(path: string): string | null {
-  const fromMenu = Object.entries(menuData).find(([, items]) =>
-    flattenMenuEntries(items).some(
-      (item) => path === item.path || path.startsWith(`${item.path}/`),
-    ),
+  const directModule = [...rootModules, ...modules].find(
+    (item) =>
+      item.path != null &&
+      (path === item.path || path.startsWith(`${item.path}/`)),
   );
+  if (directModule) return directModule.id;
 
-  if (fromMenu) return fromMenu[0];
+  const catalogs = [menuData, rootMenuData];
+  for (const catalog of catalogs) {
+    const fromMenu = Object.entries(catalog).find(([, items]) =>
+      flattenMenuEntries(items).some(
+        (item) => path === item.path || path.startsWith(`${item.path}/`),
+      ),
+    );
+    if (fromMenu) return fromMenu[0];
+  }
 
   const segment = path.split('/').filter(Boolean)[0];
   if (segment && pathPrefixToModuleId[segment]) {
@@ -114,12 +157,39 @@ export function getModuleIdFromPath(path: string): string | null {
 
 export function getModuleColorFromPath(path: string): string {
   const moduleId = getModuleIdFromPath(path);
-  const mod = modules.find((item) => item.id === moduleId);
+  const mod =
+    modules.find((item) => item.id === moduleId) ??
+    rootModules.find((item) => item.id === moduleId);
   return mod?.color ?? '#ff8f47';
 }
 
 export function getModuleColorById(moduleId: string): string {
-  return modules.find((item) => item.id === moduleId)?.color ?? '#ff8f47';
+  return (
+    modules.find((item) => item.id === moduleId)?.color ??
+    rootModules.find((item) => item.id === moduleId)?.color ??
+    '#ff8f47'
+  );
+}
+
+/**
+ * Returns sidebar modules for the given role.
+ * Root only sees platform administration entries.
+ */
+export function getModulesForRole(role: string | null | undefined): readonly NavModule[] {
+  if (role === 'root') {
+    return rootModules;
+  }
+  return modules;
+}
+
+/**
+ * Returns submenu entries keyed by module id for the given role.
+ */
+export function getMenuDataForRole(role: string | null | undefined): Record<string, MenuEntry[]> {
+  if (role === 'root') {
+    return rootMenuData;
+  }
+  return menuData;
 }
 
 export const menuData: Record<string, MenuEntry[]> = {
@@ -185,3 +255,9 @@ export const menuData: Record<string, MenuEntry[]> = {
     { label: 'Métricas', icon: <TrendingUp size={20} />, path: '/reports/metrics' },
   ],
 };
+
+/**
+ * Root role has no sidebar submenus: Clientes and Configuraciones are leaf modules
+ * (`rootModules[].path`). Platform users live in System Settings inner nav (/settings?tab=users).
+ */
+export const rootMenuData: Record<string, MenuEntry[]> = {};

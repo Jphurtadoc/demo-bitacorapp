@@ -39,3 +39,5 @@ export type {
   TableActionVariant,
   DataTableProps,
 } from './types';
+
+export { DEFAULT_PAGE_SIZE_OPTIONS } from './types';

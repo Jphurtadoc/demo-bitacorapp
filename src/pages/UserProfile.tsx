@@ -7,7 +7,7 @@ import { User, Mail, Shield, Key, Bell, Settings, ChevronRight } from 'lucide-re
 const UserProfile = () => {
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1000px] pb-10">
+      <div className="page-shell pb-10">
         <h1 className="page-header-title page-header-title-md mb-2">Mi Perfil</h1>
         <p className="page-header-subtitle mb-8">Administra tu información personal y preferencias de cuenta</p>
         

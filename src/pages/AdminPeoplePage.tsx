@@ -31,6 +31,7 @@ import {
   ConfirmModalContent,
   ConfirmModalFooter,
   PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
   RegistryAvatarEditor,
   RegistryDetailField,
   RegistryFormField,
@@ -285,6 +286,7 @@ function PersonDetailsContent({
 export default function AdminPeoplePage() {
   const [people, setPeople] = useState<AdminPerson[]>(mockPeopleData as AdminPerson[]);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [sortKey, setSortKey] = useState<string | null>('nombre');
   const [sortDirection, setSortDirection] = useState<TableSortDirection>('asc');
@@ -365,12 +367,12 @@ export default function AdminPeoplePage() {
     });
   }, [filteredPeople, sortDirection, sortKey]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedPeople.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(sortedPeople.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const paginatedPeople = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedPeople.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedPeople]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedPeople.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedPeople]);
 
   const resetPage = () => setPage(1);
 
@@ -595,7 +597,7 @@ export default function AdminPeoplePage() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+      <div className="page-shell pb-6">
         <DataTable
           title="Personas"
           subtitle="Residentes de una unidad residencial o personas de una empresa."
@@ -700,9 +702,14 @@ export default function AdminPeoplePage() {
           ]}
           pagination={{
             page: currentPage,
-            pageSize: PAGE_SIZE,
+            pageSize,
             total: sortedPeople.length,
             onPageChange: setPage,
+            pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+            onPageSizeChange: (size: number) => {
+              setPageSize(size);
+              setPage(1);
+            },
           }}
           emptyMessage="No se encontraron personas con los filtros aplicados."
         />

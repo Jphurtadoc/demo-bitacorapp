@@ -89,7 +89,7 @@ const TaskBoard: React.FC = () => {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1280px]">
+      <div className="page-shell">
         <div className="mb-8 flex items-end justify-between">
           <div>
             <h1 className="page-header-title page-header-title-md mb-1.5">

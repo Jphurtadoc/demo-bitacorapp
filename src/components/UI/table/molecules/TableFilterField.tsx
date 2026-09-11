@@ -2,7 +2,10 @@ import TableLabel from '../atoms/TableLabel';
 import { SearchableSelect } from '@/components/UI/searchable-select';
 import type { TableFilterField } from '../types';
 
-interface TableFilterFieldProps extends TableFilterField {}
+interface TableFilterFieldProps extends TableFilterField {
+  hideLabel?: boolean;
+  className?: string;
+}
 
 export default function TableFilterFieldComponent({
   id,
@@ -12,13 +15,15 @@ export default function TableFilterFieldComponent({
   value = '',
   options = [],
   onChange,
+  hideLabel = false,
+  className = '',
 }: TableFilterFieldProps) {
   const inputClassName =
     'w-full rounded-xl border border-border bg-muted px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-border focus:bg-surface focus:ring-2 focus:ring-brand/10';
 
   return (
-    <div className="min-w-[160px] flex-1">
-      <TableLabel htmlFor={id}>{label}</TableLabel>
+    <div className={`min-w-0 w-full ${className}`}>
+      {hideLabel ? null : <TableLabel htmlFor={id}>{label}</TableLabel>}
       {type === 'select' ? (
         <SearchableSelect
           id={id}
@@ -27,6 +32,7 @@ export default function TableFilterFieldComponent({
           placeholder="Todos"
           searchPlaceholder={`Buscar ${label.toLowerCase()}...`}
           onChange={onChange}
+          aria-label={hideLabel ? label : undefined}
         />
       ) : (
         <input
@@ -36,6 +42,7 @@ export default function TableFilterFieldComponent({
           placeholder={placeholder}
           onChange={(event) => onChange?.(event.target.value)}
           className={inputClassName}
+          aria-label={hideLabel ? label : undefined}
         />
       )}
     </div>

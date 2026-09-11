@@ -1,7 +1,7 @@
 import { useMemo, useState, type FormEvent } from 'react';
 import { CheckCircle2, Circle, Eye, EyeOff, KeyRound, Shield } from 'lucide-react';
 
-const DEMO_CURRENT_PASSWORD = 'Admin123*';
+const DEMO_CURRENT_PASSWORD = '$Admin123$';
 
 const inputClassName =
   'w-full rounded-xl border border-border bg-surface px-3 py-2.5 pr-11 text-sm font-medium text-foreground outline-none transition-colors focus:border-border focus:ring-2 focus:ring-brand/10';

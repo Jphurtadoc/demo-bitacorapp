@@ -62,6 +62,7 @@ import {
   ConfirmModalContent,
   ConfirmModalFooter,
   PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
   RegistryDetailField,
   RegistryFormField,
   inputClassName,
@@ -811,6 +812,7 @@ export default function CommunicationsPage() {
   const users = useMemo(() => mockUsersData as AdminUser[], []);
   const [items, setItems] = useState<Communication[]>(mockCommunicationsData as Communication[]);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [sortKey, setSortKey] = useState<string | null>('publishedAt');
   const [sortDirection, setSortDirection] = useState<TableSortDirection>('desc');
   const [typeTab, setTypeTab] = useState<TypeTab>('all');
@@ -886,12 +888,12 @@ export default function CommunicationsPage() {
     });
   }, [filteredItems, sortDirection, sortKey]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedItems.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(sortedItems.length / pageSize));
   const currentPage = Math.min(page, totalPages);
   const paginatedItems = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return sortedItems.slice(start, start + PAGE_SIZE);
-  }, [currentPage, sortedItems]);
+    const start = (currentPage - 1) * pageSize;
+    return sortedItems.slice(start, start + pageSize);
+  }, [currentPage, pageSize, sortedItems]);
 
   const resetPage = () => setPage(1);
 
@@ -1112,7 +1114,7 @@ export default function CommunicationsPage() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-[1600px] pb-6">
+      <div className="page-shell pb-6">
         <DataTable
           title="Comunicaciones"
           subtitle="Comunicados para el equipo interno o para un cliente, con noticias, puestos y mensajes directos."
@@ -1248,9 +1250,14 @@ export default function CommunicationsPage() {
           ]}
           pagination={{
             page: currentPage,
-            pageSize: PAGE_SIZE,
+            pageSize,
             total: sortedItems.length,
             onPageChange: setPage,
+            pageSizeOptions: [...PAGE_SIZE_OPTIONS],
+            onPageSizeChange: (size: number) => {
+              setPageSize(size);
+              setPage(1);
+            },
           }}
           emptyMessage="No hay comunicaciones con los filtros aplicados."
         />
