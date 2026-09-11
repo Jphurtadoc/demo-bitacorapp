@@ -63,7 +63,7 @@ const rolToneMap: Record<string, TableBadgeTone> = {
   'Visitante autorizado': 'neutral',
 };
 
-function rolOptionsFor(tipoUnidad: string) {
+function rolOptionsFor(tipoUnidad: string): readonly string[] {
   return tipoUnidad === 'Empresa' ? ROL_EMPRESA_OPTIONS : ROL_RESIDENCIAL_OPTIONS;
 }
 
@@ -130,7 +130,7 @@ function PersonDetailsContent({
     }
     if (patch.tipoUnidad && patch.tipoUnidad !== draft.tipoUnidad) {
       const allowed = rolOptionsFor(patch.tipoUnidad);
-      if (!allowed.includes(next.rol as (typeof allowed)[number])) {
+      if (!allowed.includes(next.rol)) {
         next.rol = '';
       }
     }

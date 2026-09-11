@@ -41,7 +41,6 @@ import type { AdminUser } from '@/types/adminUser';
 import type {
   Communication,
   CommunicationAudience,
-  CommunicationMediaKind,
   CommunicationPriority,
   CommunicationStatus,
   CommunicationType,
